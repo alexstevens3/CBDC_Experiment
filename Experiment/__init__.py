@@ -43,7 +43,7 @@ class Player(BasePlayer):
         label="Möchten Sie Zahlungsmittel 3 einführen?", 
     )
     PaymentChoice_Check = models.BooleanField(
-        label="Bitte bestätigen Sie Ihre Wahl", 
+        label = ""
     )
 
 # PAGES
@@ -63,12 +63,6 @@ class PaymentChoice(Page):
             return ['MOP1', 'MOP2', 'MOP3']
         else:
             return ['MOP1', 'MOP2']
-
-    #@staticmethod
-    #def error_message(player, values):
-    #    print('values is', values)
-    #    if values['MOP1'] + values['MOP2'] + values['MOP3'] != 10:
-    #        return 'The numbers must add up to 10'
 
     @staticmethod
     def error_message(player, values):
