@@ -17,30 +17,83 @@ class C(BaseConstants):
     payment_MOP1 = 1 
     payment_MOP2 = 1
     payment_MOP3 = 1
-    #prob_MOP2 = random.randint(0,100)
 
 
+
+@staticmethod
+def creating_session(subsession):
+    #subsession = player.subsession
+    player = subsession.get_players()
+    for player in subsession.get_players():
+        player.prob_MOP2 = random.randint(0,100)   
+
+    #if subsession.round_number == 1:
+    import itertools
+    CBDC = itertools.cycle(['Account', 'Token'])
+    for player in subsession.get_players():
+        player.CBDC_design = next(CBDC) 
+
+   # if player.prob_MOP2 >= 81:
+        #return player.MOP2_accept == True
+        #return player.MOP2_accept == player.field_maybe_none('MOP2_accept') == True
+    #    return player.field_maybe_none('MOP2_accept') == True
+    #else:
+    #    return player.field_maybe_none('MOP2_accept') == False
+        #return player.MOP2_accept == False
+        #return player.MOP2_accept == player.field_maybe_none('MOP2_accept') == False
+
+        #player.prob_MOP2 == player.field_maybe_none('prob_MOP2') <= 81
+
+#@staticmethod
+#def decision_seller(player):
+   
+    #subsession = player.subsession
+    #player = subsession.get_players()
+    #for player in subsession.get_players():
+        #if player.prob_MOP2 > 50:
+            #return player.MOP2_accept == True
+        #return player.MOP2_accept == player.field_maybe_none('MOP2_accept') == True
+           # return player.field_maybe_none('MOP2_accept') == True
+        #return player.MOP2_accept == player.field_maybe_none('MOP2_accept') == False
+        #else:
+            #return player.field_maybe_none('MOP2_accept') == False
+            #return player.MOP2_accept == False
+
+
+#    for player in subsession.get_players():
+#        player.prob_MOP2 = random.randint(0,100) 
+#        if player.prob_MOP2 >= 81:
+#            return player.MOP2_accept == True
+#        else:
+#            return player.MOP2_accept == False
+        
+
+#def set_payoffs(group):
+ #   for player in group.get_players():
+    #players = subsession.get_players()
+        #total_MOP1 = sum(player.MOP1)
+  #      if player.prob_MOP2 >= 81:
+   #         return player.MOP2_accept == True
+    #    else:
+     #       return player.MOP2_accept == False
+    #for player in players:
+     #   player.payoff = player.MOP1
+
+
+    #for player in subsession.get_players():
+     #   player.completion_code = random.randint(0,100) 
+      #  if player.completion_code >= 81:
+       #     player.MOP2_accept == True
+        #    player.payoff = MOP_1 + MOP_2
+        #else:
+         #   player.MOP2_accept == False
+          #  player.payoff = 0
 class Subsession(BaseSubsession):
     pass
 
-def creating_session(subsession: Subsession):
-    import random
-
-    for player in subsession.get_players():
-        player.completion_code = random.randint(0,100)
-
-    #def decision_seller(subsession: Subsession):
-    #    prob_MOP2 = random.randint(0,100)
-    #        if prob_MOP2 >= 81
-    #            return 'MOP2_accepted'
-    #        else:
-    #            return 'MOP2_not_accepted'
-
-    #def decision_seller(subsession):
-    #    prob_MOP2 = random.randint(0,100)       
-
 class Group(BaseGroup):
     pass
+    #total_MOP1 = models.CurrencyField()
 
 
 class Player(BasePlayer):
@@ -57,7 +110,6 @@ class Player(BasePlayer):
     MOP3 = models.CurrencyField(
         min=0,
         max=C.MAXIMUM_EM,
-        #doc="""x""",
         label="Means of Payment 3:", 
     )
     CBDC_Choice = models.BooleanField(
@@ -66,12 +118,23 @@ class Player(BasePlayer):
     PaymentChoice_Check = models.BooleanField(
         label = ""
     )
-    completion_code = models.IntegerField()
+    prob_MOP2 = models.IntegerField()
+    CBDC_design = models.StringField()
+    MOP2_accept = models.BooleanField()
+    
+    
     
 
 # PAGES
-class Treatment(Page):
-    pass
+class Treatment_Token(Page):
+    @staticmethod
+    def is_displayed(player):
+        return player.CBDC_design == 'Token'
+
+class Treatment_Account(Page):
+    @staticmethod
+    def is_displayed(player):
+        return player.CBDC_design == 'Account'
 
 class CBDCChoice(Page):
     form_model = 'player'
@@ -100,8 +163,33 @@ class PaymentChoice_Check(Page):
     form_model = 'player'
     form_fields = ['PaymentChoice_Check']
 
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        #subsession = player.subsession
+        #player = subsession.get_players
+        #for player in subsession.get_players():
+        #player = 
+        #decision_seller(player)
+        #player.test=player.prob_MOP2>=50
+        player.MOP2_accept=player.prob_MOP2>=81
+    
+
+      #  if player.prob_MOP2 >= 81:
+        #return player.MOP2_accept == True
+        #return player.MOP2_accept == player.field_maybe_none('MOP2_accept') == True
+       #     player.field_maybe_none('MOP2_accept') == True
+        #return player.MOP2_accept == player.field_maybe_none('MOP2_accept') == False
+       # else:
+        #    player.field_maybe_none('MOP2_accept') == False
+
+
+        #decision_seller(player)
+
+
 class ResultsWaitPage(WaitPage):
     pass
+    #wait_for_all_groups = True
+    #after_all_players_arrive = decision_seller
 
 class Trading_MOP2accept(Page):
     #@staticmethod
@@ -110,11 +198,12 @@ class Trading_MOP2accept(Page):
     #    return dict(
     #        prob = prob_MOP2
     #)
-
     @staticmethod
     def is_displayed(player):
         #prob_MOP2 = random.randint(0,100)
-        return player.completion_code <= 81
+        return player.prob_MOP2 == player.field_maybe_none('prob_MOP2') <= 81
+
+
 
     #@staticmethod
     #def is_displayed(player):
@@ -132,7 +221,14 @@ class Trading_MOP2notaccept(Page):
     @staticmethod
     def is_displayed(player):
         #prob_MOP2 = random.randint(0,100)
-        return player.completion_code > 81
+        #return player.prob_MOP2 > 81
+        return player.prob_MOP2 == player.field_maybe_none('prob_MOP2') > 81
+
+class Results(Page):
+    pass
+
+    
+
     
     #def prob_MOP2(player):
      #   prob_MOP2 = random.randint(0,100)
@@ -163,4 +259,6 @@ class Trading_MOP2notaccept(Page):
 
 
 
-page_sequence = [Treatment, CBDCChoice, PaymentChoice, PaymentChoice_Check, ResultsWaitPage, Trading_MOP2accept, Trading_MOP2notaccept]
+
+
+page_sequence = [Treatment_Token, Treatment_Account, CBDCChoice, PaymentChoice, PaymentChoice_Check, Trading_MOP2accept, Trading_MOP2notaccept, ResultsWaitPage]
