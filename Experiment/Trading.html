@@ -1,0 +1,74 @@
+{{ block title }}
+    Auszahlung
+{{ endblock }}
+
+{{ block content }}
+
+
+{{ if player.MOP2_accept == True }}
+
+<p>Der Würfel zeigt die Zahl {{ player.prob_MOP2 }} an. Da diese Zahl kleiner als 81 ist, wird MOP2 in dieser Runde als Zahlungsmittel akzeptiert. </p>
+
+<p>Es ergibt sich folgende Auszahlung für Runde {{ player.round_number }}:</p>
+
+{{ endif }}
+
+{{ if player.MOP2_accept == False }}
+
+<p>Der Würfel zeigt die Zahl {{ player.prob_MOP2 }} an. Da diese Zahl größer als 81 ist, wird MOP2 in dieser Runde als Zahlungsmittel nicht akzeptiert. </p>
+
+<p>Es ergibt sich folgende Auszahlung für Runde {{ player.round_number }}:</p>
+
+{{ endif }}
+
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+
+<h2>Auszahlung Runde {{ player.round_number }}:</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>Market</th>
+    <th>MOP1</th>
+    <th>MOP2</th>
+    <th>MOP3</th>
+    <th> Transaktionen MOP1</th>
+    <th> Transaktionen MOP2</th>
+    <th> Transaktionen MOP3</th>
+    <th> Payoff MOP1</th>
+    <th> Payoff MOP2</th>
+    <th> Payoff MOP3</th>
+    <th> Payoff total</th>
+  </tr>
+  <tr>
+    <td>{{ player.round_number }}</td>
+    <td>{{ player.MOP1}}</td>
+    <td>{{ player.MOP2}}</td>
+    <td>{{ player.field_maybe_none('MOP3')}}</td>
+    <td>{{ player.field_maybe_none('transaktionen_MOP1')}}</td>
+    <td>{{ player.field_maybe_none('transaktionen_MOP2')}}</td>
+    <td>{{ player.field_maybe_none('transaktionen_MOP3')}}</td>
+    <td>{{player.payoff_MOP1}}</td>
+    <td>{{player.payoff_MOP2}}</td>
+    <td>{{player.field_maybe_none('payoff_MOP3')}}</td>
+    <td>{{player.payoff_total}}</td>
+
+    
+  </tr>
+  
+</table>
+
+<p>Bitte klicken Sie auf den Next Button.</p>
+
+</body>
+</html>
+
+{{ next_button }}
+{{ endblock }}
+

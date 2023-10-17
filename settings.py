@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
      dict(
          name='CBDC_Experiment',
          app_sequence=['Experiment', 'survey'],
-         num_demo_participants=1,
+         num_demo_participants=2,
      ),
 ]
 
@@ -27,7 +27,7 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'EUR'
 USE_POINTS = True
-POINTS_CUSTOM_NAME = 'EM'
+POINTS_CUSTOM_NAME =  'EM'
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable

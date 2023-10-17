@@ -2,7 +2,22 @@
     Payment Choice
 {{ endblock }}
 {{ block content }}
-Please allocate your 10 EM between the three means of paymnets.
+
+{{ if player.CBDC_design == "Token" }}
+
+<img src="{{ static 'Token.jpg' }}"/> 
+
+{{ endif }}
+
+{{ if player.CBDC_design == "Account" }} 
+
+<img src="{{ static 'Account.jpg' }}"/> 
+
+{{ endif }}
+
+
+
+Please allocate your 10 EM between the three means of payments.
 
     {{ formfields }}
     {{ next_button }}
