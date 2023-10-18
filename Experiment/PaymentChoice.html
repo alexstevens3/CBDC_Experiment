@@ -5,19 +5,20 @@
 
 {{ if player.CBDC_design == "Token" }}
 
-<img src="{{ static 'Token.jpg' }}"/> 
+<img src="{{ static 'Token.jpg' }}" width="200px" /> 
+
 
 {{ endif }}
 
 {{ if player.CBDC_design == "Account" }} 
 
-<img src="{{ static 'Account.jpg' }}"/> 
+<img src="{{ static 'Account.jpg' }}" width="200px" /> 
 
 {{ endif }}
 
 
+<p>Please allocate your 10 EM between the three means of payments.</p>
 
-Please allocate your 10 EM between the three means of payments.
 
     {{ formfields }}
     {{ next_button }}
