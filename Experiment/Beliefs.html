@@ -5,7 +5,15 @@
 {{ block content }}
 <p> In der letzten Marktrunde war der Anteil der Käufer die Zahlungsmittel 3 eingeführt haben {{group.share_players_CBDC_Yes |to0}}%. </p>
 
-<p>In der letzten Marktrunde wurden im Durschnitt x EM auf Zahlungsmittel 3 verteilt.</p>
+<p>In der letzten Marktrunde wurden im Durschnitt  {{ group.sum_MOP3}} EM auf Zahlungsmittel 3 verteilt.</p>
+
+<p>Bitte prognostizieren Sie für die nächste Marktrunde:</p>
+
+<p>Wieviele der 10 Käufer werden MOP3 nutzen (einführen)?</p> {{formfield 'belief1'}}
+
+<p>Wieviel von den 10 EM werden Käufer im Durchschnitt auf Zahlungsmittel 3 verteilen?</p> {{formfield 'belief2'}}
+
+<p>Was denken Sie ist die Wahrscheinlichkeit, dass der Anteil der Käufer die Zahlungsmittel 3 nutzen größer als 60% ist und somit Zahlungsmittel 3 akzeptiert wird?</p> {{formfield 'belief3'}}
 
     {{ next_button }}
 {{ endblock }}

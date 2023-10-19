@@ -37,8 +37,6 @@ def creating_session(subsession):
         
 @staticmethod
 def set_payoffs(player):
-    #player = subsession.get_players()
-    #for player in subsession.get_players():
     player.payoff = player.payoff_MOP1 + player.payoff_MOP2 + player.payoff_MOP3
 
 
@@ -70,9 +68,9 @@ class Player(BasePlayer):
     CBDC_Choice = models.BooleanField(
         label="Möchten Sie Zahlungsmittel 3 einführen?", 
     )
-    PaymentChoice_Check = models.BooleanField(
-        label = ""
-    )
+    #PaymentChoice_Check = models.BooleanField(
+      #  label = ""
+    #)
     prob_MOP2 = models.IntegerField()
     CBDC_design = models.StringField()
     MOP2_accept = models.BooleanField()
@@ -84,6 +82,21 @@ class Player(BasePlayer):
     payoff_MOP3 = models.FloatField()
     payoff_total = models.FloatField()
     CBDC_Choice_Yes = models.IntegerField()
+    payoff_total_allrounds = models.FloatField()
+    belief1 = models.IntegerField(
+        label = "",
+        min=0,
+        max=C.MAXIMUM_EM,
+        doc="Belief about/Expected CBDC_Choice_Yes")
+    belief2 = models.IntegerField(
+        min=0,
+        max=C.MAXIMUM_EM,
+        doc="Belief about/Expected MOP3")
+    belief3 = models.IntegerField(
+        min=0,
+        max=100,
+        doc="Belief about prob. acceptance MOP3")
+    
   
     
 
@@ -120,23 +133,30 @@ class PaymentChoice(Page):
         if player.CBDC_Choice == 0:
             player.CBDC_Choice_Yes =0
 
-
-class PaymentChoice_Check(Page):
-    form_model = 'player'
-    form_fields = ['PaymentChoice_Check']
-
-    @staticmethod
-    def before_next_page(player, timeout_happened):
+        
         player.MOP2_accept=player.prob_MOP2<=81
+    
+
+
+#class PaymentChoice_Check(Page):
+    #form_model = 'player'
+    #form_fields = ['PaymentChoice_Check']
+
+    #@staticmethod
+    #def before_next_page(player, timeout_happened):
+        #player.MOP2_accept=player.prob_MOP2<=81
         
 
 
 class WaitingPage(WaitPage):
     template_name = 'Experiment\WaitingPage.html'
     wait_for_all_players = True
-    #after_all_players_arrive = decision_seller
 
 class Beliefs(Page):
+    form_model = 'player'
+    form_fields = ['belief1', 'belief2', 'belief3']
+
+
     @staticmethod
     def before_next_page(player, timeout_happened):
         player.transaktionen_MOP1 = player.MOP1 
@@ -157,7 +177,8 @@ class Beliefs(Page):
         for player in group.get_players():
             group.nb_players_CBDC_Yes = sum([player.CBDC_Choice_Yes for player in players]) 
             group.share_players_CBDC_Yes = (group.nb_players_CBDC_Yes /  C.PLAYERS_PER_GROUP) *100
-           # group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players]) 
+          
+            group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players if player.CBDC_Choice_Yes ==1 ]) 
 
 
 class Trading(Page):
@@ -182,6 +203,10 @@ class Trading(Page):
     def before_next_page(player, timeout_happened):
         set_payoffs(player)
 
+class Total_Payoff(Page):
+    pass
+   # @staticmethod
+   # def vars_for_template(player):
 
 
-page_sequence = [Treatment, CBDCChoice, PaymentChoice, PaymentChoice_Check, WaitingPage, Beliefs, Trading]
+page_sequence = [Treatment, CBDCChoice, PaymentChoice, WaitingPage, Beliefs, Trading]

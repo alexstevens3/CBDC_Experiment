@@ -55,7 +55,7 @@ table, th, td {
     <td>{{ player.field_maybe_none('transaktionen_MOP2')}}</td>
     <td>{{ player.field_maybe_none('transaktionen_MOP3')}}</td>
     <td>{{player.payoff_MOP1}}</td>
-    <td>{{player.payoff_MOP2}}</td>
+    <td>{{player.payoff_MOP2|to2}}</td>
     <td>{{player.field_maybe_none('payoff_MOP3')}}</td>
     <td>{{player.payoff_total}}</td>
 
@@ -64,7 +64,7 @@ table, th, td {
   
 </table>
 
-<p>Bitte klicken Sie auf den Next Button.</p>
+<p>Bitte klicken Sie auf den Next Button, damit die nächste Runde beginnt.</p>
 
 </body>
 </html>
