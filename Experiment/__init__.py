@@ -47,7 +47,7 @@ class Subsession(BaseSubsession):
 class Group(BaseGroup):
     nb_players_CBDC_Yes = models.FloatField()
     share_players_CBDC_Yes = models.FloatField()
-    sum_MOP3 = models.IntegerField()
+    sum_MOP3 = models.FloatField()
 
 class Player(BasePlayer):
     MOP1 = models.IntegerField(
@@ -74,6 +74,7 @@ class Player(BasePlayer):
     prob_MOP2 = models.IntegerField()
     CBDC_design = models.StringField()
     MOP2_accept = models.BooleanField()
+    MOP3_accept = models.BooleanField()
     transaktionen_MOP1 = models.IntegerField()
     transaktionen_MOP2 = models.IntegerField()
     transaktionen_MOP3 = models.IntegerField()
@@ -89,10 +90,12 @@ class Player(BasePlayer):
         max=C.MAXIMUM_EM,
         doc="Belief about/Expected CBDC_Choice_Yes")
     belief2 = models.IntegerField(
+        label = "",
         min=0,
         max=C.MAXIMUM_EM,
         doc="Belief about/Expected MOP3")
     belief3 = models.IntegerField(
+        label = "",
         min=0,
         max=100,
         doc="Belief about prob. acceptance MOP3")
@@ -107,6 +110,13 @@ class Treatment(Page):
 class CBDCChoice(Page):
     form_model = 'player'
     form_fields = ['CBDC_Choice']
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        if player.CBDC_Choice == 1:
+            player.CBDC_Choice_Yes =1
+        if player.CBDC_Choice == 0:
+            player.CBDC_Choice_Yes =0
 
 class PaymentChoice(Page):
     form_model = 'player'
@@ -128,13 +138,19 @@ class PaymentChoice(Page):
 
     @staticmethod
     def before_next_page(player, timeout_happened):
-        if player.CBDC_Choice == 1:
-            player.CBDC_Choice_Yes =1
-        if player.CBDC_Choice == 0:
-            player.CBDC_Choice_Yes =0
-
-        
         player.MOP2_accept=player.prob_MOP2<=81
+    
+    #@staticmethod
+   # def vars_for_template(player):
+    #    group = player.group
+    #    players = group.get_players()
+        
+    #    for player in group.get_players():
+    #        group.nb_players_CBDC_Yes = sum([player.CBDC_Choice_Yes for player in players]) 
+      #      group.share_players_CBDC_Yes = (group.nb_players_CBDC_Yes /  C.PLAYERS_PER_GROUP) *100
+          
+      #      group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players if player.CBDC_Choice_Yes ==1 ]) 
+        
     
 
 
@@ -156,21 +172,11 @@ class Beliefs(Page):
     form_model = 'player'
     form_fields = ['belief1', 'belief2', 'belief3']
 
-
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        player.transaktionen_MOP1 = player.MOP1 
-        if player.MOP2_accept == True:
-            player.transaktionen_MOP2 = player.MOP2
-        if player.MOP2_accept == False:
-            player.transaktionen_MOP2 = 0
-        if player.CBDC_Choice == True: 
-            player.transaktionen_MOP3 = player.MOP3
-        if player.CBDC_Choice == False:
-            player.transaktionen_MOP3 = 0
-
     @staticmethod
     def vars_for_template(player):
+        if player.CBDC_Choice == False:
+            player.MOP3 = 0 
+
         group = player.group
         players = group.get_players()
         
@@ -179,13 +185,43 @@ class Beliefs(Page):
             group.share_players_CBDC_Yes = (group.nb_players_CBDC_Yes /  C.PLAYERS_PER_GROUP) *100
           
             group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players if player.CBDC_Choice_Yes ==1 ]) 
+        
+    
+       # if group.share_players_CBDC_Yes >=60:
+       #     player.MOP3_accept = 1
+      #  if group.share_players_CBDC_Yes < 60:
+      #      player.MOP3_accept = 0
+
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        group = player.group
+        players = group.get_players()
+
+        player.transaktionen_MOP1 = player.MOP1 
+        if player.MOP2_accept == True:
+            player.transaktionen_MOP2 = player.MOP2
+        if player.MOP2_accept == False:
+            player.transaktionen_MOP2 = 0
+       # if player.CBDC_Choice == True and player.MOP3_accept == 1:
+          #  player.transaktionen_MOP3 = player.MOP3
+       # if player.CBDC_Choice == True and player.MOP3_accept == 0:
+          #  player.transaktionen_MOP3 = 0
+
+        if player.CBDC_Choice == True and group.share_players_CBDC_Yes >= 60: 
+            player.transaktionen_MOP3 = player.MOP3
+        if player.CBDC_Choice == True and group.share_players_CBDC_Yes < 60:
+            player.transaktionen_MOP3 = 0
+        if player.CBDC_Choice == False:
+            player.transaktionen_MOP3 = 0
+
 
 
 class Trading(Page):
     @staticmethod
     def vars_for_template(player):
-        if player.CBDC_Choice == False:
-            player.MOP3 = 0 
+       # if player.CBDC_Choice == False:
+         #   player.MOP3 = 0 
         
         player.payoff_MOP1 = player.transaktionen_MOP1 - (player.transaktionen_MOP1 * C.TC_MOP1)
         if player.MOP2_accept == True:
@@ -203,10 +239,19 @@ class Trading(Page):
     def before_next_page(player, timeout_happened):
         set_payoffs(player)
 
+        group = player.group
+        players = group.get_players()
+        
+        for player in group.get_players():
+            if group.share_players_CBDC_Yes >=60:
+                player.MOP3_accept = 1
+            if group.share_players_CBDC_Yes < 60:
+                player.MOP3_accept = 0
+
 class Total_Payoff(Page):
     pass
    # @staticmethod
    # def vars_for_template(player):
 
 
-page_sequence = [Treatment, CBDCChoice, PaymentChoice, WaitingPage, Beliefs, Trading]
+page_sequence = [Treatment, CBDCChoice, PaymentChoice, WaitingPage, Beliefs, Trading, Total_Payoff]
