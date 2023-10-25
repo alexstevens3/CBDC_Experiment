@@ -1,27 +1,42 @@
 {{ block title }}
-    Payment Choice
+Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 {{ endblock }}
 {{ block content }}
+
+{{ if player.CBDC_Choice == True }}
+
+<p>Sie haben sich dazu entschieden Zahlungsmittel 3 zu nutzen. Somit können in Marktrunde {{ player.round_number }} alle 
+Zahlungsmittel genutzt werden.</p>
+
+<p>Bitte teilen Sie die 10 EM auf die Zahlungsmittel auf. Eine Beschreibung der Zahlungsmittel finden Sie unten.</p>
+    
+{{ endif }}
+
+{{ if player.CBDC_Choice == False }}
+
+<p>Sie haben sich dazu entschieden Zahlungsmittel 3 <b>nicht</b> zu nutzen. Somit können in Marktrunde {{ player.round_number }} Transaktionen nicht mit 
+Zahlungsmittel 3 durchgeführt werden.</p>
+
+<p>Bitte teilen Sie die 10 EM auf Zahlungsmittel 1 und Zahlungsmittel 2 auf. Eine Beschreibung der Zahlungsmittel finden Sie unten.</p>
+    
+{{ endif }}
+
+
+    {{ formfields }}
 
 {{ if player.CBDC_design == "Token" }}
 
 <img src="{{ static 'Token.jpg' }}" width="200px" /> 
-
-
+    
+    
 {{ endif }}
-
+    
 {{ if player.CBDC_design == "Account" }} 
-
+    
 <img src="{{ static 'Account.jpg' }}" width="200px" /> 
-
+    
 {{ endif }}
-
-
-<p>Please allocate your 10 EM between the three means of payments.</p>
-
-
-    {{ formfields }}
-    {{ next_button }}
+{{ next_button }}
 
 {{ endblock }}
 

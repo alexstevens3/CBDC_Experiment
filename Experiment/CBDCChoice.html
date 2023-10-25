@@ -1,10 +1,11 @@
 {{ block title }}
-    
+Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 {{ endblock }}
 
 {{ block content }}
-Bitte entscheiden Sie, ob Sie Zahlungsmittel 3 für die nächste Marktrunde nutzen möchte. Wenn Sie auf Ja klicken, können Sie Zahlungsmittel 3 in jeder Transaktion in der nächsten Marktrunde nutzen.
-Es werden Ihnen x von den Erlösen abgezogen. Wenn Sie auf Nein klicken, können Sie Zahlungsmittel 3 in der mächsten Runde nicht nutzen.
+<p>Bitte entscheiden Sie, ob Sie <b>Zahlungsmittel 3</b> in Marktrunde {{ player.round_number }} nutzen möchten. </p>
+
+<p>Die Nutzung von Zahlungsmittel 3 verlangt eine einmalige Zahlung (einmalig pro Marktrunde) von <b>{{C.Adoption_MOP3}} EM</b>.</p>
 
 {{ formfields }}
 

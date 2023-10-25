@@ -1,9 +1,11 @@
 {{ block title }}
-    Zuordnung Treatment, Marktrunde {{ player.round_number }}
+Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 {{ endblock }}
 
 {{ block content }}
 
-Sie sind dem Treatment {{player.CBDC_design}} zugeordnet. 
+<p>Sie sind dem Treatment {{player.CBDC_design}} zugeordnet.</p>
+
+<p>Bitte klicken Sie auf Weiter.</p>
     {{ next_button }}
 {{ endblock }}
