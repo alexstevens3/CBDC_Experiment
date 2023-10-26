@@ -7,13 +7,13 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ if player.MOP2_accept == True}}
 
-<p>Die Zufallszahl ist {{ player.prob_MOP2 }}. Die Zufallszahl ist kleiner als 81, was bedeutet, dass der Verkäufer Zahlungsmittel 2 akzeptiert. </p>
+<p>Die Zufallszahl ist {{ player.prob_MOP2 }} und somit kleiner als 81. Das bedeutet, dass der Verkäufer Zahlungsmittel 2 akzeptiert. </p>
 
 {{ endif }}
 
 {{ if player.MOP2_accept == False }}
 
-<p>Die Zufallszahl ist {{ player.prob_MOP2 }}. Die Zufallszahl ist größer als 81, was bedeutet, dass der Verkäufer Zahlungsmittel 2 <b>nicht</b> akzeptiert. </p>
+<p>Die Zufallszahl ist {{ player.prob_MOP2 }} und somit größer als 81. Das bedeutet, dass der Verkäufer Zahlungsmittel 2 <b>nicht</b> akzeptiert. </p>
 
 {{ endif }}
 
@@ -53,15 +53,15 @@ th, td {
 <table>
   <tr>
     <th>Zahlungsmittel 1</th>
-    <td> {{player.MOP1}} </td>
+    <td> {{player.MOP1}} EM </td>
   </tr>
   <tr>
     <th>Zahlungsmittel 2</th>
-    <td> {{player.MOP2}} </td>
+    <td> {{player.MOP2}} EM</td>
   </tr>
   <tr>
     <th>Zahlungsmittel 3</th>
-    <td> {{player.field_maybe_none('MOP3')}} </td>
+    <td> {{player.field_maybe_none('MOP3')}} EM </td>
   </tr>
 </table>
 
@@ -117,7 +117,7 @@ table, th, td {
 -->
 <br>
 
-<table style="width:160%">
+<table style="width:100%">
   <tr>
     <th> Transaktionen Zahlungsmittel 1</th>
     <th> Transaktionen Zahlungsmittel 2</th>
@@ -131,10 +131,10 @@ table, th, td {
     <td>{{ player.field_maybe_none('transaktionen_MOP1')}}</td>
     <td>{{ player.field_maybe_none('transaktionen_MOP2')}}</td>
     <td>{{ player.field_maybe_none('transaktionen_MOP3')}}</td>
-    <td>{{player.payoff_MOP1}} EM</td>
-    <td>{{player.payoff_MOP2|to2}} EM</td>
-    <td>{{player.field_maybe_none('payoff_MOP3')}} EM</td>
-    <td>{{player.payoff_total}} EM</td>
+    <td>{{player.payoff_MOP1}}</td>
+    <td>{{player.payoff_MOP2|to2}}</td>
+    <td>{{player.field_maybe_none('payoff_MOP3')}}</td>
+    <td>{{player.payoff_total|to2}}</td>
 
     
   </tr>

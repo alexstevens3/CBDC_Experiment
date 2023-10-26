@@ -17,7 +17,7 @@ class C(BaseConstants):
     TC_MOP1 = 0.5
     TC_MOP2 = 0.38
     TC_MOP3 = 0.1
-    Adoption_MOP3 = 0.4
+    Adoption_MOP3 = 0.4 #can be 0.2 or 0.6
      
 
 @staticmethod
@@ -27,12 +27,38 @@ def creating_session(subsession):
     for player in subsession.get_players():
         player.prob_MOP2 = random.randint(0,100)   
 
-    #if subsession.round_number == 1:
+
     import itertools
-    CBDC = itertools.cycle(['Account', 'Token'])
-    for player in subsession.get_players():
-        player.CBDC_design = next(CBDC) 
-          
+    if subsession.round_number <=5:
+        CBDC = itertools.cycle(['Account', 'Token'])
+        for player in subsession.get_players():
+            player.CBDC_design = next(CBDC)
+
+    if subsession.round_number > 5:
+        CBDC = itertools.cycle(['Token', 'Account'])
+        for player in subsession.get_players():
+            player.CBDC_design = next(CBDC)
+
+       # matrix = subsession.get_group_matrix()
+       # for row in matrix:
+       #    row.reverse()
+       # subsession.set_group_matrix(matrix)
+        
+        #if player.CBDC_design == 'Token':
+       #     player.CBDC_design = 'Account'
+        #if player.CBDC_design == 'Account':
+        #    player.CBDC_design = 'Token'
+   
+        #player.CBDC_design.reverse()
+        #for player in subsession.get_players():
+       #     player.CBDC_design = random.choice(['Account', 'Token'])
+       #     print('set time_pressure to', player.CBDC_design)
+  #  import itertools
+   # CBDC = itertools.cycle(['Account', 'Token'])
+   # for player in subsession.get_players():
+  #      player.CBDC_design = next(CBDC) 
+   
+            
         
 @staticmethod
 def set_payoffs(player):
@@ -81,7 +107,7 @@ class Player(BasePlayer):
     payoff_MOP1 = models.FloatField()
     payoff_MOP2 = models.FloatField()
     payoff_MOP3 = models.FloatField()
-    payoff_total = models.FloatField()
+    payoff_total = models.FloatField(min=0)
     CBDC_Choice_Yes = models.IntegerField()
     payoff_total_allrounds = models.FloatField()
     belief1 = models.IntegerField(
@@ -107,7 +133,7 @@ class Player(BasePlayer):
 
 # PAGES
 class Treatment(Page):
-    pass
+    timeout_seconds = 30
 
 class CBDCChoice(Page):
     form_model = 'player'
@@ -119,6 +145,9 @@ class CBDCChoice(Page):
             player.CBDC_Choice_Yes =1
         if player.CBDC_Choice == 0:
             player.CBDC_Choice_Yes =0
+
+             
+       
 
 class PaymentChoice(Page):
     form_model = 'player'
@@ -222,6 +251,7 @@ class Beliefs(Page):
 
 
 class Trading(Page):
+    timeout_seconds = 60
     @staticmethod
     def vars_for_template(player):
         
@@ -236,6 +266,8 @@ class Trading(Page):
             player.payoff_MOP3 = 0
         player.payoff_total = player.payoff_MOP1 + player.payoff_MOP2 + player.payoff_MOP3
         
+        if player.payoff_total < 0:
+            player.payoff_total = 0
 
     @staticmethod
     def before_next_page(player, timeout_happened):
