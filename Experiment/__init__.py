@@ -47,6 +47,7 @@ class Group(BaseGroup):
     nb_players_CBDC_Yes = models.FloatField()
     share_players_CBDC_Yes = models.FloatField()
     sum_MOP3 = models.FloatField()
+    average_MOP3 = models.FloatField()
 
 class Player(BasePlayer):
     MOP1 = models.IntegerField(
@@ -99,6 +100,7 @@ class Player(BasePlayer):
         max=100,
         doc="Belief about prob. acceptance MOP3")
     last_round = models.IntegerField()
+    next_round = models.IntegerField()
     
   
     
@@ -180,6 +182,7 @@ class Beliefs(Page):
     @staticmethod
     def vars_for_template(player):
         player.last_round = player.round_number - 1
+        player.next_round = player.round_number + 1
         if player.CBDC_Choice == False:
             player.MOP3 = 0 
 
@@ -191,6 +194,7 @@ class Beliefs(Page):
             group.share_players_CBDC_Yes = (group.nb_players_CBDC_Yes /  C.PLAYERS_PER_GROUP) *100
           
             group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players if player.CBDC_Choice_Yes ==1 ]) 
+            group.average_MOP3 = group.sum_MOP3 / C.PLAYERS_PER_GROUP
         
 
     @staticmethod

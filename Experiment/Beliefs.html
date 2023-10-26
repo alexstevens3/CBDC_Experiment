@@ -6,19 +6,19 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ if player.round_number > 1 }}
 
-<p>In Marktrunde {{player.field_maybe_none('last_round')}} war der Anteil der Käufer die {{C.Adoption_MOP3}} EM gezahlt haben und somit Zahlungsmittel 3 nutzen zu können bei {{group.share_players_CBDC_Yes |to0}}%. </p>
+<p>In Marktrunde {{player.field_maybe_none('last_round')}} lag der Anteil der Käufer die {{C.Adoption_MOP3}} EM gezahlt haben um Zahlungsmittel 3 nutzen zu können bei {{group.share_players_CBDC_Yes |to0}}%. </p>
 
-<p>In der letzten Marktrunde wurden im Durschnitt  {{ group.sum_MOP3}} EM auf Zahlungsmittel 3 verteilt.</p>
+<p>In {{player.field_maybe_none('last_round')}} wurden im Durschnitt {{group.average_MOP3}} EM auf Zahlungsmittel 3 verteilt.</p>
     
 {{ endif }}
 
-<p>Bitte prognostizieren Sie für die nächste Marktrunde:</p>
+<p>Bitte prognostizieren Sie für die nächste Marktrunde <b>(Marktrunde {{player.next_round}})</b>:</p>
 
-<p>Wieviele der 10 Käufer werden MOP3 nutzen (einführen)?</p> {{formfield 'belief1'}}
+<p>Wie hoch ist die Anzahl der Käufer die Zahlungsmittel 3 nutzen? (Werte zwischen 0 und {{C.PLAYERS_PER_GROUP}})</p> {{formfield 'belief1'}}
 
-<p>Wieviel von den 10 EM werden Käufer im Durchschnitt auf Zahlungsmittel 3 verteilen?</p> {{formfield 'belief2'}}
+<p>Wieviele EM werden Käufer im Durchschnitt auf Zahlungsmittel 3 verteilen? (Werte zwischen 0 und 10)</p> {{formfield 'belief2'}}
 
-<p>Was denken Sie ist die Wahrscheinlichkeit, dass der Anteil der Käufer die Zahlungsmittel 3 nutzen größer als 60% ist und somit Zahlungsmittel 3 akzeptiert wird?</p> {{formfield 'belief3'}}
+<p>Wie hoch ist die Wahrscheinlichkeit, dass der Anteil der Käufer die Zahlungsmittel 3 nutzen mindestens 60% ist und somit Zahlungsmittel 3 von Verkäufern akzeptiert wird?</p> {{formfield 'belief3'}}
 
     {{ next_button }}
 {{ endblock }}
