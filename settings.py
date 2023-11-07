@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
      dict(
          name='CBDC_Experiment',
          app_sequence=['Experiment', 'survey'],
-         num_demo_participants=4,
+         num_demo_participants=2,
      ),
 ]
 
@@ -14,10 +14,10 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=1.00, participation_fee=6.00, doc=""
 )
 
-PARTICIPANT_FIELDS = []
+PARTICIPANT_FIELDS = ['payoff_euro','payoff_total_allrounds', 'payoff_plus_fee']
 SESSION_FIELDS = []
 
 # ISO-639 code
@@ -25,7 +25,7 @@ SESSION_FIELDS = []
 LANGUAGE_CODE = 'de'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'EUR'
+REAL_WORLD_CURRENCY_CODE = ''
 USE_POINTS = True
 POINTS_CUSTOM_NAME =  'EM'
 

@@ -11,7 +11,7 @@ Your app description
 class C(BaseConstants):
     NAME_IN_URL = 'Experiment'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 10
+    NUM_ROUNDS = 1
     MAXIMUM_EM = cu(10)
     #currency_range(0, 10, 1)
     TC_MOP1 = 0.5
@@ -75,6 +75,9 @@ class Group(BaseGroup):
     sum_MOP3 = models.FloatField()
     average_MOP3 = models.FloatField()
 
+#class Participant(BasePlayer):
+ #   payoff_total_allrounds = models.FloatField()
+
 class Player(BasePlayer):
     MOP1 = models.IntegerField(
         min=0,
@@ -109,7 +112,7 @@ class Player(BasePlayer):
     payoff_MOP3 = models.FloatField()
     payoff_total = models.FloatField(min=0)
     CBDC_Choice_Yes = models.IntegerField()
-    payoff_total_allrounds = models.FloatField()
+    payoff_total_allrounds1 = models.FloatField()
     belief1 = models.IntegerField(
         label = "",
         min=0,
@@ -283,10 +286,20 @@ class Trading(Page):
                 player.MOP3_accept = 0
 
 class Total_Payoff(Page):
-    pass
+    @staticmethod
+    def vars_for_template(player):
+        if player.round_number > 1:
+            player.payoff_total_allrounds1 = sum([player.payoff_total for player in player.in_all_rounds()])
+        else:
+            player.payoff_total_allrounds1 = player.payoff_total
+   
+#class Total_Payoff(Page):
    # @staticmethod
    # def vars_for_template(player):
-   #Auf dieser Seite werden Teilnehmenden ihre gesamte Auszahlung angezeigt (aufsummiert über alle Runden)
-
+        participant=player.participant
+        if player.round_number > 1:
+            participant.payoff_total_allrounds = sum([player.payoff_total for player in player.in_all_rounds()])
+        else:
+            participant.payoff_total_allrounds = player.payoff_total
 
 page_sequence = [Treatment, CBDCChoice, PaymentChoice, WaitingPage, Beliefs, Trading, Total_Payoff, WaitingPage]

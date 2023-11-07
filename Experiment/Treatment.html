@@ -4,7 +4,17 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ block content }}
 
-<p>Sie sind dem Treatment {{player.CBDC_design}} zugeordnet.</p>
+{{ if player.CBDC_design == 'Account' }}
+
+<p>Sie sind dem Treatment A zugeordnet.</p>
+
+{{ endif }}
+
+{{ if player.CBDC_design == 'Token' }}
+
+<p>Sie sind dem Treatment B zugeordnet.</p>
+
+{{ endif }}
 
 <p>Bitte klicken Sie auf Weiter.</p>
     {{ next_button }}

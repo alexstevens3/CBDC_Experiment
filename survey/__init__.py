@@ -64,7 +64,7 @@ class Player(BasePlayer):
 class AnonymityPreferences(Page):
     pass
 
-class CBDCquestions(Page):
+class CBDCQuestions(Page):
     pass
 
 class Risk1(Page):
@@ -78,7 +78,7 @@ class Demographics(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'Vollzeiterwerbstätig', 'Teilzeiterwerbstätig',
      'Geringfügig_erwerbstätig', 'Minijob', 'Ruhestand', 'Studentin_oder_Student', 
-     'Selbstständig', 'Nicht_erwerbstätig_und_Arbeitssuchend', 'Nicht_erwerbstätig_und_nicht_Arbeitssuchend', 'income', 'education']
+     'Selbstständig', 'Nicht_erwerbstätig_und_Arbeitssuchend', 'Nicht_erwerbstätig_und_nicht_Arbeitssuchend', 'education']
 
     def before_next_page(player, timeout_happened):
         if player.field_maybe_none("Vollzeiterwerbstätig") == None:
@@ -110,8 +110,14 @@ class Demographics_degree(Page):
     form_fields = ['degree', 'semester']
 
 
-class ResultsWaitPage(WaitPage):
-    pass
+class Auszahlungsseite(Page):
+    @staticmethod
+    def vars_for_template(player):
+        participant=player.participant
+        session=player.session
+        participant.payoff_euro = participant.payoff_total_allrounds * session.config['real_world_currency_per_point']
+        participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee']
+        
 
 
-page_sequence = [Risk1, Risk2, Demographics, Demographics_degree]
+page_sequence = [CBDCQuestions, Risk1, Risk2, Demographics, Demographics_degree, Auszahlungsseite]
