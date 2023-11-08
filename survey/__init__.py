@@ -39,8 +39,8 @@ class Player(BasePlayer):
     Nicht_erwerbstätig_und_nicht_Arbeitssuchend = models.BooleanField(blank=True)
 
     income = models.StringField(
-        label = 'Wie hoch ist Ihr Einkommen pro Monat?',
-        choices = [],
+        label = 'Wie hoch ist Ihr persönliches Nettoeinkommen pro Monat?',
+        choices = ['unter 500 Euro', '500 bis 999 Euro', '1000 bis 1499 Euro', '1500 bis 1999 Euro', '2000 bis 2499 Euro', '2500 bis 2999 Euro', '3000 bis 3499 Euro', '3500 bis 3999 Euro', '4000 bis 4499 Euro', '4500 bis 4999 Euro', 'über 5000 Euro'],
     )
     education = models.StringField(
         label = 'Welches ist der höchste Abschluss, den Sie erreicht haben?',
@@ -58,14 +58,46 @@ class Player(BasePlayer):
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         widget=widgets.RadioSelectHorizontal,
     )
-
-
+    cbdc1 = models.StringField(
+        label = 'Was glauben Sie, worum es in diesem Experiment ging?',
+    )
+    cbdc2 = models.StringField(
+        label = 'Haben Sie bereits vor dem Experiment von digitalem Zentralbankgeld gehört bzw. darüber gelesen?',
+        choices = ['ja', 'nein' ],
+        widget=widgets.RadioSelect,
+    )
+    cbdc3 = models.StringField(
+        label = 'Wie wahrscheinlich ist es, dass Sie nach einer Einführung den digitalen Euro nutzen würden?',
+        choices = ['sehr wahrscheinlich', 'wahrscheinlich', 'unentschieden', 'unwahrscheinlich', 'sehr unwahrscheinlich' ],
+        widget=widgets.RadioSelect,
+    )
+    cbdc4 =  models.IntegerField(
+        label = 'Wenn der digitale Euro eingeführt werden würde, welche der folgenden Eigenschaften wäre Ihnen am wichtigsten?',
+        choices = ['Anonymität der Zahlungen', 'Sicherheit in Bezug auf Datenschutz', 'kostenfreie Nutzung', 'bequeme Nutzung' ],
+        widget=widgets.RadioSelect,
+    )
+    cbdc5 =  models.IntegerField(
+        label = 'Sehen Sie den digitalen Euro als Alternative zum Bargeld oder als Alternative zu unbaren Zahlungsmitteln (z.B. Zahlung mit Debitkarte, Kreditkarte)? Der äußerste Kreis links bedeutet "nur als Alternative zu Bargeld", der äußerste Kreis rechts bedeutet "nur als Alternative zu unbaren Zahlungsmitteln".',
+        choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        widget=widgets.RadioSelectHorizontal,
+    )
+    Bargeld = models.BooleanField(blank=True)
+    Girocard_kontaktlos = models.BooleanField(blank=True)
+    Girocard_einschieben = models.BooleanField(blank=True)
+    Kreditkarte_kontaktlos = models.BooleanField(blank=True)
+    Kreditkarte_einschieben = models.BooleanField(blank=True)
+    Smartphone_Debit = models.BooleanField(blank=True)
+    Smartphone_Kredit = models.BooleanField(blank=True)
+    Anderes_Zahlungsmittel = models.BooleanField(blank=True)
 # PAGES
 class AnonymityPreferences(Page):
     pass
 
 class CBDCQuestions(Page):
-    pass
+   form_model = 'player'
+   form_fields = ['cbdc1', 'cbdc2', 'cbdc3', 'cbdc4', 'cbdc5'
+     'Bargeld', 'Girocard_kontaktlos', 'Girocard_einschieben', 'Kreditkarte_kontaktlos', 
+     'Kreditkarte_einschieben', 'Smartphone_Debit', 'Smartphone_Kredit', 'Anderes Zahlungsmittel']
 
 class Risk1(Page):
     form_model = 'player'
