@@ -1,3 +1,5 @@
+{{ extends "global/Page.html" }}
+
 {{ block title }}
 Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 {{ endblock }}
@@ -26,18 +28,56 @@ Zahlungsmittel 3 durchgeführt werden.</p>
 
 {{ if player.CBDC_design == "Token" }}
 
-<img src="{{ static 'Token.jpg' }}" width="200px" /> 
-    
+<p>Klicken Sie auf den Button für eine Übersicht der Zahlungsmittel.</p>
+
+<button id="toggle-button">Button</button>
+
+<br>
+<br>
+
+<div id="expandable-text" style="display: none;">
+    <img src="{{ static 'Token.jpg' }}" width="200px" /> 
+</div>
+{{ endif }}
+
+{{ if player.CBDC_design == "Account" }}
+
+<p>Klicken Sie auf den Button für eine Übersicht der Zahlungsmittel.</p>
+
+<button id="toggle-button">Button</button>
+
+<br>
+<br>
+
+<div id="expandable-text" style="display: none;">
+    <img src="{{ static 'Account.jpg' }}" width="200px" /> 
+</div>
     
 {{ endif }}
-    
-{{ if player.CBDC_design == "Account" }} 
-    
-<img src="{{ static 'Account.jpg' }}" width="200px" /> 
-    
-{{ endif }}
+
+
+<br>
+
 {{ next_button }}
 
 {{ endblock }}
+
+{{ block scripts }}
+<script>
+document.getElementById("toggle-button").addEventListener("click", function() {
+    var textDiv = document.getElementById("expandable-text");
+    if (textDiv.style.display === "none") {
+        textDiv.style.display = "block";
+    } else {
+        textDiv.style.display = "none";
+    }
+});
+</script>
+
+
+
+
+{{ endblock }}
+
 
 
