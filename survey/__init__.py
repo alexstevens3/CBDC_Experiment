@@ -23,7 +23,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     age = models.IntegerField(label='Wie alt sind Sie?', min=16, max=125)
     gender = models.StringField(
-        choices=[['Weiblich', 'Weiblich'], ['Männlich', 'Männlich'], ['Divers', 'Divers']],
+        choices=['Weiblich', 'Männlich', 'Divers'],
         label='Welches Geschlecht haben Sie?',
         widget=widgets.RadioSelect,
     )   
@@ -61,17 +61,15 @@ class Player(BasePlayer):
     cbdc1 = models.StringField(
         label = 'Was glauben Sie, worum es in diesem Experiment ging?',
     )
-    cbdc2 = models.StringField(
+    cbdc2 = models.BooleanField(
         label = 'Haben Sie bereits vor dem Experiment von digitalem Zentralbankgeld gehört bzw. darüber gelesen?',
-        choices = ['ja', 'nein' ],
-        widget=widgets.RadioSelect,
     )
     cbdc3 = models.StringField(
         label = 'Wie wahrscheinlich ist es, dass Sie nach einer Einführung den digitalen Euro nutzen würden?',
         choices = ['sehr wahrscheinlich', 'wahrscheinlich', 'unentschieden', 'unwahrscheinlich', 'sehr unwahrscheinlich' ],
         widget=widgets.RadioSelect,
     )
-    cbdc4 =  models.IntegerField(
+    cbdc4 =  models.StringField(
         label = 'Wenn der digitale Euro eingeführt werden würde, welche der folgenden Eigenschaften wäre Ihnen am wichtigsten?',
         choices = ['Anonymität der Zahlungen', 'Sicherheit in Bezug auf Datenschutz', 'kostenfreie Nutzung', 'bequeme Nutzung' ],
         widget=widgets.RadioSelect,
@@ -89,15 +87,14 @@ class Player(BasePlayer):
     Smartphone_Debit = models.BooleanField(blank=True)
     Smartphone_Kredit = models.BooleanField(blank=True)
     Anderes_Zahlungsmittel = models.BooleanField(blank=True)
-# PAGES
+
+
 class AnonymityPreferences(Page):
     pass
 
 class CBDCQuestions(Page):
-   form_model = 'player'
-   form_fields = ['cbdc1', 'cbdc2', 'cbdc3', 'cbdc4', 'cbdc5'
-     'Bargeld', 'Girocard_kontaktlos', 'Girocard_einschieben', 'Kreditkarte_kontaktlos', 
-     'Kreditkarte_einschieben', 'Smartphone_Debit', 'Smartphone_Kredit', 'Anderes Zahlungsmittel']
+    form_model = 'player'
+    form_fields = ['cbdc1', 'cbdc2', 'cbdc3', 'cbdc4', 'cbdc5','Bargeld', 'Girocard_kontaktlos', 'Girocard_einschieben', 'Kreditkarte_kontaktlos', 'Kreditkarte_einschieben', 'Smartphone_Debit', 'Smartphone_Kredit', 'Anderes_Zahlungsmittel']
 
 class Risk1(Page):
     form_model = 'player'
@@ -110,7 +107,7 @@ class Demographics(Page):
     form_model = 'player'
     form_fields = ['age', 'gender', 'Vollzeiterwerbstätig', 'Teilzeiterwerbstätig',
      'Geringfügig_erwerbstätig', 'Minijob', 'Ruhestand', 'Studentin_oder_Student', 
-     'Selbstständig', 'Nicht_erwerbstätig_und_Arbeitssuchend', 'Nicht_erwerbstätig_und_nicht_Arbeitssuchend', 'education']
+     'Selbstständig', 'Nicht_erwerbstätig_und_Arbeitssuchend', 'Nicht_erwerbstätig_und_nicht_Arbeitssuchend', 'education', 'income']
 
     def before_next_page(player, timeout_happened):
         if player.field_maybe_none("Vollzeiterwerbstätig") == None:
@@ -148,8 +145,8 @@ class Auszahlungsseite(Page):
         participant=player.participant
         session=player.session
         participant.payoff_euro = participant.payoff_total_allrounds * session.config['real_world_currency_per_point']
-        participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee']
+        participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee'] +2
         
 
 
-page_sequence = [CBDCQuestions, Risk1, Risk2, Demographics, Demographics_degree, Auszahlungsseite]
+page_sequence = [Risk1, Risk2, Demographics, Demographics_degree, CBDCQuestions, Auszahlungsseite]

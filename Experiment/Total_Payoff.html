@@ -1,13 +1,13 @@
 {{ block title }}
-    
+Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 {{ endblock }}
 
 {{ block content }}
-Ihr Gesamtpayoff ist:  {{participant.payoff_total_allrounds}}
+<p>Ihr Gesamteinkommen beträgt {{participant.payoff_total_allrounds}} Taler.</p>
 
 
 
-Bitte klicken Sie auf den Button damit die nächste Runde beginnt.
+<p>Bitte klicken Sie auf Weiter, damit die nächste Runde beginnt.</p>
 
 {{ formfields }}
 

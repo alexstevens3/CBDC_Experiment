@@ -38,27 +38,7 @@ def creating_session(subsession):
         CBDC = itertools.cycle(['Token', 'Account'])
         for player in subsession.get_players():
             player.CBDC_design = next(CBDC)
-
-       # matrix = subsession.get_group_matrix()
-       # for row in matrix:
-       #    row.reverse()
-       # subsession.set_group_matrix(matrix)
-        
-        #if player.CBDC_design == 'Token':
-       #     player.CBDC_design = 'Account'
-        #if player.CBDC_design == 'Account':
-        #    player.CBDC_design = 'Token'
    
-        #player.CBDC_design.reverse()
-        #for player in subsession.get_players():
-       #     player.CBDC_design = random.choice(['Account', 'Token'])
-       #     print('set time_pressure to', player.CBDC_design)
-  #  import itertools
-   # CBDC = itertools.cycle(['Account', 'Token'])
-   # for player in subsession.get_players():
-  #      player.CBDC_design = next(CBDC) 
-   
-            
         
 @staticmethod
 def set_payoffs(player):
@@ -97,9 +77,7 @@ class Player(BasePlayer):
     CBDC_Choice = models.BooleanField(
         label="Möchten Sie Zahlungsmittel 3 nutzen?", 
     )
-    #PaymentChoice_Check = models.BooleanField(
-      #  label = ""
-    #)
+    
     prob_MOP2 = models.IntegerField()
     CBDC_design = models.StringField()
     MOP2_accept = models.BooleanField()
@@ -134,7 +112,6 @@ class Player(BasePlayer):
   
     
 
-# PAGES
 class Treatment(Page):
     timeout_seconds = 30
 
@@ -150,7 +127,6 @@ class CBDCChoice(Page):
             player.CBDC_Choice_Yes =0
 
              
-       
 
 class PaymentChoice(Page):
     form_model = 'player'
@@ -166,9 +142,9 @@ class PaymentChoice(Page):
     def error_message(player, values):
         print('values is', values)
         if player.CBDC_Choice == True and values['MOP1'] + values['MOP2'] + values['MOP3'] != C.MAXIMUM_EM:
-            return 'The numbers must add up to 10'
+            return 'Die Summe muss insgesamt 10 ergeben'
         if player.CBDC_Choice == False and values['MOP1'] + values['MOP2'] != C.MAXIMUM_EM:
-            return 'The numbers must add up to 10'
+            return 'Die Summe muss insgesamt 10 ergeben'
 
     @staticmethod
     def before_next_page(player, timeout_happened):
@@ -185,17 +161,6 @@ class PaymentChoice(Page):
           
       #      group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players if player.CBDC_Choice_Yes ==1 ]) 
         
-    
-
-
-#class PaymentChoice_Check(Page):
-    #form_model = 'player'
-    #form_fields = ['PaymentChoice_Check']
-
-    #@staticmethod
-    #def before_next_page(player, timeout_happened):
-        #player.MOP2_accept=player.prob_MOP2<=81
-        
 
 
 class WaitingPage(WaitPage):
@@ -206,10 +171,6 @@ class WaitingPage(WaitPage):
 class Beliefs(Page):
     form_model = 'player'
     form_fields = ['belief1', 'belief2', 'belief3']
-
-   # @staticmethod
-   # def is_displayed(player):
-   #     return player.round_number >1
 
     @staticmethod
     def vars_for_template(player):

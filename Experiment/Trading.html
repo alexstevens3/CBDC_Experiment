@@ -7,26 +7,26 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ if player.MOP2_accept == True}}
 
-<p>Die Zufallszahl ist {{ player.prob_MOP2 }} und somit kleiner als 81. Das bedeutet, dass der Verkäufer Zahlungsmittel 2 akzeptiert. </p>
+<p>Die Zufallszahl ist {{ player.prob_MOP2 }}. Das bedeutet, dass der Verkäufer Zahlungsmittel 2 akzeptiert. </p>
 
 {{ endif }}
 
 {{ if player.MOP2_accept == False }}
 
-<p>Die Zufallszahl ist {{ player.prob_MOP2 }} und somit größer als 81. Das bedeutet, dass der Verkäufer Zahlungsmittel 2 <b>nicht</b> akzeptiert. </p>
+<p>Die Zufallszahl ist {{ player.prob_MOP2 }}. Das bedeutet, dass der Verkäufer Zahlungsmittel 2 <b>nicht</b> akzeptiert. </p>
 
 {{ endif }}
 
 {{if group.share_players_CBDC_Yes >= 60}}
 
-<p>Der Anteil der Käufer die {{C.Adoption_MOP3}} EM gezahlt haben um Zahlungsmittel 3 zu nutzen beträgt {{group.share_players_CBDC_Yes |to0}}%. Das beudetet, 
+<p>Der Anteil der Käufer die Zahlungsmittel 3 nutzen ist {{group.share_players_CBDC_Yes |to0}}%. Das beudetet, 
   dass der Verkäufer Zahlungsmittel 3 akzeptiert.</p>
 
 {{ endif }}
 
 {{if group.share_players_CBDC_Yes < 60}}
 
-<p>Der Anteil der Käufer die {{C.Adoption_MOP3}} EM gezahlt haben um Zahlungsmittel 3 zu nutzen beträgt {{group.share_players_CBDC_Yes |to0}}%. Das beudetet, 
+<p>Der Anteil der Käufer die Zahlungsmittel 3 nutzen ist {{group.share_players_CBDC_Yes |to0}}%. Das beudetet, 
   dass der Verkäufer Zahlungsmittel 3 <b>nicht</b> akzeptiert.</p>
 
 {{ endif }}
@@ -69,7 +69,7 @@ th, td {
 </html>
 
 <br>
-<p>Daraus ergibt sich folgende <b>Auszahlung für Marktrunde {{ player.round_number }}:</b></p>
+<p>Daraus ergibt sich folgendes <b>Einkommen für Marktrunde {{ player.round_number }}:</b></p>
 
 
 
@@ -91,10 +91,10 @@ table, th, td {
     <th> Transaktionen Zahlungsmittel 1</th>
     <th> Transaktionen Zahlungsmittel 2</th>
     <th> Transaktionen Zahlungsmittel 3</th>
-    <th> Auszahlung Zahlungsmittel 1</th>
-    <th> Auszahlung Zahlungsmittel 2</th>
-    <th> Auszahlung Zahlungsmittel 3</th>
-    <th> Gesamte Auszahlung</th>
+    <th> Einkommen aus Zahlungsmittel 1</th>
+    <th> Einkommen aus Zahlungsmittel 2</th>
+    <th> Einkommen aus Zahlungsmittel 3</th>
+    <th> Gesamteinkommen</th>
   </tr>
   <tr>
     <td>{{ player.field_maybe_none('transaktionen_MOP1')}}</td>
