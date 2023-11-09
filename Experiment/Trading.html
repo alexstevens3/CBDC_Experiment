@@ -53,15 +53,15 @@ th, td {
 <table>
   <tr>
     <th>Zahlungsmittel 1</th>
-    <td> {{player.MOP1}} EM </td>
+    <td> {{player.MOP1}} Taler </td>
   </tr>
   <tr>
     <th>Zahlungsmittel 2</th>
-    <td> {{player.MOP2}} EM</td>
+    <td> {{player.MOP2}} Taler</td>
   </tr>
   <tr>
     <th>Zahlungsmittel 3</th>
-    <td> {{player.field_maybe_none('MOP3')}} EM </td>
+    <td> {{player.field_maybe_none('MOP3')}} Taler </td>
   </tr>
 </table>
 
@@ -88,9 +88,9 @@ table, th, td {
 
 <table style="width:100%">
   <tr>
-    <th> Transaktionen Zahlungsmittel 1</th>
-    <th> Transaktionen Zahlungsmittel 2</th>
-    <th> Transaktionen Zahlungsmittel 3</th>
+    <th> Transaktionen mit Zahlungsmittel 1</th>
+    <th> Transaktionen mit Zahlungsmittel 2</th>
+    <th> Transaktionen mit Zahlungsmittel 3</th>
     <th> Einkommen aus Zahlungsmittel 1</th>
     <th> Einkommen aus Zahlungsmittel 2</th>
     <th> Einkommen aus Zahlungsmittel 3</th>
@@ -100,10 +100,10 @@ table, th, td {
     <td>{{ player.field_maybe_none('transaktionen_MOP1')}}</td>
     <td>{{ player.field_maybe_none('transaktionen_MOP2')}}</td>
     <td>{{ player.field_maybe_none('transaktionen_MOP3')}}</td>
-    <td>{{player.payoff_MOP1}}</td>
-    <td>{{player.payoff_MOP2|to2}}</td>
-    <td>{{player.field_maybe_none('payoff_MOP3')}}</td>
-    <td>{{player.payoff_total|to2}}</td>
+    <td>{{player.payoff_MOP1|to2}} Taler</td>
+    <td>{{player.payoff_MOP2|to2}} Taler</td>
+    <td>{{player.field_maybe_none('payoff_MOP3')|to2}} Taler</td>
+    <td>{{player.payoff_total|to2}} Taler</td>
 
     
   </tr>
@@ -111,7 +111,7 @@ table, th, td {
 </table>
 <br>
 
-<p>Bitte klicken Sie auf Weiter, damit die nächste Runde beginnt.</p>
+<p>Bitte klicken Sie auf Weiter.</p>
 
 </body>
 </html>

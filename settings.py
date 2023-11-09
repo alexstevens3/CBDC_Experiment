@@ -3,7 +3,7 @@ from os import environ
 SESSION_CONFIGS = [
      dict(
          name='CBDC_Experiment',
-         app_sequence=['Experiment','survey','testquestions'],
+         app_sequence=['Experiment','testquestions','survey'],
          num_demo_participants=2,
      ),
 ]
@@ -27,7 +27,7 @@ LANGUAGE_CODE = 'de'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = ''
 USE_POINTS = True
-POINTS_CUSTOM_NAME =  'EM'
+POINTS_CUSTOM_NAME =  'Taler'
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable

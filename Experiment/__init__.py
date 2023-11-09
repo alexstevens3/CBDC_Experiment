@@ -11,13 +11,13 @@ Your app description
 class C(BaseConstants):
     NAME_IN_URL = 'Experiment'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 1
+    NUM_ROUNDS = 10
     MAXIMUM_EM = cu(10)
     #currency_range(0, 10, 1)
-    TC_MOP1 = 0.5
+    TC_MOP1 = 0.50
     TC_MOP2 = 0.38
-    TC_MOP3 = 0.1
-    Adoption_MOP3 = 0.4 #can be 0.2 or 0.6
+    TC_MOP3 = 0.10
+    Adoption_MOP3 = 0.40 #can be 0.2 or 0.6
      
 
 @staticmethod
@@ -94,7 +94,7 @@ class Player(BasePlayer):
     belief1 = models.IntegerField(
         label = "",
         min=0,
-        max=C.MAXIMUM_EM,
+        max=C.PLAYERS_PER_GROUP,
         doc="Belief about/Expected CBDC_Choice_Yes")
     belief2 = models.IntegerField(
         label = "",
@@ -108,6 +108,10 @@ class Player(BasePlayer):
         doc="Belief about prob. acceptance MOP3")
     last_round = models.IntegerField()
     next_round = models.IntegerField()
+    #calculator_input = models.FloatField(
+     #   label = "Geben Sie eine Zahl an",
+      #  )
+    #calculator_result = models.FloatField()
     
   
     
@@ -130,7 +134,9 @@ class CBDCChoice(Page):
 
 class PaymentChoice(Page):
     form_model = 'player'
+    #form_fields = ['calculator_input', 'calculator_result']
 
+    
     @staticmethod
     def get_form_fields(player):
         if player.CBDC_Choice == True:
@@ -149,6 +155,24 @@ class PaymentChoice(Page):
     @staticmethod
     def before_next_page(player, timeout_happened):
         player.MOP2_accept=player.prob_MOP2<=81
+
+    #@staticmethod
+   # def calculate_result(player):
+    #    player.calculate_result = player.calculator_input * 2
+
+    #def vars_for_template(self):
+    #    return {
+     #       'example_variable': 42,  # You can pass additional variables to the template if needed.
+     #   }
+
+   # def calculator_input_error_message(self, value):
+    #    if not value:
+     #       return 'Please enter a valid value.'
+
+   # def before_next_page(self):
+        
+     #   self.player.calculate_result()
+
     
     #@staticmethod
    # def vars_for_template(player):
@@ -172,6 +196,15 @@ class Beliefs(Page):
     form_model = 'player'
     form_fields = ['belief1', 'belief2', 'belief3']
 
+   # @staticmethod
+    #def error_message(player, values):
+    #    print('values is', values)
+   #     if values['belief1'] > C.PLAYERS_PER_GROUP:
+   #         return 'Der Wert muss zwischen 0 und 10 liegen'
+   #     if values['belief2'] > 10:
+   #         return 'x'
+       
+
     @staticmethod
     def vars_for_template(player):
         player.last_round = player.round_number - 1
@@ -180,6 +213,8 @@ class Beliefs(Page):
             player.MOP3 = 0 
 
         group = player.group
+        #subsession=player.subsession
+        #session=subsession.session
         players = group.get_players()
         
         for player in group.get_players():
@@ -254,9 +289,7 @@ class Total_Payoff(Page):
         else:
             player.payoff_total_allrounds1 = player.payoff_total
    
-#class Total_Payoff(Page):
-   # @staticmethod
-   # def vars_for_template(player):
+
         participant=player.participant
         if player.round_number > 1:
             participant.payoff_total_allrounds = sum([player.payoff_total for player in player.in_all_rounds()])

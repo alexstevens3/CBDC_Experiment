@@ -1,9 +1,20 @@
 {{ block title }}
-    Page title
+
 {{ endblock }}
 
 {{ block content }}
 
+{{ if player.all_answers_right == 1 }}
+
+Sie haben alle Fragen richtig beantwortet.
+
+{{endif}}
+
+{{ if player.all_answers_right == 0 }}
+
+Sie haben nicht alle Fragen richtig beantwortet.
+
+{{endif}}
     {{ next_button }}
 {{ endblock }}
 

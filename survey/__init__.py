@@ -41,6 +41,7 @@ class Player(BasePlayer):
     income = models.StringField(
         label = 'Wie hoch ist Ihr persönliches Nettoeinkommen pro Monat?',
         choices = ['unter 500 Euro', '500 bis 999 Euro', '1000 bis 1499 Euro', '1500 bis 1999 Euro', '2000 bis 2499 Euro', '2500 bis 2999 Euro', '3000 bis 3499 Euro', '3500 bis 3999 Euro', '4000 bis 4499 Euro', '4500 bis 4999 Euro', 'über 5000 Euro'],
+        widget=widgets.RadioSelect,
     )
     education = models.StringField(
         label = 'Welches ist der höchste Abschluss, den Sie erreicht haben?',
