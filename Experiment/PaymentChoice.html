@@ -26,7 +26,17 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
 {{ endif }}
 
 
-{{ formfields }}
+{{formfield 'MOP1'}}
+
+{{formfield 'MOP2'}}
+
+{{if player.CBDC_Choice == True}}
+
+{{formfield 'MOP3'}}
+
+{{endif}}
+
+
 {{ if player.CBDC_design == "Token" }}
 
 <details>
@@ -49,6 +59,36 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
 {{ endif }}
     
 <br>
+
+<p>Dieser Taschenrechner hilft Ihnen Ihr hypothetisches Einkommen auszurechnen (das Einkommen welches erzielt wird, wenn die Transaktion stattfindet). 
+    Bitte geben Sie an, wieviele Taler Sie auf die Zahlungsmittel aufteilen möchten. Der Taschrenrechner errechnet anschließend Ihre Auszahlung.
+</p>
+
+{{formfield 'amount'}}
+
+<p>Einkommen aus Zahlungsmittel 1: <span id="projection"></span> Taler</p>
+
+
+<script>
+    let projectionEle = document.getElementById('projection');
+
+    function recalc() {
+        let amount = parseFloat(forminputs.amount.value);
+      
+        if (isNaN(amount) ) {
+            projectionEle.innerText = '0';
+        } else {
+            let projection = amount -(amount * js_vars.TC1);
+            projectionEle.innerText = projection;
+        }
+    }
+
+    forminputs.amount.oninput = recalc;
+   
+</script>
+
+
+
 
 {{ next_button }}
 

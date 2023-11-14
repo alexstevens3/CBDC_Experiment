@@ -108,10 +108,13 @@ class Player(BasePlayer):
         doc="Belief about prob. acceptance MOP3")
     last_round = models.IntegerField()
     next_round = models.IntegerField()
-    #calculator_input = models.FloatField(
-     #   label = "Geben Sie eine Zahl an",
-      #  )
-    #calculator_result = models.FloatField()
+    amount = models.FloatField(
+        label= 'Zahlungsmittel 1',
+        blank=True)
+    num_years = models.IntegerField(
+        min=0,
+        max=C.MAXIMUM_EM,
+        blank=True)
     
   
     
@@ -134,15 +137,17 @@ class CBDCChoice(Page):
 
 class PaymentChoice(Page):
     form_model = 'player'
-    #form_fields = ['calculator_input', 'calculator_result']
+    form_fields = ['amount', 'num_years']
 
     
+
+
     @staticmethod
     def get_form_fields(player):
         if player.CBDC_Choice == True:
-            return ['MOP1', 'MOP2', 'MOP3']
+            return ['MOP1', 'MOP2', 'MOP3', 'amount', 'num_years']
         else:
-            return ['MOP1', 'MOP2']
+            return ['MOP1', 'MOP2', 'amount', 'num_years']
 
     @staticmethod
     def error_message(player, values):
@@ -156,22 +161,27 @@ class PaymentChoice(Page):
     def before_next_page(player, timeout_happened):
         player.MOP2_accept=player.prob_MOP2<=81
 
-    #@staticmethod
+ 
+
+    @staticmethod
+    def js_vars(player):
+        return dict(TC1=C.TC_MOP1)
+
+   # @staticmethod
    # def calculate_result(player):
     #    player.calculate_result = player.calculator_input * 2
 
-    #def vars_for_template(self):
-    #    return {
-     #       'example_variable': 42,  # You can pass additional variables to the template if needed.
-     #   }
+   # def vars_for_template(player):
+  #     return {
+   #       'example_variable': 42,  # You can pass additional variables to the template if needed.
+   #     }
 
-   # def calculator_input_error_message(self, value):
-    #    if not value:
-     #       return 'Please enter a valid value.'
+   # def calculator_input_error_message(player, value):
+  #      if not value:
+   #         return 'Please enter a valid value.'
 
-   # def before_next_page(self):
-        
-     #   self.player.calculate_result()
+   # def before_next_page(player):
+   #     player.calculate_result()
 
     
     #@staticmethod
