@@ -11,6 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'survey'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
+    showup = 6
 
 
 class Subsession(BaseSubsession):
@@ -68,7 +69,7 @@ class Player(BasePlayer):
     cbdc3 = models.StringField(
         label = 'Wie wahrscheinlich ist es, dass Sie nach einer Einführung den digitalen Euro nutzen würden?',
         choices = ['sehr wahrscheinlich', 'wahrscheinlich', 'unentschieden', 'unwahrscheinlich', 'sehr unwahrscheinlich' ],
-        widget=widgets.RadioSelect,
+        widget=widgets.RadioSelectHorizontal,
     )
     cbdc4 =  models.StringField(
         label = 'Wenn der digitale Euro eingeführt werden würde, welche der folgenden Eigenschaften wäre Ihnen am wichtigsten?',
@@ -93,9 +94,30 @@ class Player(BasePlayer):
 class AnonymityPreferences(Page):
     pass
 
-class CBDCQuestions(Page):
+class CBDC1(Page):
     form_model = 'player'
-    form_fields = ['cbdc1', 'cbdc2', 'cbdc3', 'cbdc4', 'cbdc5','Bargeld', 'Girocard_kontaktlos', 'Girocard_einschieben', 'Kreditkarte_kontaktlos', 'Kreditkarte_einschieben', 'Smartphone_Debit', 'Smartphone_Kredit', 'Anderes_Zahlungsmittel']
+    form_fields = ['cbdc1']
+
+class CBDC2(Page):
+    form_model = 'player'
+    form_fields = ['cbdc2']
+
+class CBDC3(Page):
+    form_model = 'player'
+    form_fields = ['cbdc3']
+
+class CBDC4(Page):
+    form_model = 'player'
+    form_fields = ['cbdc4']
+
+class CBDC5(Page):
+    form_model = 'player'
+    form_fields = ['cbdc5']
+       
+
+class CBDC6(Page):
+    form_model = 'player'
+    form_fields = ['Bargeld', 'Girocard_kontaktlos', 'Girocard_einschieben', 'Kreditkarte_kontaktlos', 'Kreditkarte_einschieben', 'Smartphone_Debit', 'Smartphone_Kredit', 'Anderes_Zahlungsmittel']
 
 class Risk1(Page):
     form_model = 'player'
@@ -146,8 +168,8 @@ class Auszahlungsseite(Page):
         participant=player.participant
         session=player.session
         participant.payoff_euro = participant.payoff_total_allrounds * session.config['real_world_currency_per_point']
-        participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee'] +2
+        participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee'] + C.showup
         
 
 
-page_sequence = [Risk1, Risk2, Demographics, Demographics_degree, CBDCQuestions, Auszahlungsseite]
+page_sequence = [Risk1, Risk2, Demographics, Demographics_degree, CBDC1, CBDC2, CBDC3, CBDC4, CBDC5, CBDC6, Auszahlungsseite]

@@ -108,10 +108,18 @@ class Player(BasePlayer):
         doc="Belief about prob. acceptance MOP3")
     last_round = models.IntegerField()
     next_round = models.IntegerField()
-    amount = models.FloatField(
-        label= 'Zahlungsmittel 1',
+    amount1 = models.IntegerField(
+        label= 'Zahlungsmittel 1:',
+        min=0,
+        max=C.MAXIMUM_EM,
         blank=True)
-    num_years = models.IntegerField(
+    amount2 = models.FloatField(
+        label= 'Zahlungsmittel 2:',
+        min=0,
+        max=C.MAXIMUM_EM,
+        blank=True)
+    amount3 = models.FloatField(
+        label= 'Zahlungsmittel 3:',
         min=0,
         max=C.MAXIMUM_EM,
         blank=True)
@@ -137,7 +145,7 @@ class CBDCChoice(Page):
 
 class PaymentChoice(Page):
     form_model = 'player'
-    form_fields = ['amount', 'num_years']
+    form_fields = ['amount1', 'amount2', 'amount3']
 
     
 
@@ -145,9 +153,9 @@ class PaymentChoice(Page):
     @staticmethod
     def get_form_fields(player):
         if player.CBDC_Choice == True:
-            return ['MOP1', 'MOP2', 'MOP3', 'amount', 'num_years']
+            return ['MOP1', 'MOP2', 'MOP3', 'amount1', 'amount2', 'amount3']
         else:
-            return ['MOP1', 'MOP2', 'amount', 'num_years']
+            return ['MOP1', 'MOP2', 'amount1', 'amount2', 'amount3']
 
     @staticmethod
     def error_message(player, values):
@@ -165,7 +173,9 @@ class PaymentChoice(Page):
 
     @staticmethod
     def js_vars(player):
-        return dict(TC1=C.TC_MOP1)
+        return dict(TC1=C.TC_MOP1, TC2=C.TC_MOP2, TC3=C.TC_MOP3)
+
+  
 
    # @staticmethod
    # def calculate_result(player):

@@ -64,29 +64,71 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
     Bitte geben Sie an, wieviele Taler Sie auf die Zahlungsmittel aufteilen möchten. Der Taschrenrechner errechnet anschließend Ihre Auszahlung.
 </p>
 
-{{formfield 'amount'}}
+{{formfield 'amount1'}}
+
+{{formfield 'amount2'}}
+
+{{formfield 'amount3'}}
 
 <p>Einkommen aus Zahlungsmittel 1: <span id="projection"></span> Taler</p>
 
+<p>Einkommen aus Zahlungsmittel 2: <span id="projection2"></span> Taler</p>
+
+<p>Einkommen aus Zahlungsmittel 3: <span id="projection3"></span> Taler</p>
 
 <script>
     let projectionEle = document.getElementById('projection');
 
     function recalc() {
-        let amount = parseFloat(forminputs.amount.value);
+        let amount1 = parseInt(forminputs.amount1.value);
       
-        if (isNaN(amount) ) {
+        if (isNaN(amount1) ) {
             projectionEle.innerText = '0';
         } else {
-            let projection = amount -(amount * js_vars.TC1);
+            let projection = amount1 -(amount1 * js_vars.TC1);
             projectionEle.innerText = projection;
         }
     }
 
-    forminputs.amount.oninput = recalc;
+    forminputs.amount1.oninput = recalc;
    
 </script>
 
+<script>
+    let projection2Ele = document.getElementById('projection2');
+
+    function recalc() {
+        let amount2 = parseFloat(forminputs.amount2.value);
+      
+        if (isNaN(amount2) ) {
+            projection2Ele.innerText = '0';
+        } else {
+            let projection2 = amount2 -(amount2 * js_vars.TC2);
+            projection2Ele.innerText = projection2;
+        }
+    }
+
+    forminputs.amount2.oninput = recalc;
+   
+</script>
+
+<script>
+    let projection3Ele = document.getElementById('projection3');
+
+    function recalc() {
+        let amount3 = parseFloat(forminputs.amount3.value);
+      
+        if (isNaN(amount3)) {
+            projection3Ele.innerText = '0';
+        } else {
+            let projection3 = amount3 -(amount3 * js_vars.TC3);
+            projection3Ele.innerText = projection3;
+        }
+    }
+
+    forminputs.amount3.oninput = recalc;
+   
+</script>
 
 
 
