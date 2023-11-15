@@ -111,17 +111,17 @@ class Player(BasePlayer):
     amount1 = models.IntegerField(
         label= 'Zahlungsmittel 1:',
         min=0,
-        max=C.MAXIMUM_EM,
+        max=10,
         blank=True)
     amount2 = models.FloatField(
         label= 'Zahlungsmittel 2:',
         min=0,
-        max=C.MAXIMUM_EM,
+        max=10,
         blank=True)
     amount3 = models.FloatField(
         label= 'Zahlungsmittel 3:',
         min=0,
-        max=C.MAXIMUM_EM,
+        max=10,
         blank=True)
     
   
