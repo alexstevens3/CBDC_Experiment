@@ -87,9 +87,6 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
 
 {{endif}}
 
-<p>as<span id="error_message"></span></p>
-
-
 
 
 <script>
@@ -105,12 +102,11 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
             projectionEle.innerText = 'Bitte geben Sie ganze Werte zwischen 0 und 10 an';
         } 
     }
-   
+
+    
     forminputs.amount1.oninput = recalc;
 
 </script>
-
-
 
 <script>
     let projection2Ele = document.getElementById('projection2');
@@ -129,7 +125,6 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
     forminputs.amount2.oninput = recalc;
 
 </script>
-
 <script>
     let projection3Ele = document.getElementById('projection3');
 
@@ -148,22 +143,24 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
 
 </script>
 
-<script>
-    let error_messageEle = document.getElementById('error_message');
-    function error_message() {
-        let amount1 = parseFloat(forminputs.amount1.value);
-        let amount2 = parseFloat(forminputs.amount2.value);
-        let amount3 = parseFloat(forminputs.amount3.value);
 
-        if (amount1 + amount2 + amount3 > 10){
-            alert('x');
-        }
-    
+<p id="p01"></p>
+
+<script>
+
+    function myFunction() {
+        const message = document.getElementById("p01");
+        message.innerHTML = "";
+        let amount1 = document.getElementById("amount1").value;
+    try {
+        if(amount1 >5) throw "not a number";
     }
-    forminputs.amount1.oninput = error_message;
-    forminputs.amount2.oninput = error_message;
-    forminputs.amount3.oninput = error_message;
+    catch(err) {
+        message.innerHTML = "Input is " + err;
+    }
+    }
 </script>
+
 
 {{ next_button }}
 

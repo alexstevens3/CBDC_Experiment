@@ -52,7 +52,7 @@ class Player(BasePlayer):
     degree = models.StringField(
         label = 'Bitte nennen Sie den Studiengang in dem Sie eingeschrieben sind:',
     )
-    semester = models.StringField(
+    semester = models.IntegerField(
         label = 'Im wievieltem Semester studieren Sie?',
     )
     risk1 =  models.IntegerField(

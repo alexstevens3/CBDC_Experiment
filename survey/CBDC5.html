@@ -3,7 +3,20 @@
 {{ endblock }}
 {{ block content }}
 
-{{formfield 'cbdc5'}}
+Sehen Sie den digitalen Euro als Alternative zum Bargeld oder als Alternative zu unbaren Zahlungsmitteln (z.B. Zahlung mit Debitkarte, Kreditkarte)? 
+Der äußerste Kreis links bedeutet "nur als Alternative zu Bargeld", der äußerste Kreis rechts bedeutet "nur als Alternative zu unbaren Zahlungsmitteln".
+
+<table id="questions">
+    
+    <tr>
+        <td style="padding: 17px; text-align: middle" >Nur als Alternative zu Bargeld</td>
+        {{for choices in form.cbdc5}}
+        <td style="padding: 10px;" >{{choices}}</td>
+        {{endfor}}
+        <td style="padding: 7px; text-align: middle" >Nur als Alternative zu unbaren Zahlungsmitteln</td>
+    </tr>
+
+</table>
   
 {{ next_button }}
 {{ endblock }}
