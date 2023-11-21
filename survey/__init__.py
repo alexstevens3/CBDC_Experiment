@@ -12,6 +12,14 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     showup = 6
+    survey_fee = 2
+
+#@staticmethod
+#def creating_session(subsession):
+    #subsession = player.subsession
+ #   player = subsession.get_players()
+ #   for player in subsession.get_players():
+  #      player.risk_payoff = random.choice(indices)
 
 
 class Subsession(BaseSubsession):
@@ -22,7 +30,7 @@ class Group(BaseGroup):
     pass
 
 class Player(BasePlayer):
-    age = models.IntegerField(label='Wie alt sind Sie?', min=16, max=125)
+    age = models.IntegerField(label='Wie alt sind Sie?', min=15, max=125)
     gender = models.StringField(
         choices=['Weiblich', 'Männlich', 'Divers'],
         label='Welches Geschlecht haben Sie?',
@@ -45,22 +53,26 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect,
     )
     education = models.StringField(
-        label = 'Welches ist der höchste Abschluss, den Sie erreicht haben?',
+        label = 'Welches ist der höchste Abschluss, den Sie bisher erreicht haben?',
         choices = ['Keinen Schulabschluss', 'Schulabschluss oder gleichwertiger Abschluss', 'Bachelor', 'Master oder Staatsexamen', 'Promotion' ],
         widget=widgets.RadioSelect,
     )
     degree = models.StringField(
-        label = 'Bitte nennen Sie den Studiengang in dem Sie eingeschrieben sind:',
+        label = 'Was studieren Sie?',
     )
     semester = models.IntegerField(
         label = 'Im wievieltem Semester studieren Sie?',
     )
-    risk1 =  models.IntegerField(
+    grade = models.FloatField(
+        label= 'Was ist Ihre aktuelle Durchschnittsnote?'
+    )
+    
+    risk =  models.IntegerField(
         label = "",
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         widget=widgets.RadioSelectHorizontal,
     )
-    cbdc1 = models.StringField(
+    cbdc1 = models.LongStringField(
         label = 'Was glauben Sie, worum es in diesem Experiment ging?',
     )
     cbdc2 = models.BooleanField(
@@ -73,7 +85,7 @@ class Player(BasePlayer):
     )
     cbdc4 =  models.StringField(
         label = 'Wenn der digitale Euro eingeführt werden würde, welche der folgenden Eigenschaften wäre Ihnen am wichtigsten?',
-        choices = ['Anonymität der Zahlungen', 'Sicherheit in Bezug auf Datenschutz', 'kostenfreie Nutzung', 'bequeme Nutzung' ],
+        choices = ['Anonymität der Zahlungen', 'Sicherheit in Bezug auf Datenschutz', 'Kostenfreie Nutzung', 'Bequeme Nutzung' ],
         widget=widgets.RadioSelect,
     )
     cbdc5 =  models.IntegerField(
@@ -89,6 +101,17 @@ class Player(BasePlayer):
     Smartphone_Debit = models.BooleanField(blank=True)
     Smartphone_Kredit = models.BooleanField(blank=True)
     Anderes_Zahlungsmittel = models.BooleanField(blank=True)
+
+    risk1 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk2 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk3 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk4 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk5 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk6 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk7 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk8 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk9 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
+    risk10 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
 
 
 class AnonymityPreferences(Page):
@@ -121,9 +144,13 @@ class CBDC6(Page):
 
 class Risk1(Page):
     form_model = 'player'
-    form_fields = ['risk1']
+    form_fields = ['risk']
 
 class Risk2(Page):
+    form_model = 'player'
+    form_fields = ['risk1', 'risk2', 'risk3', 'risk4', 'risk5', 'risk6', 'risk7', 'risk8', 'risk9', 'risk10']
+
+class Welcome(Page):
     pass
 
 class Demographics(Page):
@@ -159,7 +186,7 @@ class Demographics_degree(Page):
         return player.Studentin_oder_Student == 1
 
     form_model = 'player'
-    form_fields = ['degree', 'semester']
+    form_fields = ['degree', 'semester', 'grade']
 
 
 class Auszahlungsseite(Page):
@@ -172,4 +199,4 @@ class Auszahlungsseite(Page):
         
 
 
-page_sequence = [Risk1, Risk2, Demographics, Demographics_degree, CBDC1, CBDC2, CBDC3, CBDC4, CBDC5, CBDC6, Auszahlungsseite]
+page_sequence = [Welcome, Risk1, Risk2, Demographics, Demographics_degree, CBDC1, CBDC2, CBDC3, CBDC4, CBDC5, CBDC6, Auszahlungsseite]

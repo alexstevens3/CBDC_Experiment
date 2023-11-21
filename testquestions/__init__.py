@@ -42,7 +42,7 @@ class Player(BasePlayer):
         label= 'Wie hoch ist die Wahrscheinlichkeit, dass Zahlungsmittel 2 vom Verkäufer akzeptiert wird? (in %)'
     )
     q5 = models.IntegerField(
-        label= 'Wie hoch muss der Anteil der Käufer mindestens sein, sodass Zahlungsmittel 3 vom Verkäufer akzeptiert wird? (in %)'
+        label= 'Wie hoch muss der Anteil der Käufer mindestens sein, damit Zahlungsmittel 3 vom Verkäufer akzeptiert wird? (in %)'
     )
     q1_answer = models.IntegerField()
     q2_answer = models.IntegerField()
@@ -57,6 +57,11 @@ class Player(BasePlayer):
 
 class Welcome(Page):
     pass
+
+
+class Welcome2(Page):
+    pass
+
 
 class Questions(Page):
     form_model = 'player'
@@ -93,4 +98,4 @@ class Results(Page):
         else: player.all_answers_right = 0
 
 
-page_sequence = [Welcome, Questions, WaitingPage, Results]
+page_sequence = [Welcome, Welcome2, Questions, WaitingPage, Results]

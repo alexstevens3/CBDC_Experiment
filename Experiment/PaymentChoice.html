@@ -9,22 +9,17 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ if player.CBDC_Choice == True }}
 
-<p>Sie haben sich dazu entschieden Zahlungsmittel 3 zu nutzen. In Marktrunde {{ player.round_number }} können 
-alle Zahlungsmittel genutzt werden.</p>
-
-<p>Bitte teilen Sie die 10 Taler auf die Zahlungsmittel auf.</p>
+<p>Sie haben sich dazu entschieden, Zahlungsmittel 3 in Marktrunde {{ player.round_number }} zu nutzen.
     
 {{ endif }}
 
 {{ if player.CBDC_Choice == False }}
 
-<p>Sie haben sich dazu entschieden Zahlungsmittel 3 <b>nicht</b> zu nutzen. In Marktrunde {{ player.round_number }} kann 
-Zahlungsmittel 3 nicht genutzt werden.</p>
+<p>Sie haben sich dazu entschieden, Zahlungsmittel 3 in Marktrunde {{ player.round_number }} <b>nicht</b> zu nutzen.</p>
 
-<p>Bitte teilen Sie die 10 Taler auf die Zahlungsmittel auf. </p>
-    
 {{ endif }}
 
+<p>Bitte teilen Sie die 10 Taler auf die Zahlungsmittel auf. </p>
 
 {{formfield 'MOP1'}}
 
@@ -60,8 +55,11 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
     
 <br>
 
-<p>Dieser Taschenrechner rechnet Ihr hypothetisches Einkommen aus (Einkommen welches erzielt wird, wenn die Transaktion stattfindet). 
-    Bitte geben Sie an, wieviele Taler Sie auf die Zahlungsmittel aufteilen möchten. Der Taschrenrechner errechnet anschließend Ihre Auszahlung.
+<details>
+    <summary>Klicken Sie hier für einen Taschenrechner.</summary>
+
+<p>Dieser Taschenrechner rechnet Ihr hypothetisches Einkommen aus (Einkommen welches erzielt wird, wenn die Transaktion erfolgreich ist). 
+    Bitte geben Sie an, wieviele Taler Sie auf die Zahlungsmittel aufteilen möchten. Der Taschrenrechner errechnet dann Ihr Einkommen.
 </p>
 
 <p>Bitte beachten Sie, dass die Summe der Zahlungsmittel 10 ergeben muss.
@@ -87,7 +85,7 @@ Zahlungsmittel 3 nicht genutzt werden.</p>
 
 {{endif}}
 
-
+</details>
 
 <script>
     let projectionEle = document.getElementById('projection');

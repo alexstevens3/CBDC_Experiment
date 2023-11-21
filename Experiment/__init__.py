@@ -267,7 +267,11 @@ class Beliefs(Page):
         if player.CBDC_Choice == False:
             player.transaktionen_MOP3 = 0
 
-
+class Welcome(Page):
+    timeout_seconds = 30
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == 1
 
 class Trading(Page):
     timeout_seconds = 60
@@ -316,4 +320,4 @@ class Total_Payoff(Page):
         else:
             participant.payoff_total_allrounds = player.payoff_total
 
-page_sequence = [Treatment, CBDCChoice, PaymentChoice, WaitingPage, Beliefs, Trading, Total_Payoff, WaitingPage]
+page_sequence = [Welcome, WaitingPage, Treatment, CBDCChoice, PaymentChoice, WaitingPage, Beliefs, Trading, Total_Payoff, WaitingPage]

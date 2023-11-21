@@ -1,5 +1,4 @@
 {{ block title }}
-    Ihre Auszahlung
 {{ endblock }}
 {{ block content }}
 
@@ -9,12 +8,11 @@
 
 <p>Für das Erscheinen erhalten Sie {{C.showup}} Euro. </p>
 
-<p>Für das Ausfüllen des Fragebogens erhalten Sie 2 Euro.</p>
+<p>Für das Ausfüllen des Fragebogens erhalten Sie {{C.survey_fee}} Euro.</p>
 
 <p>Ihre Gesamtauszahlung beträgt <b>{{participant.payoff_plus_fee}} Euro</b>.</p>
 
-<p>Vielen Dank für Ihre Teilnahme am Experiment.</p>
+<p>Wir bedanken uns für Ihre Teilnahme am Experiment.</p>
     
-    {{ next_button }}
-
+    
 {{ endblock }}

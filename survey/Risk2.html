@@ -1,11 +1,187 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
 
-{{ block title }}
-    Bitte beantworten Sie die folgenden Fragen.
-{{ endblock }}
-{{ block content }}
+{% block styles %}
+    <link href="{% static 'global/risk.css' %}" rel="stylesheet">
+{% endblock %}
 
 
-    {{ formfields }}
-    {{ next_button }}
+{% block content %}
+    <div>
+        <p>
+            Please choose for every row, whether you prefer the lottery or the fixed payment.
+        </p>
+    </div>
+    <div class="card">
+        <table class="table table-striped">
+            <thead>
+            <tr class="header">
+                <th class="lottery-a" width=55%>Option A </th>
+                <th class="formfield" width=13%></th>
+                <th class="lottery-b" width=35%>Option B</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="lottery-a" >
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler </td>
+                <td class="formfield" >
+                    <label>
+                        <input type="radio" name="risk1" value="A"/>  A
+                    </label>
+                
+                    <label>
+                        <input type="radio" name="risk1" value="B"/>  B
+                    </label>
+                    
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 5 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler </td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk2" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk2" value="B"/> B
+                    </label>
+                    
+                  
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 10 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler </td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk3" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk3" value="B"/> B
+                    </label>
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 15 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler</td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk4" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk4" value="B"/> B
+                    </label>
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 20 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler </td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk5" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk5" value="B"/> B
+                    </label>
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 25 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler  </td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk6" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk6" value="B"/> B
+                    </label>
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 30 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler </td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk7" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk7" value="B"/> B
+                    </label>
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 35 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler </td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk8" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk8" value="B"/> B
+                    </label>
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 40 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler  </td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk9" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk9" value="B"/> B
+                    </label>
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 45 Taler
+                </td>
+            </tr>
+            <tr>
+                <td class="lottery-a">
+                    50% Chance auf 0 Taler, 50% Chance auf 50 Taler  </td>
+                <td class="formfield">
+                    <label>
+                        <input type="radio" name="risk10" value="A"/> A
+                    </label>
+                    <label>
+                        <input type="radio" name="risk10" value="B"/> B
+                    </label>
+                </td>
+                <td class="lottery-b">
+                    100% Chance auf 50 Taler
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-{{ endblock }}
+<br>
+
+{% next_button %}
+
+{% endblock %}

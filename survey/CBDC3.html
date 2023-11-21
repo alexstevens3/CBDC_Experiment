@@ -1,9 +1,18 @@
-{{ block title }}
-    Bitte beantworten Sie die folgenden Fragen.
-{{ endblock }}
-{{ block content }}
 
-{{formfield 'cbdc3'}}
+{{ block content }}
+Wie wahrscheinlich ist es, dass Sie nach einer Einführung den digitalen Euro nutzen würden?
+<table id="questions">
+    
+    <tr>
+        <td style="padding: 17px; text-align: middle" >Sehr wahrscheinlich</td>
+        {{for choices in form.cbdc3}}
+        <td style="padding: 15px;" >{{choices}}</td>
+        {{endfor}}
+        <td style="padding: 7px; text-align: middle" >Sehr unwahrscheinlich</td>
+    </tr>
+
+</table>
+
   
 {{ next_button }}
 {{ endblock }}
