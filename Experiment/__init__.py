@@ -11,7 +11,7 @@ Your app description
 class C(BaseConstants):
     NAME_IN_URL = 'Experiment'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 10
+    NUM_ROUNDS = 1
     MAXIMUM_EM = cu(10)
     #currency_range(0, 10, 1)
     TC_MOP1 = 0.50

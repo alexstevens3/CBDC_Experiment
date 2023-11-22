@@ -1,18 +1,53 @@
 {{ block title }}
+Ihre Auszahlung
 {{ endblock }}
 {{ block content }}
 
-<p>Ihr Einkommen im Experiment beträgt {{participant.payoff_total_allrounds}} Taler.</p>
 
-<p>Dies entspricht einer Auszahlung von {{participant.payoff_euro}} Euro. </p>
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  padding-top: 10px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 40px;
+}
+</style>
+<body>
 
-<p>Für das Erscheinen erhalten Sie {{C.showup}} Euro. </p>
-
-<p>Für das Ausfüllen des Fragebogens erhalten Sie {{C.survey_fee}} Euro.</p>
-
-<p>Ihre Gesamtauszahlung beträgt <b>{{participant.payoff_plus_fee}} Euro</b>.</p>
-
-<p>Wir bedanken uns für Ihre Teilnahme am Experiment.</p>
+<table>
     
+    <tbody>
+    <tr>
+    <td>Ihr Einkommen im Experiment beträgt</td>
+    <td>{{participant.payoff_total_allrounds|to2}} Taler</td>
+    </tr>
+    <tr>
+    <td>Dies entspricht einer Auszahlung von</td>
+    <td><b>{{participant.payoff_euro|to2}} Euro</b></td>
+    </tr>
+    <tr>
+    <td>Für das Erscheinen erhalten Sie</td>
+    <td>{{C.showup}} Euro</td>
+    </tr>
+    <tr>
+    <td>Für die Lotterie erhalten Sie </td>
+    <td>{{player.payoff_risk}} Euro</td>
+    </tr>
+    <tr>
+    <td>Für das Ausfüllen des Fragebogens erhalten Sie</td>
+    <td>{{C.survey_fee}} Euro</td>
+    </tr>
+    <tr>
+    <td>Ihre Gesamtauszahlung beträgt</td>
+    <td><b>{{participant.payoff_plus_fee|to2}} Euro</b></td>
+    </tr>
+    </tbody>
+    </table>
+
+    <br>
     
+    <p>Wir bedanken uns für Ihre Teilnahme am Experiment!</p>
+
 {{ endblock }}

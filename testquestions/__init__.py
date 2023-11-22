@@ -98,4 +98,4 @@ class Results(Page):
         else: player.all_answers_right = 0
 
 
-page_sequence = [Welcome, Welcome2, Questions, WaitingPage, Results]
+page_sequence = [Welcome, Welcome2, WaitingPage, Questions, WaitingPage, Results]
