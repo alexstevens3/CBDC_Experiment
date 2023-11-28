@@ -1,11 +1,9 @@
 from otree.api import *
 import random
 
-
 doc = """
 Your app description
 """
-
 
 class C(BaseConstants):
     NAME_IN_URL = 'survey'
@@ -13,11 +11,11 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
     showup = 6
     survey_fee = 2
-    CHOICES = ['Anonymität der Zahlungen', 'Sicherheit in Bezug auf Datenschutz', 'Kostenfreie Nutzung', 'Bequeme Nutzung']
+    CHOICES = ['Anonymität der Zahlungen', 'Sicherheit in Bezug auf Datenschutz', 'Kostenfreie Nutzung', 'Einfache Nutzbarkeit']
+    CHOICESmop = ['Bargeld', 'Kontaktlos mit Girocard', 'Einschieben der Girocard in das Terminal und PIN oder Unterschrift', 'Kontaktlos mit Kreditkarte', 'Einschieben der Kreditkarte in das Terminal und PIN oder Unterschrift', 'Bezahlen mit dem Smartphone' ]
 
 @staticmethod
 def creating_session(subsession):
-    #subsession = player.subsession
     player = subsession.get_players()
     for player in subsession.get_players():
         player.risk_payoffrelevant = random.choice(['risk1', 'risk2', 'risk3', 'risk4', 'risk5', 'risk6', 'risk7', 'risk8', 'risk9', 'risk10', 'risk11'])
@@ -26,12 +24,14 @@ def creating_session(subsession):
 class Subsession(BaseSubsession):
     pass
 
-
 class Group(BaseGroup):
     pass
 
 def make_rank_field(label):
     return models.StringField(choices=C.CHOICES, label=label)
+
+def make_rank_field2(label):
+    return models.StringField(choices=C.CHOICESmop, label=label)
 
 class Player(BasePlayer):
     risk_payoffrelevant= models.StringField()
@@ -41,7 +41,6 @@ class Player(BasePlayer):
         label='Welches Geschlecht haben Sie?',
         widget=widgets.RadioSelect,
     )   
-
     Vollzeiterwerbstätig = models.BooleanField(blank=True)
     Teilzeiterwerbstätig = models.BooleanField(blank=True)
     Geringfügig_erwerbstätig = models.BooleanField(blank=True)
@@ -64,6 +63,8 @@ class Player(BasePlayer):
     )
     degree = models.StringField(
         label = 'Was studieren Sie?',
+        choices = ['Volkswirtschaftslehre', 'Betriebswirtschaftslehre', 'Biologie, Biochemie, Chemie oder Physik', 
+        'Sprachwissenschaften', 'Finanz- und Versicherungsmathematik', 'Geschichte', 'Informatik', 'Kommunikations- und Medienwissenschaft', 'Mathematik', 'Medizin oder Pharmazie', 'Politik- oder Sozialwissenschaften', 'Psychologie', 'Rechtswissenschaften', 'Anderer Studiengang']
     )
     semester = models.IntegerField(
         label = 'Im wievieltem Semester studieren Sie?',
@@ -71,7 +72,6 @@ class Player(BasePlayer):
     grade = models.FloatField(
         label= 'Was ist Ihre aktuelle Durchschnittsnote?'
     )
-    
     risk =  models.IntegerField(
         label = "",
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -81,7 +81,7 @@ class Player(BasePlayer):
         label = 'Was glauben Sie, worum es in diesem Experiment ging?',
     )
     cbdc2 = models.BooleanField(
-        label = 'Haben Sie bereits vor dem Experiment von digitalem Zentralbankgeld oder dem digitaler Euro) gehört bzw. darüber gelesen?',
+        label = 'Haben Sie bereits vor dem Experiment von dem digitalen Zentralbankgeld gehört?',
     )
     cbdc3 = models.StringField(
         label = 'Wie wahrscheinlich ist es, dass Sie nach einer Einführung das digitale Zentralbankgeld nutzen würden?',
@@ -98,19 +98,31 @@ class Player(BasePlayer):
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         widget=widgets.RadioSelectHorizontal,
     )
-    Bargeld = models.BooleanField(blank=True)
-    Girocard_kontaktlos = models.BooleanField(blank=True)
-    Girocard_einschieben = models.BooleanField(blank=True)
-    Kreditkarte_kontaktlos = models.BooleanField(blank=True)
-    Kreditkarte_einschieben = models.BooleanField(blank=True)
-    Smartphone_Debit = models.BooleanField(blank=True)
-    Smartphone_Kredit = models.BooleanField(blank=True)
-    Anderes_Zahlungsmittel = models.BooleanField(blank=True)
+    #Bargeld = models.BooleanField(blank=True)
+    #Girocard_kontaktlos = models.BooleanField(blank=True)
+    #Girocard_einschieben = models.BooleanField(blank=True)
+    #Kreditkarte_kontaktlos = models.BooleanField(blank=True)
+    #Kreditkarte_einschieben = models.BooleanField(blank=True)
+   # Smartphone = models.BooleanField(blank=True)
+    #Anderes_Zahlungsmittel = models.BooleanField(blank=True)
 
-    rank1 = make_rank_field("Top choice")
-    rank2 = make_rank_field("Second choice")
-    rank3 = make_rank_field("Third choice")
-    rank4 = make_rank_field("Fourth choice")
+    anonymity1 = models.BooleanField(blank=True)
+    anonymity2 = models.BooleanField(blank=True)
+    anonymity3 = models.BooleanField(blank=True)
+    anonymity4 = models.BooleanField(blank=True)
+    anonymity5 = models.BooleanField(blank=True)
+
+    rank1_cbdc4 = make_rank_field("Erste Wahl")
+    rank2_cbdc4  = make_rank_field("Zweite Wahl")
+    rank3_cbdc4  = make_rank_field("Dritte Wahl")
+    rank4_cbdc4  = make_rank_field("Vierte Wahl")
+
+    rank1_cbdc6 = make_rank_field2("Erste Wahl")
+    rank2_cbdc6 = make_rank_field2("Zweite Wahl")
+    rank3_cbdc6 = make_rank_field2("Dritte Wahl")
+    rank4_cbdc6 = make_rank_field2("Vierte Wahl")
+    rank5_cbdc6 = make_rank_field2("Fünfte Wahl")
+    rank6_cbdc6 = make_rank_field2("Sechste Wahl")
 
     risk1 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
     risk2 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
@@ -126,9 +138,9 @@ class Player(BasePlayer):
 
     payoff_risk = models.FloatField()
 
-
-class AnonymityPreferences(Page):
-    pass
+class Anonymity(Page):
+    form_model = 'player'
+    form_fields = ['anonymity1', 'anonymity2', 'anonymity3', 'anonymity4', 'anonymity5']
 
 class CBDC1(Page):
     form_model = 'player'
@@ -144,24 +156,28 @@ class CBDC3(Page):
 
 class CBDC4(Page):
     form_model = 'player'
-    form_fields = ['rank1', 'rank2', 'rank3', 'rank4']
+    form_fields = ['rank1_cbdc4', 'rank2_cbdc4', 'rank3_cbdc4', 'rank4_cbdc4']
 
     @staticmethod
     def error_message(player: Player, values):
-        choices = [values['rank1'], values['rank2'], values['rank3'], values['rank4'],]
-        # set() gives you distinct elements. if a list's length is different from its
-        # set length, that means it must have duplicates.
+        choices = [values['rank1_cbdc4'], values['rank2_cbdc4'], values['rank3_cbdc4'], values['rank4_cbdc4'],]
         if len(set(choices)) != len(choices):
-            return "You cannot choose the same item twice"
+            return "Sie können dieselbe Eigenschaft nicht mehrfach auswählen"
 
 class CBDC5(Page):
     form_model = 'player'
     form_fields = ['cbdc5']
        
-
 class CBDC6(Page):
     form_model = 'player'
-    form_fields = ['Bargeld', 'Girocard_kontaktlos', 'Girocard_einschieben', 'Kreditkarte_kontaktlos', 'Kreditkarte_einschieben', 'Smartphone_Debit', 'Smartphone_Kredit', 'Anderes_Zahlungsmittel']
+    form_fields = ['rank1_cbdc6', 'rank2_cbdc6', 'rank3_cbdc6', 'rank4_cbdc6', 'rank5_cbdc6', 'rank6_cbdc6']
+   # form_fields = ['Bargeld', 'Girocard_kontaktlos', 'Girocard_einschieben', 'Kreditkarte_kontaktlos', 'Kreditkarte_einschieben', 'Smartphone', 'Anderes_Zahlungsmittel']
+
+    @staticmethod
+    def error_message(player: Player, values):
+        choices2 = [values['rank1_cbdc6'], values['rank2_cbdc6'], values['rank3_cbdc6'], values['rank4_cbdc6'], values['rank5_cbdc6'], values['rank6_cbdc6']]
+        if len(set(choices2)) != len(choices2):
+            return "Sie können dasselbe Zahlungsmittel nicht mehrfach auswählen"
 
 class Risk1(Page):
     form_model = 'player'
@@ -200,60 +216,82 @@ class Demographics(Page):
         if player.field_maybe_none("Nicht_erwerbstätig_und_nicht_Arbeitssuchend") == None:
             player.Nicht_erwerbstätig_und_nicht_Arbeitssuchend = 0
 
+        if player.field_maybe_none("anonymity1") == None:
+            player.anonymity1 = 0
+        if player.field_maybe_none("anonymity2") == None:
+            player.anonymity2 = 0
+        if player.field_maybe_none("anonymity3") == None:
+            player.anonymity3 = 0
+        if player.field_maybe_none("anonymity4") == None:
+            player.anonymity4 = 0
+        if player.field_maybe_none("anonymity5") == None:
+            player.anonymity5 = 0
+
         if player.risk_payoffrelevant == 'risk1':
             if player.risk1 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 2
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk1 == 'B':
+                player.payoff_risk = 2
 
         if player.risk_payoffrelevant == 'risk2':
             if player.risk2 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 2.50
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk2 == 'B':
+                player.payoff_risk = 2.50
 
         if player.risk_payoffrelevant == 'risk3':
             if player.risk3 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 3
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk3 == 'B':
+                player.payoff_risk = 3
             
         if player.risk_payoffrelevant == 'risk4':
             if player.risk4 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 3.50
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk4 == 'B':
+                player.payoff_risk = 3.50
 
         if player.risk_payoffrelevant == 'risk5':
             if player.risk5 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 4
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk5 == 'B':
+                player.payoff_risk = 4
 
         if player.risk_payoffrelevant == 'risk6':
             if player.risk6 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 4.50
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk6 == 'B':
+                player.payoff_risk = 4.50
 
         if player.risk_payoffrelevant == 'risk7':
             if player.risk7 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 5
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk7 == 'B':
+                player.payoff_risk = 5
 
         if player.risk_payoffrelevant == 'risk8':
             if player.risk8 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 5.50
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk8 == 'B':
+                player.payoff_risk = 5.50
 
         if player.risk_payoffrelevant == 'risk9':
             if player.risk9 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 6
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk9 == 'B':
+                player.payoff_risk = 6
 
         if player.risk_payoffrelevant == 'risk10':
             if player.risk10 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 6.50
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk10 == 'B':
+                player.payoff_risk = 6.50
 
         if player.risk_payoffrelevant == 'risk11':
             if player.risk11 == 'A':
-                player.payoff_risk = random.choice([0, 50])
-            else: player.payoff_risk = 7
+                player.payoff_risk = random.choice([2, 7])
+            if player.risk11 == 'B':
+                player.payoff_risk = 7
 
 class Demographics_degree(Page):
     @staticmethod
@@ -263,7 +301,6 @@ class Demographics_degree(Page):
     form_model = 'player'
     form_fields = ['degree', 'semester', 'grade']
 
-
 class Auszahlungsseite(Page):
     @staticmethod
     def vars_for_template(player):
@@ -272,6 +309,4 @@ class Auszahlungsseite(Page):
         participant.payoff_euro = participant.payoff_total_allrounds * session.config['real_world_currency_per_point']
         participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk
         
-
-
-page_sequence = [Welcome, Risk1, Risk2, Demographics, Demographics_degree, CBDC1, CBDC2, CBDC3, CBDC4, CBDC5, CBDC6, Auszahlungsseite]
+page_sequence = [Welcome, Risk1, Risk2, CBDC1, CBDC2, CBDC3, CBDC4, CBDC5, CBDC6, Anonymity, Demographics, Demographics_degree, Auszahlungsseite]

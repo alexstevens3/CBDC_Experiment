@@ -41,6 +41,7 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 <style>
 table, th, td {
   border: 2px solid black;
+  font-weight:400;
 }
 
 th, td {
@@ -71,10 +72,6 @@ th, td {
 <br>
 <p>Daraus ergibt sich folgendes <b>Einkommen für Marktrunde {{ player.round_number }}:</b></p>
 
-
-
-
-
 <!DOCTYPE html>
 <html>
 <style>
@@ -104,8 +101,6 @@ table, th, td {
     <td>{{player.payoff_MOP2|to2}} Taler</td>
     <td>{{player.field_maybe_none('payoff_MOP3')|to2}} Taler</td>
     <td>{{player.payoff_total|to2}} Taler</td>
-
-    
   </tr>
   
 </table>

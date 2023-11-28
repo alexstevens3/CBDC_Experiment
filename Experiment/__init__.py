@@ -1,19 +1,15 @@
 from otree.api import *
-#import numpy as np
 import random
-
 
 doc = """
 Your app description
 """
-
 
 class C(BaseConstants):
     NAME_IN_URL = 'Experiment'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 1
     MAXIMUM_EM = cu(10)
-    #currency_range(0, 10, 1)
     TC_MOP1 = 0.50
     TC_MOP2 = 0.38
     TC_MOP3 = 0.10
@@ -22,11 +18,9 @@ class C(BaseConstants):
 
 @staticmethod
 def creating_session(subsession):
-    #subsession = player.subsession
     player = subsession.get_players()
     for player in subsession.get_players():
         player.prob_MOP2 = random.randint(0,100)   
-
 
     import itertools
     if subsession.round_number <=5:
@@ -38,25 +32,19 @@ def creating_session(subsession):
         CBDC = itertools.cycle(['Token', 'Account'])
         for player in subsession.get_players():
             player.CBDC_design = next(CBDC)
-   
         
 @staticmethod
 def set_payoffs(player):
     player.payoff = player.payoff_MOP1 + player.payoff_MOP2 + player.payoff_MOP3
 
-
 class Subsession(BaseSubsession):
     pass
     
-
 class Group(BaseGroup):
     nb_players_CBDC_Yes = models.FloatField()
     share_players_CBDC_Yes = models.FloatField()
     sum_MOP3 = models.FloatField()
     average_MOP3 = models.FloatField()
-
-#class Participant(BasePlayer):
- #   payoff_total_allrounds = models.FloatField()
 
 class Player(BasePlayer):
     MOP1 = models.IntegerField(
@@ -92,17 +80,14 @@ class Player(BasePlayer):
     CBDC_Choice_Yes = models.IntegerField()
     payoff_total_allrounds1 = models.FloatField()
     belief1 = models.IntegerField(
-        label = "",
         min=0,
         max=C.PLAYERS_PER_GROUP,
         doc="Belief about/Expected CBDC_Choice_Yes")
     belief2 = models.IntegerField(
-        label = "",
         min=0,
         max=C.MAXIMUM_EM,
         doc="Belief about/Expected MOP3")
     belief3 = models.IntegerField(
-        label = "",
         min=0,
         max=100,
         doc="Belief about prob. acceptance MOP3")
@@ -123,9 +108,6 @@ class Player(BasePlayer):
         min=0,
         max=10,
         blank=True)
-    
-  
-    
 
 class Treatment(Page):
     timeout_seconds = 30
@@ -139,16 +121,11 @@ class CBDCChoice(Page):
         if player.CBDC_Choice == 1:
             player.CBDC_Choice_Yes =1
         if player.CBDC_Choice == 0:
-            player.CBDC_Choice_Yes =0
-
-             
+            player.CBDC_Choice_Yes =0  
 
 class PaymentChoice(Page):
     form_model = 'player'
     form_fields = ['amount1', 'amount2', 'amount3']
-
-    
-
 
     @staticmethod
     def get_form_fields(player):
@@ -169,48 +146,13 @@ class PaymentChoice(Page):
     def before_next_page(player, timeout_happened):
         player.MOP2_accept=player.prob_MOP2<=81
 
- 
-
     @staticmethod
     def js_vars(player):
         return dict(TC1=C.TC_MOP1, TC2=C.TC_MOP2, TC3=C.TC_MOP3)
 
-  
-
-   # @staticmethod
-   # def calculate_result(player):
-    #    player.calculate_result = player.calculator_input * 2
-
-   # def vars_for_template(player):
-  #     return {
-   #       'example_variable': 42,  # You can pass additional variables to the template if needed.
-   #     }
-
-   # def calculator_input_error_message(player, value):
-  #      if not value:
-   #         return 'Please enter a valid value.'
-
-   # def before_next_page(player):
-   #     player.calculate_result()
-
-    
-    #@staticmethod
-   # def vars_for_template(player):
-    #    group = player.group
-    #    players = group.get_players()
-        
-    #    for player in group.get_players():
-    #        group.nb_players_CBDC_Yes = sum([player.CBDC_Choice_Yes for player in players]) 
-      #      group.share_players_CBDC_Yes = (group.nb_players_CBDC_Yes /  C.PLAYERS_PER_GROUP) *100
-          
-      #      group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players if player.CBDC_Choice_Yes ==1 ]) 
-        
-
-
 class WaitingPage(WaitPage):
     template_name = 'Experiment\WaitingPage.html'
     wait_for_all_players = True
-
 
 class Beliefs(Page):
     form_model = 'player'
@@ -223,7 +165,6 @@ class Beliefs(Page):
    #         return 'Der Wert muss zwischen 0 und 10 liegen'
    #     if values['belief2'] > 10:
    #         return 'x'
-       
 
     @staticmethod
     def vars_for_template(player):
@@ -243,7 +184,6 @@ class Beliefs(Page):
           
             group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players if player.CBDC_Choice_Yes ==1 ]) 
             group.average_MOP3 = group.sum_MOP3 / C.PLAYERS_PER_GROUP
-        
 
     @staticmethod
     def before_next_page(player, timeout_happened):
@@ -259,7 +199,6 @@ class Beliefs(Page):
        #     player.transaktionen_MOP3 = player.MOP3
       #  if player.CBDC_Choice == True and player.MOP3_accept == 0:
        #     player.transaktionen_MOP3 = 0
-
         if player.CBDC_Choice == True and group.share_players_CBDC_Yes >= 60: 
             player.transaktionen_MOP3 = player.MOP3
         if player.CBDC_Choice == True and group.share_players_CBDC_Yes < 60:
@@ -313,7 +252,6 @@ class Total_Payoff(Page):
         else:
             player.payoff_total_allrounds1 = player.payoff_total
    
-
         participant=player.participant
         if player.round_number > 1:
             participant.payoff_total_allrounds = sum([player.payoff_total for player in player.in_all_rounds()])

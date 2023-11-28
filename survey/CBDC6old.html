@@ -1,0 +1,55 @@
+
+{{ block content }}
+
+
+<p>Wenn Sie einmal daran denken, wie Sie Produkte des täglichen Bedarfs, z.B. im Supermarkt,
+    beim Bäcker oder in Drogerien, bezahlen. Welches Zahlungsmittel nutzen Sie am häufigsten?</p>
+
+    
+
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="Bargeld" name="Bargeld">
+    <label class="form-check-label">
+      Bargeld
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="Girocard_kontaktlos" name="Girocard_kontaktlos">
+    <label class="form-check-label">
+      Kontaktlos mit Girocard (frühere EC-Karte) oder anderer Debitkarte
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="Girocard_einschieben" name="Girocard_einschieben">
+    <label class="form-check-label">
+      Einschieben der Girocard (frühere EC-Karte) oder anderer Debitkarte in das Terminal und PIN oder Unterschrift        
+    </label>
+  </div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="Kreditkarte_kontaktlos" name="Kreditkarte_kontaktlos">
+  <label class="form-check-label">
+      Kontaktlos mit Kreditkarte
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="Kreditkarte_einschieben" name="Kreditkarte_einschieben">
+  <label class="form-check-label">
+      Einschieben der Kreditkarte in das Terminal und PIN oder Unterschrift
+  </label>
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="Smartphone" name="Smartphone">
+    <label class="form-check-label">
+      Bezahlen mit dem Smartphone
+    </label>
+  </div>
+<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="Anderes_Zahlungsmittel" name="Anderes_Zahlungsmittel">
+    <label class="form-check-label">
+      Anderes Zahlungsmittel
+    </label>
+</div>
+  
+<br>
+    {{ next_button }}
+{{ endblock }}

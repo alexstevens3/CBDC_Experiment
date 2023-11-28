@@ -3,58 +3,16 @@
 
 
 <p>Wenn Sie einmal daran denken, wie Sie Produkte des täglichen Bedarfs, z.B. im Supermarkt,
-    beim Bäcker oder in Drogerien, bezahlen. Welche Zahlungsmittel haben Sie für die letzten 10
-    Zahlungen benutzt? (Mehrfachnennungen möglich.)</p>
+    beim Bäcker oder in Drogerien, bezahlen. Welche Zahlungsmittel nutzen Sie am häufigsten?</p>
+<p>Bitte ordnen Sie die Zahlungsmittel der Reihenfolge nach an. 
+    "Erste Wahl" ist das Zahlungsmittel welches Sie am häufigsten nutzen, und "Sechste Wahl" ist das Zahlungsmittel welches sie am seltesten nutzen.</p> 
 
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="Bargeld" name="Bargeld">
-    <label class="form-check-label">
-      Bargeld
-    </label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="Girocard_kontaktlos" name="Girocard_kontaktlos">
-    <label class="form-check-label">
-      Kontaktlos mit Girocard (frühere EC-Karte) oder anderer Debitkarte
-    </label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="Girocard_einschieben" name="Girocard_einschieben">
-    <label class="form-check-label">
-      Einschieben der Girocard (frühere EC-Karte) oder anderer Debitkarte in das Terminal und PIN oder Unterschrift        
-    </label>
-  </div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="Kreditkarte_kontaktlos" name="Kreditkarte_kontaktlos">
-  <label class="form-check-label">
-      Kontaktlos mit Kreditkarte
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="Kreditkarte_einschieben" name="Kreditkarte_einschieben">
-  <label class="form-check-label">
-      Einschieben der Kreditkarte in das Terminal und PIN oder Unterschrift
-  </label>
-</div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="Smartphone_Debit" name="Smartphone_Debit">
-    <label class="form-check-label">
-      Bezahlen mit dem Smartphone mit der Debitkarte (Girocard, früher EC-Karte)
-    </label>
-  </div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="Smartphone_Kredit" name="Smartphone_Kredit">
-    <label class="form-check-label">
-      Bezahlen mit dem Smartphone mit der Kreditkarte (z.B. VISA oder MasterCard Credit)
-    </label>
-</div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="Anderes_Zahlungsmittel" name="Anderes_Zahlungsmittel">
-    <label class="form-check-label">
-      Anderes Zahlungsmittel
-    </label>
-</div>
-  
+{{formfields}}
+
+
+<small>*Eine Girokarte ist gleichzusetzen mit einer EC-Karte oder einer Debitkarte.</small>
+
 <br>
-    {{ next_button }}
+<br>
+{{ next_button }}
 {{ endblock }}
