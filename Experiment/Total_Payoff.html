@@ -6,7 +6,17 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 <p>Ihr Gesamteinkommen aus den bisherigen Runden beträgt {{participant.payoff_total_allrounds|to2}} Taler.</p>
 
+{{if player.round_number < 10 }}
+
 <p>Bitte klicken Sie auf Weiter, damit die nächste Marktrunde beginnt.</p>
+
+{{endif}}
+
+{{if player.round_number == 10 }}
+
+<p>Bitte klicken Sie auf Weiter.</p>
+
+{{endif}}
 
 {{ formfields }}
 

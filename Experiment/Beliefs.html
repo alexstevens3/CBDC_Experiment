@@ -4,13 +4,12 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ block content }}
 
-{{ if player.round_number > 1 }}
+{{if player.round_number > 1}}
+{{if player.round_number < 10}}
 
-<p>In Marktrunde {{player.field_maybe_none('last_round')}} lag der Anteil der Käufer die {{C.Adoption_MOP3|to2}} Taler gezahlt haben um Zahlungsmittel 3 nutzen zu können bei {{group.share_players_CBDC_Yes |to0}}%. </p>
+<p>In dieser Marktrunde liegt der Anteil der Käufer die {{C.Adoption_MOP3|to2}} Taler gezahlt haben um Zahlungsmittel 3 nutzen zu können bei {{group.share_players_CBDC_Yes |to0}}%. </p>
 
-<p>In Marktrunde {{player.field_maybe_none('last_round')}} wurden im Durschnitt {{group.average_MOP3}} Taler auf Zahlungsmittel 3 verteilt.</p>
-    
-{{ endif }}
+<p>In dieser Marktrunde haben Käufer im Durschnitt {{group.average_MOP3|to0}} Taler auf Zahlungsmittel 3 verteilt.</p>
 
 <p>Bitte prognostizieren Sie für die nächste Marktrunde <b>(Marktrunde {{player.next_round}})</b>:</p>
 
@@ -20,5 +19,22 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 <p>Wie hoch ist die Wahrscheinlichkeit, dass mindestens 60% der Käufer {{C.Adoption_MOP3|to2}} Taler zahlen um Zahlungsmittel 3 nutzen zu können, sodass Zahlungsmittel 3 vom Verkäufer akzeptiert wird?</p> {{formfield 'belief3'}}
 
+{{endif}}
+{{endif}}
+
+{{if player.round_number == 1}}
+
+Dies ist die erste Marktrunde, sie müssen keine Prognose geben.
+
+{{endif}}
+
+{{if player.round_number == 10}}
+
+Dies ist die letzte Marktrunde, sie müssen keine Prognose geben.
+
+{{endif}}
+
+<br>
+<br>
     {{ next_button }}
 {{ endblock }}
