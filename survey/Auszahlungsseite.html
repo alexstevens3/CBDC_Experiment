@@ -1,5 +1,5 @@
 {{ block title }}
-Ihre Auszahlung
+Seite 11 von 11
 {{ endblock }}
 {{ block content }}
 
@@ -16,6 +16,10 @@ table, th, td {
 </style>
 <body>
 
+<p>Wir bedanken uns für Ihre Teilnahme am Experiment!</p>
+
+<p>Für Ihre Teilnahme erhalten Sie folgende Auszahlung:</p>
+
 <table>
     
     <tbody>
@@ -29,15 +33,15 @@ table, th, td {
     </tr>
     <tr>
     <td>Für das Erscheinen erhalten Sie</td>
-    <td>{{C.showup}} Euro</td>
+    <td>{{C.showup|to2}} Euro</td>
     </tr>
     <tr>
     <td>Für die Lotterie erhalten Sie </td>
-    <td>{{player.payoff_risk}} Euro</td>
+    <td>{{player.payoff_risk|to2}} Euro</td>
     </tr>
     <tr>
     <td>Für das Ausfüllen des Fragebogens erhalten Sie</td>
-    <td>{{C.survey_fee}} Euro</td>
+    <td>{{C.survey_fee|to2}} Euro</td>
     </tr>
     <tr>
     <td>Ihre Gesamtauszahlung beträgt</td>
@@ -48,6 +52,6 @@ table, th, td {
 
     <br>
     
-    <p>Wir bedanken uns für Ihre Teilnahme am Experiment!</p>
+    
 
 {{ endblock }}

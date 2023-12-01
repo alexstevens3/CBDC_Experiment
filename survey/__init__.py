@@ -10,7 +10,7 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
     showup = 6
-    survey_fee = 2
+    survey_fee = 1
     CHOICES = ['Anonymität der Zahlungen', 'Sicherheit in Bezug auf Datenschutz', 'Kostenfreie Nutzung', 'Einfache Nutzbarkeit']
     CHOICESmop = ['Bargeld', 'Kontaktlos mit Girocard', 'Einschieben der Girocard in das Terminal und PIN oder Unterschrift', 'Kontaktlos mit Kreditkarte', 'Einschieben der Kreditkarte in das Terminal und PIN oder Unterschrift', 'Bezahlen mit dem Smartphone' ]
 
@@ -68,9 +68,11 @@ class Player(BasePlayer):
     )
     semester = models.IntegerField(
         label = 'Im wievieltem Semester studieren Sie?',
+        blank = True
     )
     grade = models.FloatField(
-        label= 'Was ist Ihre aktuelle Durchschnittsnote?'
+        label= 'Was ist Ihre aktuelle Durchschnittsnote?',
+        blank = True
     )
     risk =  models.IntegerField(
         label = "",
@@ -98,6 +100,14 @@ class Player(BasePlayer):
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         widget=widgets.RadioSelectHorizontal,
     )
+    anonymity = models.StringField(
+        label = "",
+        choices = [[1, 'Ich mache mir große Sorgen in Bezug auf die Weitergabe meiner persönlichen Daten.'], 
+        [2, 'Ich mache mir Sorgen in Bezug auf die Weitergabe meiner persönlichen Daten.'], 
+        [3,'Ich mache mir etwas Sorgen in Bezug auf die Weitergabe meiner persönlichen Daten.'],
+        [4, 'Ich mache mir keine Sorgen in Bezug auf die Weitergabe meiner persönlichen Daten.']],
+        widget=widgets.RadioSelect,
+    )
     #Bargeld = models.BooleanField(blank=True)
     #Girocard_kontaktlos = models.BooleanField(blank=True)
     #Girocard_einschieben = models.BooleanField(blank=True)
@@ -105,12 +115,6 @@ class Player(BasePlayer):
     #Kreditkarte_einschieben = models.BooleanField(blank=True)
    # Smartphone = models.BooleanField(blank=True)
     #Anderes_Zahlungsmittel = models.BooleanField(blank=True)
-
-    anonymity1 = models.BooleanField(blank=True)
-    anonymity2 = models.BooleanField(blank=True)
-    anonymity3 = models.BooleanField(blank=True)
-    anonymity4 = models.BooleanField(blank=True)
-    anonymity5 = models.BooleanField(blank=True)
 
     rank1_cbdc4 = make_rank_field("Erste Wahl")
     rank2_cbdc4  = make_rank_field("Zweite Wahl")
@@ -140,7 +144,7 @@ class Player(BasePlayer):
 
 class Anonymity(Page):
     form_model = 'player'
-    form_fields = ['anonymity1', 'anonymity2', 'anonymity3', 'anonymity4', 'anonymity5']
+    form_fields = ['anonymity']
 
 class CBDC1(Page):
     form_model = 'player'
@@ -216,82 +220,71 @@ class Demographics(Page):
         if player.field_maybe_none("Nicht_erwerbstätig_und_nicht_Arbeitssuchend") == None:
             player.Nicht_erwerbstätig_und_nicht_Arbeitssuchend = 0
 
-        if player.field_maybe_none("anonymity1") == None:
-            player.anonymity1 = 0
-        if player.field_maybe_none("anonymity2") == None:
-            player.anonymity2 = 0
-        if player.field_maybe_none("anonymity3") == None:
-            player.anonymity3 = 0
-        if player.field_maybe_none("anonymity4") == None:
-            player.anonymity4 = 0
-        if player.field_maybe_none("anonymity5") == None:
-            player.anonymity5 = 0
-
         if player.risk_payoffrelevant == 'risk1':
             if player.risk1 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk1 == 'B':
-                player.payoff_risk = 2
+                player.payoff_risk = 1
 
         if player.risk_payoffrelevant == 'risk2':
             if player.risk2 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk2 == 'B':
-                player.payoff_risk = 2.50
+                player.payoff_risk = 1.50
 
         if player.risk_payoffrelevant == 'risk3':
             if player.risk3 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk3 == 'B':
-                player.payoff_risk = 3
+                player.payoff_risk = 2
             
         if player.risk_payoffrelevant == 'risk4':
             if player.risk4 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk4 == 'B':
-                player.payoff_risk = 3.50
+                player.payoff_risk = 2.50
 
         if player.risk_payoffrelevant == 'risk5':
             if player.risk5 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk5 == 'B':
-                player.payoff_risk = 4
+                player.payoff_risk = 3
 
         if player.risk_payoffrelevant == 'risk6':
             if player.risk6 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk6 == 'B':
-                player.payoff_risk = 4.50
+                player.payoff_risk = 3.50
 
         if player.risk_payoffrelevant == 'risk7':
             if player.risk7 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk7 == 'B':
-                player.payoff_risk = 5
+                player.payoff_risk = 4
 
         if player.risk_payoffrelevant == 'risk8':
             if player.risk8 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk8 == 'B':
-                player.payoff_risk = 5.50
+                player.payoff_risk = 4.50
 
         if player.risk_payoffrelevant == 'risk9':
             if player.risk9 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk9 == 'B':
-                player.payoff_risk = 6
+                player.payoff_risk = 5
 
         if player.risk_payoffrelevant == 'risk10':
             if player.risk10 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk10 == 'B':
-                player.payoff_risk = 6.50
+                player.payoff_risk = 5.50
 
         if player.risk_payoffrelevant == 'risk11':
             if player.risk11 == 'A':
-                player.payoff_risk = random.choice([2, 7])
+                player.payoff_risk = random.choice([1, 6])
             if player.risk11 == 'B':
-                player.payoff_risk = 7
+                player.payoff_risk = 6
 
 class Demographics_degree(Page):
     @staticmethod

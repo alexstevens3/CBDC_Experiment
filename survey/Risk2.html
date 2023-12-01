@@ -4,12 +4,14 @@
 {% block styles %}
     <link href="{% static 'global/risk.css' %}" rel="stylesheet">
 {% endblock %}
-
+{{ block title }}
+Seite 2 von 11
+{{ endblock }}
 
 {% block content %}
     <div>
         <p> Bitte wählen Sie in der untenstehenden Tabelle für jede der 11 Zeilen zwischen der Lotterie (Option A) und einer fixen Zahlung (Option B).
-            Am Ende des Experiments wird zufällig einer der 11 Zeilen ausgewählt und ausgezahlt. 
+            Am Ende des Experiments wird zufällig eine der 11 Zeilen ausgewählt und ausgezahlt. 
         </p>
     </div>
     <div class="card">
@@ -24,7 +26,7 @@
             <tbody>
             <tr>
                 <td class="lottery-a" >
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro </td>
                 <td class="formfield" >
                     <label>
                         <input type="radio" name="risk1" value="A"/>  A
@@ -36,12 +38,12 @@
                     
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 2 Euro
+                    100% Chance auf 1 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk2" value="A"/> A
@@ -53,12 +55,12 @@
                   
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 2.50 Euro
+                    100% Chance auf 1.50 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk3" value="A"/> A
@@ -68,12 +70,12 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 3 Euro
+                    100% Chance auf 2 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro</td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro</td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk4" value="A"/> A
@@ -83,12 +85,12 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 3.50 Euro
+                    100% Chance auf 2.50 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk5" value="A"/> A
@@ -98,12 +100,12 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 4 Euro
+                    100% Chance auf 3 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro  </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro  </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk6" value="A"/> A
@@ -113,12 +115,12 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 4.50 Euro
+                    100% Chance auf 3.50 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk7" value="A"/> A
@@ -128,12 +130,12 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 5 Euro
+                    100% Chance auf 4 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk8" value="A"/> A
@@ -143,12 +145,12 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 5.50 Euro
+                    100% Chance auf 4.50 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro  </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro  </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk9" value="A"/> A
@@ -158,12 +160,12 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 6 Euro
+                    100% Chance auf 5 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro  </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro  </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk10" value="A"/> A
@@ -173,12 +175,12 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 6.50 Euro
+                    100% Chance auf 5.50 Euro
                 </td>
             </tr>
             <tr>
                 <td class="lottery-a">
-                    50% Chance auf 2 Euro, 50% Chance auf 7 Euro  </td>
+                    50% Chance auf 1 Euro, 50% Chance auf 6 Euro  </td>
                 <td class="formfield">
                     <label>
                         <input type="radio" name="risk11" value="A"/> A
@@ -188,7 +190,7 @@
                     </label>
                 </td>
                 <td class="lottery-b">
-                    100% Chance auf 7 Euro
+                    100% Chance auf 6 Euro
                 </td>
             </tr>
             </tbody>

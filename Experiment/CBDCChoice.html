@@ -13,18 +13,204 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 <details>
     <summary>Klicken Sie hier für eine Beschreibung der Zahlungsmittel.</summary>
-    <img src="{{ static 'Token.jpg' }}" width="200px" /> 
+        <br>
+        <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    table {
+      border: 1px solid black;
+      border-collapse: collapse;
+     
+    }
+    td {
+        padding-right: 10px;
+    }
     
-</details>
-
-{{ endif }}
+    th, td {
+      padding: 3px;
+    }
+    table, th, td {
+        font-weight:400;
+        padding-top: 0px;
+      padding-bottom: 0px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    
+    </style>
+    </head>
+    <body>
+    Zahlungsmittel 1:
+    <br>
+    
+    <table>
+      <tr>
+        <th>Akzeptanz</th>
+        <td>  100% </td>
+      </tr>
+      <tr>
+        <th>Anonymität</th>
+        <td> Ja</td>
+      </tr>
+      <tr>
+        <th>Transaktionskosten</th>
+        <td>  0.50 Taler</td>
+      </tr>
+      <tr>
+        <th>Fixkosten</th>
+        <td>  0.00 Taler</td>
+      </tr>
+    </table>
+    <br>
+    Zahlungsmittel 2:
+    <br>
+    <table>
+        <tr>
+          <th>Akzeptanz</th>
+          <td>  81% </td>
+        </tr>
+        <tr>
+          <th>Anonymität</th>
+          <td> Nein</td>
+        </tr>
+        <tr>
+          <th>Transaktionskosten</th>
+          <td>  0.38 Taler</td>
+        </tr>
+        <tr>
+          <th>Fixkosten</th>
+          <td>  0.00 Taler</td>
+        </tr>
+      </table>
+      <br>
+      Zahlungsmittel 3:
+      <br>
+      <table>
+          <tr>
+            <th>Akzeptanz</th>
+            <td>  0-100% </td>
+          </tr>
+          <tr>
+            <th>Anonymität</th>
+            <td> Ja</td>
+          </tr>
+          <tr>
+            <th>Transaktionskosten</th>
+            <td>  0.10 Taler</td>
+          </tr>
+          <tr>
+            <th>Fixkosten</th>
+            <td>  0.40 Taler</td>
+          </tr>
+        </table>
+    
+    </body>
+    </html>
+        
+    </details>
+    
+    {{ endif }}
+    
     
 {{ if player.CBDC_design == "Account" }}
 
 <details>
     <summary>Klicken Sie hier für eine Beschreibung der Zahlungsmittel.</summary>
-    <img src="{{ static 'Account.jpg' }}" width="200px" /> 
-    
+    <br>
+    <!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+ 
+}
+td {
+    padding-right: 10px;
+}
+
+th, td {
+  padding: 3px;
+}
+table, th, td {
+    font-weight:400;
+    padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+</style>
+</head>
+<body>
+Zahlungsmittel 1:
+<br>
+
+<table>
+  <tr>
+    <th>Akzeptanz</th>
+    <td>  100% </td>
+  </tr>
+  <tr>
+    <th>Anonymität</th>
+    <td> Ja</td>
+  </tr>
+  <tr>
+    <th>Transaktionskosten</th>
+    <td>  0.50 Taler</td>
+  </tr>
+  <tr>
+    <th>Fixkosten</th>
+    <td>  0.00 Taler</td>
+  </tr>
+</table>
+<br>
+Zahlungsmittel 2:
+<br>
+<table>
+    <tr>
+      <th>Akzeptanz</th>
+      <td>  81% </td>
+    </tr>
+    <tr>
+      <th>Anonymität</th>
+      <td> Nein</td>
+    </tr>
+    <tr>
+      <th>Transaktionskosten</th>
+      <td>  0.38 Taler</td>
+    </tr>
+    <tr>
+      <th>Fixkosten</th>
+      <td>  0.00 Taler</td>
+    </tr>
+  </table>
+  <br>
+  Zahlungsmittel 3:
+  <br>
+  <table>
+      <tr>
+        <th>Akzeptanz</th>
+        <td>  0-100% </td>
+      </tr>
+      <tr>
+        <th>Anonymität</th>
+        <td> Nein</td>
+      </tr>
+      <tr>
+        <th>Transaktionskosten</th>
+        <td>  0.10 Taler</td>
+      </tr>
+      <tr>
+        <th>Fixkosten</th>
+        <td>  0.40 Taler</td>
+      </tr>
+    </table>
+
+</body>
+</html>
 </details>    
         
 {{ endif }}

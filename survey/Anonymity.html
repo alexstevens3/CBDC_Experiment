@@ -1,43 +1,14 @@
+{{ block title }}
+    Seite 9 von 11
+    {{ endblock }}
 {{ block content }}
+<p>Bitte beantworten Sie die folgende Frage.</p>
 
-<p>Bei jeder Zahlung mit unbaren Zahlungsmitteln (Überweisung, Bezahlen mit Giro- und Kreditkarte oder Smartphone) werden Zahlungsdaten elektronisch verarbeitet. 
-    Je nachdem, welche Zahlungsart über welches Zugangsmedium gewählt wird, erhalten unterschiedliche Unternehmen Zugriff darauf.</p>
-<p>Machen Sie sich Sorgen in Bezug auf die Weitergabe persönlicher Daten? Bitte geben Sie an, welche Aussagen auf Sie zutreffen. (Mehrfachnennungen sind möglich)</p>
-
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="anonymity1" name="anonymity1">
-    <label class="form-check-label">
-      Ich mache mir Sorgen, weil ich nicht weiß, wer meine Daten für welche Zwecke nutzt.
-    </label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="anonymity2" name="anonymity2">
-    <label class="form-check-label">
-      Ich mache mir Sorgen, weil ich nicht weiß, welche Unternehmen meine Daten gespeichert haben.
-    </label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" value="anonymity3" name="anonymity3">
-    <label class="form-check-label">
-      Ich mache mir Sorgen, dass meine Daten für kriminelle Taten anderen gegenüber verwendet werden könnten.       
-    </label>
-  </div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="anonymity4" name="anonymity4">
-  <label class="form-check-label">
-      Ich mache mir Sorgen, dass staatliche Behörden oder Institutionen zu viel über mich erfahren könnten.
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="anonymity5" name="anonymity5">
-  <label class="form-check-label">
-      Ich mache mir keine Sorgen in Bezug auf die Weitergabe meiner persönlichen Daten.
-  </label>
-</div>
+<p>Bei jeder Zahlung mit unbaren Zahlungsmitteln (Überweisung, Bezahlen mit Giro- und Kreditkarte oder Smartphone) werden persönliche Daten elektronisch verarbeitet.</p>
+<p>Machen Sie sich Sorgen in Bezug auf die Weitergabe persönlicher Daten? Bitte geben Sie an, welche Aussage auf Sie zutrifft.</p>
 
 
-  
-<br>
+{{formfield 'anonymity'}}
 
 
     {{ next_button }}

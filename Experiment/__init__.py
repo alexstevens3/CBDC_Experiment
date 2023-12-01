@@ -8,7 +8,7 @@ Your app description
 class C(BaseConstants):
     NAME_IN_URL = 'Experiment'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 1
+    NUM_ROUNDS = 10
     MAXIMUM_EM = cu(10)
     TC_MOP1 = 0.50
     TC_MOP2 = 0.38
@@ -80,14 +80,17 @@ class Player(BasePlayer):
     CBDC_Choice_Yes = models.IntegerField()
     payoff_total_allrounds1 = models.FloatField()
     belief1 = models.IntegerField(
+        label="",
         min=0,
         max=C.PLAYERS_PER_GROUP,
         doc="Belief about/Expected CBDC_Choice_Yes")
     belief2 = models.IntegerField(
+        label="",
         min=0,
         max=C.MAXIMUM_EM,
         doc="Belief about/Expected MOP3")
     belief3 = models.IntegerField(
+        label="",
         min=0,
         max=100,
         doc="Belief about prob. acceptance MOP3")
