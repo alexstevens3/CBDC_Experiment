@@ -4,7 +4,14 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ block content }}
 
-<p>Ihr Gesamteinkommen aus den bisherigen Runden beträgt {{participant.payoff_total_allrounds|to2}} Taler.</p>
+<p>Ihr Gesamteinkommen aus den bisherigen Marktrunden: {{participant.payoff_total_allrounds|to2}} Taler.</p>
+
+<p>Davon sind aus</p>
+    
+<p>Anonymen Zahlungsmitteln: x Taler.</p>
+
+<p>Nicht anonymen Zahlungsmitteln: x Taler.</p>
+
 
 {{if player.round_number < 10 }}
 

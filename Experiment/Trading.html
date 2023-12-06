@@ -19,20 +19,19 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{if group.share_players_CBDC_Yes >= 60}}
 
-<p>Der Anteil der Käufer die Zahlungsmittel 3 nutzen ist {{group.share_players_CBDC_Yes |to0}}%. Das beudetet, 
-  dass der Verkäufer Zahlungsmittel 3 akzeptiert.</p>
+<p>Der Anteil der Käufer die Zahlungsmittel 3 nutzen ist {{group.share_players_CBDC_Yes |to0}}%, sodass der Verkäufer Zahlungsmittel 3 akzeptiert.</p>
 
 {{ endif }}
 
 {{if group.share_players_CBDC_Yes < 60}}
 
-<p>Der Anteil der Käufer die Zahlungsmittel 3 nutzen ist {{group.share_players_CBDC_Yes |to0}}%. Das beudetet, 
-  dass der Verkäufer Zahlungsmittel 3 <b>nicht</b> akzeptiert.</p>
+<p>Der Anteil der Käufer die Zahlungsmittel 3 nutzen ist {{group.share_players_CBDC_Yes |to0}}%, 
+  sodass der Verkäufer Zahlungsmittel 3 <b>nicht</b> akzeptiert.</p>
 
 {{ endif }}
 
 
-<p>Sie haben sich in Marktrunde {{ player.round_number }} für folgende Zahlungsmittel entschieden:</p>
+<p>Ihre Entscheidung in Marktrunde {{ player.round_number }}:</p>
 
 
 <!DOCTYPE html>
@@ -70,7 +69,7 @@ th, td {
 </html>
 
 <br>
-<p>Daraus ergibt sich folgendes <b>Einkommen für Marktrunde {{ player.round_number }}:</b></p>
+<p>Ihr <b>Einkommen in Marktrunde {{ player.round_number }}:</b></p>
 
 <!DOCTYPE html>
 <html>
@@ -97,8 +96,8 @@ table, th, td {
     <td>{{ player.field_maybe_none('transaktionen_MOP1')}}</td>
     <td>{{ player.field_maybe_none('transaktionen_MOP2')}}</td>
     <td>{{ player.field_maybe_none('transaktionen_MOP3')}}</td>
-    <td>{{player.payoff_MOP1|to2}} Taler</td>
-    <td>{{player.payoff_MOP2|to2}} Taler</td>
+    <td>{{player.field_maybe_none('payoff_MOP1')|to2}} Taler</td>
+    <td>{{player.field_maybe_none('payoff_MOP2')|to2}} Taler</td>
     <td>{{player.field_maybe_none('payoff_MOP3')|to2}} Taler</td>
     <td>{{player.payoff_total|to2}} Taler</td>
   </tr>
@@ -106,10 +105,14 @@ table, th, td {
 </table>
 <br>
 
+<p>Ihre Auszahlung mit anonymen Zahlungsmitteln: {{ player.field_maybe_none('payoff_anonymous')|to2}} Taler</p>
+<p>Ihre Auszahlung mit nicht anonymen Zahlungsmitteln: {{ player.field_maybe_none('payoff_notanonymous')|to2}} Taler</p>
+
 <p>Bitte klicken Sie auf Weiter.</p>
 
 </body>
 </html>
+
 
 {{ next_button }}
 {{ endblock }}

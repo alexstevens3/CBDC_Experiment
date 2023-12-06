@@ -94,7 +94,6 @@ class Player(BasePlayer):
         min=0,
         max=100,
         doc="Belief about prob. acceptance MOP3")
-    last_round = models.IntegerField()
     next_round = models.IntegerField()
     amount1 = models.IntegerField(
         label= 'Zahlungsmittel 1:',
@@ -111,6 +110,13 @@ class Player(BasePlayer):
         min=0,
         max=10,
         blank=True)
+    payoff_MOP3_Token = models.FloatField()
+    payoff_MOP3_Account = models.FloatField()
+    payoff_anonymous = models.FloatField()
+    payoff_notanonymous = models.FloatField()
+    payoff_anonymous_allrounds = models.FloatField()
+    payoff_anonymous_allrounds1 = models.FloatField()
+    payoff_notanonymous_allrounds = models.FloatField()
 
 class Treatment(Page):
     timeout_seconds = 30
@@ -157,43 +163,6 @@ class PaymentChoice(Page):
 class WaitingPage(WaitPage):
     template_name = 'Experiment\WaitingPage.html'
     wait_for_all_players = True
-
-#class WaitingPage2(WaitPage):
- #   template_name = 'Experiment\WaitingPage2.html'
-  #  wait_for_all_players = True
-
-   # @staticmethod
-    #def after_all_players_arrive(player):
-     #   subsession = group.subsession
-      #  player = subsession.get_players()
-       # player.last_round = player.round_number - 1
-        #player.next_round = player.round_number + 1
-   #     if player.CBDC_Choice == False:
-    #        player.MOP3 = 0 
-
-        #group = player.group
-     #   players = group.get_players()
-        
-    #    for player in group.get_players():
-     #       group.nb_players_CBDC_Yes = sum([player.CBDC_Choice_Yes for player in players]) 
-      #      group.share_players_CBDC_Yes = (group.nb_players_CBDC_Yes /  C.PLAYERS_PER_GROUP) *100
-          
-       #     group.sum_MOP3 = sum([player.field_maybe_none('MOP3') for player in players if player.CBDC_Choice_Yes ==1 ]) 
-        #    group.average_MOP3 = group.sum_MOP3 / C.PLAYERS_PER_GROUP
-
-
-#        player.transaktionen_MOP1 = player.MOP1 
- #       if player.MOP2_accept == True:
-  #          player.transaktionen_MOP2 = player.MOP2
-   #     if player.MOP2_accept == False:
-    #        player.transaktionen_MOP2 = 0
-     ##   if player.CBDC_Choice == True and group.share_players_CBDC_Yes >= 60: 
-       #     player.transaktionen_MOP3 = player.MOP3
-        #if player.CBDC_Choice == True and group.share_players_CBDC_Yes < 60:
-         #   player.transaktionen_MOP3 = 0
-        #if player.CBDC_Choice == False:
-         #   player.transaktionen_MOP3 = 0
-
 
 
 class Beliefs(Page):
@@ -248,12 +217,20 @@ class Welcome(Page):
         return player.round_number == 1
 
 class Trading(Page):
-    timeout_seconds = 60
+    #timeout_seconds = 60
     @staticmethod
     def vars_for_template(player):
+
+        group = player.group
+        players = group.get_players()
         
         player.payoff_MOP1 = player.transaktionen_MOP1 - (player.transaktionen_MOP1 * C.TC_MOP1)
         if player.MOP2_accept == True:
+            #return dict(
+            #payoff_MOP2 = format(float(player.transaktionen_MOP2) - (float(player.transaktionen_MOP2) * C.TC_MOP2), '.2f')
+            #)
+
+
             player.payoff_MOP2= player.transaktionen_MOP2 - (player.transaktionen_MOP2 * C.TC_MOP2)
         if player.MOP2_accept == False:
             player.payoff_MOP2 = 0
@@ -262,9 +239,46 @@ class Trading(Page):
         if player.CBDC_Choice == False:
             player.payoff_MOP3 = 0
         player.payoff_total = player.payoff_MOP1 + player.payoff_MOP2 + player.payoff_MOP3
+
+        if player.MOP2_accept == 1 and player.MOP2 ==3:
+            player.payoff_MOP2 = 1.86
+            player.payoff_total = player.payoff_MOP1 + 1.86 + player.payoff_MOP3
+        if player.MOP2_accept == 1 and player.MOP1 == 5 and player.MOP2 == 5 and player.MOP3 == 0:
+            player.payoff_total = 5.12
+        if player.MOP2_accept == 1 and group.share_players_CBDC_Yes >= 60 and player.MOP1 == 4 and player.MOP2 == 4 and player.MOP3 == 2:
+            player.payoff_total = 5.88
+        if player.MOP2_accept == 1 and player.MOP2 == 6:
+            player.payoff_MOP2 = 3.72
+            player.payoff_total = player.payoff_MOP1 + 3.72 + player.payoff_MOP3
         
         if player.payoff_total < 0:
             player.payoff_total = 0
+        
+
+        if player.CBDC_design == "Token":
+            player.payoff_MOP3_Token = player.payoff_MOP3
+        else:
+            player.payoff_MOP3_Token = 0
+        if player.CBDC_design == "Account":
+            player.payoff_MOP3_Account = player.payoff_MOP3
+        else:
+            player.payoff_MOP3_Account = 0
+        player.payoff_anonymous = player.payoff_MOP3_Token + player.payoff_MOP1
+        player.payoff_notanonymous = player.payoff_MOP3_Account + player.payoff_MOP2
+
+        if player.payoff_anonymous < 0:
+            player.payoff_anonymous = 0
+        if player.payoff_notanonymous < 0:
+            player.payoff_notanonymous = 0
+
+        #html = f"""
+       # Your payoff is {(player.payoff_MOP2), '.2f'}.
+       # """
+       # return dict(html=html)
+
+
+
+        
 
     @staticmethod
     def before_next_page(player, timeout_happened):
@@ -278,6 +292,7 @@ class Trading(Page):
                 player.MOP3_accept = 1
             if group.share_players_CBDC_Yes < 60:
                 player.MOP3_accept = 0
+        
 
 class Total_Payoff(Page):
     @staticmethod
@@ -286,6 +301,11 @@ class Total_Payoff(Page):
             player.payoff_total_allrounds1 = sum([player.payoff_total for player in player.in_all_rounds()])
         else:
             player.payoff_total_allrounds1 = player.payoff_total
+
+        if player.round_number > 1:
+            player.payoff_anonymous_allrounds1 = sum([player.payoff_anonymous1 for player in player.in_all_rounds()])
+        else:
+            player.payoff_anonymous_allrounds1 = player.payoff_anonymous_allrounds1
    
         participant=player.participant
         if player.round_number > 1:
