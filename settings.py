@@ -17,7 +17,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=6.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['payoff_euro','payoff_total_allrounds', 'payoff_plus_fee']
+PARTICIPANT_FIELDS = ['payoff_euro','payoff_total_allrounds', 'payoff_plus_fee', 'payoff_anonymous_allrounds','payoff_notanonymous_allrounds' ]
 SESSION_FIELDS = []
 
 # ISO-639 code
@@ -26,7 +26,7 @@ LANGUAGE_CODE = 'de'
 
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = ''
-USE_POINTS = True
+USE_POINTS = False
 POINTS_CUSTOM_NAME =  'Taler'
 
 ADMIN_USERNAME = 'admin'

@@ -4,13 +4,44 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ block content }}
 
-<p>Ihr Gesamteinkommen aus den bisherigen Marktrunden: {{participant.payoff_total_allrounds|to2}} Taler.</p>
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  padding-top: 10px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 40px;
+}
+</style>
+<body>
 
-<p>Davon sind aus</p>
+<table>
     
-<p>Anonymen Zahlungsmitteln: x Taler.</p>
+    <tbody>
+    <tr>
+    <td>Ihr Gesamteinkommen aus den bisherigen Marktrunden:</td>
+    <td>{{participant.payoff_total_allrounds|to2}} Taler</td>
+    </tr>
+    <tr>
+    <td>Davon sind aus</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Anonymen Zahlungsmitteln:</td>
+    <td>{{participant.payoff_anonymous_allrounds|to2}} Taler</td>
+    </tr>
+    <tr>
+    <td>Nicht anonymen Zahlungsmitteln:</td>
+    <td>{{participant.payoff_notanonymous_allrounds|to2}} Taler</td>
+    </tr>
+    </tbody>
+    </table>
 
-<p>Nicht anonymen Zahlungsmitteln: x Taler.</p>
+    <br>
+    
+
+
 
 
 {{if player.round_number < 10 }}

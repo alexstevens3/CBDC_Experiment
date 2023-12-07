@@ -73,12 +73,12 @@ class Player(BasePlayer):
     transaktionen_MOP1 = models.IntegerField()
     transaktionen_MOP2 = models.IntegerField()
     transaktionen_MOP3 = models.IntegerField()
-    payoff_MOP1 = models.FloatField()
-    payoff_MOP2 = models.FloatField()
-    payoff_MOP3 = models.FloatField()
-    payoff_total = models.FloatField(min=0)
+    payoff_MOP1 = models.CurrencyField()
+    payoff_MOP2 = models.CurrencyField()
+    payoff_MOP3 = models.CurrencyField()
+    payoff_total = models.CurrencyField(min=0)
     CBDC_Choice_Yes = models.IntegerField()
-    payoff_total_allrounds1 = models.FloatField()
+    payoff_total_allrounds1 = models.CurrencyField()
     belief1 = models.IntegerField(
         label="",
         min=0,
@@ -110,13 +110,14 @@ class Player(BasePlayer):
         min=0,
         max=10,
         blank=True)
-    payoff_MOP3_Token = models.FloatField()
-    payoff_MOP3_Account = models.FloatField()
-    payoff_anonymous = models.FloatField()
-    payoff_notanonymous = models.FloatField()
-    payoff_anonymous_allrounds = models.FloatField()
-    payoff_anonymous_allrounds1 = models.FloatField()
-    payoff_notanonymous_allrounds = models.FloatField()
+    payoff_MOP3_Token = models.CurrencyField()
+    payoff_MOP3_Account = models.CurrencyField()
+    payoff_anonymous = models.CurrencyField()
+    payoff_notanonymous = models.CurrencyField()
+    payoff_anonymous_allrounds = models.CurrencyField()
+    payoff_anonymous_allrounds1 = models.CurrencyField()
+    payoff_notanonymous_allrounds = models.CurrencyField()
+    payoff_notanonymous_allrounds1 = models.CurrencyField()
 
 class Treatment(Page):
     timeout_seconds = 30
@@ -166,9 +167,7 @@ class WaitingPage(WaitPage):
 
 
 class Beliefs(Page):
-
     form_model = 'player'
-   # form_fields = ['belief1', 'belief2', 'belief3']
 
     @staticmethod
     def get_form_fields(player):
@@ -178,7 +177,6 @@ class Beliefs(Page):
 
     @staticmethod
     def vars_for_template(player):
-       # player.last_round = player.round_number - 1
         player.next_round = player.round_number + 1
         if player.CBDC_Choice == False:
             player.MOP3 = 0 
@@ -217,7 +215,7 @@ class Welcome(Page):
         return player.round_number == 1
 
 class Trading(Page):
-    #timeout_seconds = 60
+    timeout_seconds = 60
     @staticmethod
     def vars_for_template(player):
 
@@ -226,11 +224,6 @@ class Trading(Page):
         
         player.payoff_MOP1 = player.transaktionen_MOP1 - (player.transaktionen_MOP1 * C.TC_MOP1)
         if player.MOP2_accept == True:
-            #return dict(
-            #payoff_MOP2 = format(float(player.transaktionen_MOP2) - (float(player.transaktionen_MOP2) * C.TC_MOP2), '.2f')
-            #)
-
-
             player.payoff_MOP2= player.transaktionen_MOP2 - (player.transaktionen_MOP2 * C.TC_MOP2)
         if player.MOP2_accept == False:
             player.payoff_MOP2 = 0
@@ -239,17 +232,6 @@ class Trading(Page):
         if player.CBDC_Choice == False:
             player.payoff_MOP3 = 0
         player.payoff_total = player.payoff_MOP1 + player.payoff_MOP2 + player.payoff_MOP3
-
-        if player.MOP2_accept == 1 and player.MOP2 ==3:
-            player.payoff_MOP2 = 1.86
-            player.payoff_total = player.payoff_MOP1 + 1.86 + player.payoff_MOP3
-        if player.MOP2_accept == 1 and player.MOP1 == 5 and player.MOP2 == 5 and player.MOP3 == 0:
-            player.payoff_total = 5.12
-        if player.MOP2_accept == 1 and group.share_players_CBDC_Yes >= 60 and player.MOP1 == 4 and player.MOP2 == 4 and player.MOP3 == 2:
-            player.payoff_total = 5.88
-        if player.MOP2_accept == 1 and player.MOP2 == 6:
-            player.payoff_MOP2 = 3.72
-            player.payoff_total = player.payoff_MOP1 + 3.72 + player.payoff_MOP3
         
         if player.payoff_total < 0:
             player.payoff_total = 0
@@ -271,14 +253,6 @@ class Trading(Page):
         if player.payoff_notanonymous < 0:
             player.payoff_notanonymous = 0
 
-        #html = f"""
-       # Your payoff is {(player.payoff_MOP2), '.2f'}.
-       # """
-       # return dict(html=html)
-
-
-
-        
 
     @staticmethod
     def before_next_page(player, timeout_happened):
@@ -303,14 +277,31 @@ class Total_Payoff(Page):
             player.payoff_total_allrounds1 = player.payoff_total
 
         if player.round_number > 1:
-            player.payoff_anonymous_allrounds1 = sum([player.payoff_anonymous1 for player in player.in_all_rounds()])
+            player.payoff_anonymous_allrounds1 = sum([player.payoff_anonymous for player in player.in_all_rounds()])
         else:
-            player.payoff_anonymous_allrounds1 = player.payoff_anonymous_allrounds1
+            player.payoff_anonymous_allrounds1 = player.payoff_anonymous
+
+        if player.round_number > 1:
+            player.payoff_notanonymous_allrounds1 = sum([player.payoff_notanonymous for player in player.in_all_rounds()])
+        else:
+            player.payoff_notanonymous_allrounds1 = player.payoff_notanonymous
+
    
         participant=player.participant
         if player.round_number > 1:
             participant.payoff_total_allrounds = sum([player.payoff_total for player in player.in_all_rounds()])
         else:
             participant.payoff_total_allrounds = player.payoff_total
+
+        if player.round_number > 1:
+            participant.payoff_anonymous_allrounds = sum([player.payoff_anonymous for player in player.in_all_rounds()])
+        else:
+            participant.payoff_anonymous_allrounds = player.payoff_anonymous
+        
+        if player.round_number > 1:
+            participant.payoff_notanonymous_allrounds = sum([player.payoff_notanonymous for player in player.in_all_rounds()])
+        else:
+            participant.payoff_notanonymous_allrounds = player.payoff_notanonymous
+   
 
 page_sequence = [Welcome, WaitingPage, Treatment, CBDCChoice, WaitingPage, PaymentChoice, WaitingPage, Beliefs, WaitingPage, Trading, Total_Payoff, WaitingPage]
