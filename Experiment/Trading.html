@@ -7,32 +7,30 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 
 {{ if player.MOP2_accept == True}}
 
-<p>Die Zufallszahl ist {{ player.prob_MOP2 }}. Das bedeutet, dass der Verkäufer Zahlungsmittel 2 akzeptiert. </p>
+<p>Die Zufallszahl ist {{ player.prob_MOP2 }}. Der Verkäufer akzeptiert Zahlungsmittel 2. </p>
 
 {{ endif }}
 
 {{ if player.MOP2_accept == False }}
 
-<p>Die Zufallszahl ist {{ player.prob_MOP2 }}. Das bedeutet, dass der Verkäufer Zahlungsmittel 2 <b>nicht</b> akzeptiert. </p>
+<p>Die Zufallszahl ist {{ player.prob_MOP2 }}. Der Verkäufer akzeptiert Zahlungsmittel 2 <b>nicht</b>. </p>
 
 {{ endif }}
 
 {{if group.share_players_CBDC_Yes >= 60}}
 
-<p>Der Anteil der Käufer die Zahlungsmittel 3 nutzen ist {{group.share_players_CBDC_Yes |to0}}%, sodass der Verkäufer Zahlungsmittel 3 akzeptiert.</p>
+<p>Der Anteil der Käufer, die {{C.Adoption_MOP3|to2}} Taler für die Nutzung von Zahlungsmittel 3 gezahlt haben ist {{group.share_players_CBDC_Yes |to0}}%. Der Verkäufer akzeptiert Zahlungsmittel 3.</p>
 
 {{ endif }}
 
 {{if group.share_players_CBDC_Yes < 60}}
 
-<p>Der Anteil der Käufer die Zahlungsmittel 3 nutzen ist {{group.share_players_CBDC_Yes |to0}}%, 
-  sodass der Verkäufer Zahlungsmittel 3 <b>nicht</b> akzeptiert.</p>
+<p>Der Anteil der Käufer, die {{C.Adoption_MOP3|to2}} Taler für die Nutzung von Zahlungsmittel 3 gezahlt haben ist {{group.share_players_CBDC_Yes |to0}}%. Der Verkäufer akzeptiert Zahlungsmittel 3 <b>nicht</b>.</p>
 
 {{ endif }}
 
 
 <p>Ihre Entscheidung in Marktrunde {{ player.round_number }}:</p>
-
 
 <!DOCTYPE html>
 <html>
@@ -80,8 +78,6 @@ table, th, td {
 </style>
 <body>
 
-<br>
-
 <table style="width:100%">
   <tr>
     <th> Erfolgreiche Transaktionen mit Zahlungsmittel 1</th>
@@ -97,7 +93,7 @@ table, th, td {
     <td>{{ player.field_maybe_none('transaktionen_MOP2')}}</td>
     <td>{{ player.field_maybe_none('transaktionen_MOP3')}}</td>
     <td>{{player.field_maybe_none('payoff_MOP1')|to2}} Taler</td>
-    <td>{{player.field_maybe_none('payoff_MOP2')|to2}} Taler</td>
+    <td> {{player.field_maybe_none('payoff_MOP2')|to2}} Taler</td>
     <td>{{player.field_maybe_none('payoff_MOP3')|to2}} Taler</td>
     <td>{{player.payoff_total|to2}} Taler</td>
   </tr>
@@ -112,6 +108,19 @@ table, th, td {
 
 </body>
 </html>
+
+{#
+<script>
+  let ElepayoffMOP2 = document.getElementById('payoffMOP2');
+
+  function recalc() {
+       
+      let payoffMOP2 = js_vars.T2 -(js_vars.T2 * js_vars.TC2);
+        ElepayoffMOP2.innerText = payoffMOP2 +  ' Taler';
+      return payoffMOP2;
+  }
+  
+</script>#}
 
 
 {{ next_button }}

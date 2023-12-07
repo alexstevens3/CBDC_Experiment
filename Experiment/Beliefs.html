@@ -7,9 +7,33 @@ Marktrunde {{ player.round_number }} von {{C.NUM_ROUNDS}}
 {{if player.round_number > 1}}
 {{if player.round_number < 10}}
 
-<p>In dieser Marktrunde liegt der Anteil der Käufer die {{C.Adoption_MOP3|to2}} Taler gezahlt haben um Zahlungsmittel 3 nutzen zu können bei {{group.share_players_CBDC_Yes |to0}}%. </p>
+<p><b>In Marktrunde {{ player.round_number }}:</b>
 
-<p>In dieser Marktrunde haben Käufer im Durschnitt {{group.average_MOP3|to0}} Taler auf Zahlungsmittel 3 verteilt.</p>
+    <!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  padding-top: 0px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  padding-right: 20px;
+}
+</style>
+<body>
+<table>
+    <tbody>
+    <tr>
+    <td>Anteil der Käufer, die {{C.Adoption_MOP3|to2}} Taler für die Nutzung von Zahlungsmittel 3 gezahlt haben: </td>
+    <td>{{group.share_players_CBDC_Yes |to0}}% </td>
+    </tr>
+    <tr>
+    <td>Anzahl der Taler, die Käufer im Durschnitt auf Zahlungsmittel 3 verteilt haben:</td>
+    <td>{{group.average_MOP3|to1}}</td>
+    </tr>
+    </tbody>
+    </table>
+    
+  <br>
 
 <p>Bitte prognostizieren Sie für die nächste Marktrunde <b>(Marktrunde {{player.next_round}})</b>:</p>
 
@@ -33,8 +57,9 @@ Dies ist die erste Marktrunde, sie müssen keine Prognose geben.
 Dies ist die letzte Marktrunde, sie müssen keine Prognose geben.
 
 {{endif}}
+<br>
+<br>
+<p>Bitte klicken Sie auf Weiter.</p>
 
-<br>
-<br>
     {{ next_button }}
 {{ endblock }}

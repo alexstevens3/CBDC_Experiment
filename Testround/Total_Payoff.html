@@ -1,0 +1,49 @@
+{{ block title }}
+Testrunde
+{{ endblock }}
+
+{{ block content }}
+
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  padding-top: 10px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 40px;
+}
+</style>
+<body>
+
+<table>
+    
+    <tbody>
+    <tr>
+    <td>Ihr Gesamteinkommen aus der Testrunde:</td>
+    <td>{{player.testpayoff_total}} Taler</td>
+    </tr>
+    <tr>
+    <td>Davon sind aus</td>
+    <td></td>
+    </tr>
+    <tr>
+    <td>Anonymen Zahlungsmitteln:</td>
+    <td>{{player.testpayoff_anonymous|to2}} Taler</td>
+    </tr>
+    <tr>
+    <td>Nicht anonymen Zahlungsmitteln:</td>
+    <td>{{player.testpayoff_notanonymous|to2}} Taler</td>
+    </tr>
+    </tbody>
+    </table>
+
+    <br>
+    
+<p>Bitte beachten Sie, dass die Testrunde nicht ausgezahlt wird.</p>
+
+<p>Bitte klicken Sie auf Weiter.</p>
+
+
+    {{ next_button }}
+{{ endblock }}

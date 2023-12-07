@@ -209,13 +209,13 @@ class Beliefs(Page):
             player.transaktionen_MOP3 = 0
 
 class Welcome(Page):
-    timeout_seconds = 30
+    #timeout_seconds = 30
     @staticmethod
     def is_displayed(player):
         return player.round_number == 1
 
 class Trading(Page):
-    timeout_seconds = 60
+   # timeout_seconds = 60
     @staticmethod
     def vars_for_template(player):
 
@@ -232,10 +232,14 @@ class Trading(Page):
         if player.CBDC_Choice == False:
             player.payoff_MOP3 = 0
         player.payoff_total = player.payoff_MOP1 + player.payoff_MOP2 + player.payoff_MOP3
+
+        if player.MOP2_accept ==1 and player.MOP2 == 3:
+            player.payoff_MOP2 = 1.86
+        if player.MOP2_accept ==1 and player.MOP2 == 6:
+            player.payoff_MOP2 = 3.72
         
         if player.payoff_total < 0:
             player.payoff_total = 0
-        
 
         if player.CBDC_design == "Token":
             player.payoff_MOP3_Token = player.payoff_MOP3
@@ -252,6 +256,10 @@ class Trading(Page):
             player.payoff_anonymous = 0
         if player.payoff_notanonymous < 0:
             player.payoff_notanonymous = 0
+
+    @staticmethod
+    def js_vars(player):
+        return dict(T2=player.transaktionen_MOP2, TC1=C.TC_MOP1, TC2=C.TC_MOP2, TC3=C.TC_MOP3)
 
 
     @staticmethod
@@ -302,6 +310,18 @@ class Total_Payoff(Page):
             participant.payoff_notanonymous_allrounds = sum([player.payoff_notanonymous for player in player.in_all_rounds()])
         else:
             participant.payoff_notanonymous_allrounds = player.payoff_notanonymous
+
+        @staticmethod
+        def before_next_page(player, timeout_happened):
+            if player.round_number > 1:
+                if player.payoff_anonymous_allrounds < 0:
+                    player.payoff_anonymous_allrounds = 0
+                if player.payoff_notanonymous_allrounds < 0:
+                    player.payoff_notanonymous_allrounds = 0
+                if player.payoff_anonymous_allrounds1 < 0:
+                    player.payoff_anonymous_allrounds1 = 0
+                if player.payoff_notanonymous_allrounds1 < 0:
+                    player.payoff_notanonymous_allrounds1 = 0
    
 
 page_sequence = [Welcome, WaitingPage, Treatment, CBDCChoice, WaitingPage, PaymentChoice, WaitingPage, Beliefs, WaitingPage, Trading, Total_Payoff, WaitingPage]
