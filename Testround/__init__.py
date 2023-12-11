@@ -177,7 +177,6 @@ class Beliefs(Page):
             player.testtransaktionen_MOP3 = 0
 
 class Welcome(Page):
-    timeout_seconds = 30
     @staticmethod
     def is_displayed(player):
         return player.round_number == 1

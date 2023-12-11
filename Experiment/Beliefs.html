@@ -28,7 +28,7 @@ table, th, td {
     </tr>
     <tr>
     <td>Anzahl der Taler, die Käufer im Durschnitt auf Zahlungsmittel 3 verteilt haben:</td>
-    <td>{{group.average_MOP3|to1}}</td>
+    <td>{{group.average_MOP3|to2}}</td>
     </tr>
     </tbody>
     </table>
@@ -49,16 +49,15 @@ table, th, td {
 {{if player.round_number == 1}}
 
 Dies ist die erste Marktrunde, sie müssen keine Prognose geben.
-
+<br>
 {{endif}}
 
 {{if player.round_number == 10}}
-
 Dies ist die letzte Marktrunde, sie müssen keine Prognose geben.
-
+<br>
 {{endif}}
 <br>
-<br>
+
 <p>Bitte klicken Sie auf Weiter.</p>
 
     {{ next_button }}

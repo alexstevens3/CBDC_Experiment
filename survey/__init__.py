@@ -294,6 +294,10 @@ class Demographics_degree(Page):
     form_model = 'player'
     form_fields = ['degree', 'semester', 'grade']
 
+class WaitingPage(WaitPage):
+    template_name = 'Experiment\WaitingPage.html'
+    wait_for_all_players = True
+
 class Auszahlungsseite(Page):
     @staticmethod
     def vars_for_template(player):
@@ -302,4 +306,4 @@ class Auszahlungsseite(Page):
         participant.payoff_euro = participant.payoff_total_allrounds * session.config['real_world_currency_per_point']
         participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk
         
-page_sequence = [Welcome, Risk1, Risk2, CBDC1, CBDC2, CBDC3, CBDC4, CBDC5, CBDC6, Anonymity, Demographics, Demographics_degree, Auszahlungsseite]
+page_sequence = [Welcome, WaitingPage, Risk1, Risk2, CBDC1, CBDC2, CBDC3, CBDC4, CBDC5, CBDC6, Anonymity, Demographics, Demographics_degree, Auszahlungsseite]
