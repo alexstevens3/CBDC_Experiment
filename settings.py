@@ -3,7 +3,7 @@ from os import environ
 SESSION_CONFIGS = [
      dict(
          name='CBDC_Experiment',
-         app_sequence=['testquestions','Testround','Experiment', 'survey'],
+         app_sequence=['survey','Experiment','testquestions','Testround',],
          num_demo_participants=2,
      ),
 ]
@@ -17,7 +17,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=6.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['payoff_euro','payoff_total_allrounds', 'payoff_plus_fee', 'payoff_anonymous_allrounds','payoff_notanonymous_allrounds' ]
+PARTICIPANT_FIELDS = ['payoff_euro','payoff_total_allrounds', 'payoff_plus_fee', 'payoff_anonymous_allrounds','payoff_notanonymous_allrounds', 'payoff_anonymous_euro', 'payoff_notanonymous_euro', 'payoff_anonymous_plus_fee' ]
 SESSION_FIELDS = []
 
 # ISO-639 code

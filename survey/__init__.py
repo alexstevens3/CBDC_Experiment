@@ -90,11 +90,7 @@ class Player(BasePlayer):
         choices = ['sehr wahrscheinlich', 'wahrscheinlich', 'unentschieden', 'unwahrscheinlich', 'sehr unwahrscheinlich' ],
         widget=widgets.RadioSelectHorizontal,
     )
-    #cbdc4 =  models.StringField(
-       # label = 'Wenn das digitale Zentralbankgeld eingeführt werden würde, welche der folgenden Eigenschaften wäre Ihnen am wichtigsten?',
-       # choices = ['Anonymität der Zahlungen', 'Sicherheit in Bezug auf Datenschutz', 'Kostenfreie Nutzung', 'Bequeme Nutzung' ],
-       # widget=widgets.RadioSelect,
-    #)
+    
     cbdc5 =  models.IntegerField(
         label = 'Sehen Sie das digitale Zentralbankgeld als Alternative zum Bargeld oder als Alternative zu unbaren Zahlungsmitteln (z.B. Zahlung mit Debitkarte, Kreditkarte)? Der äußerste Kreis links bedeutet "nur als Alternative zu Bargeld", der äußerste Kreis rechts bedeutet "nur als Alternative zu unbaren Zahlungsmitteln".',
         choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -108,13 +104,6 @@ class Player(BasePlayer):
         [4, 'Ich mache mir keine Sorgen in Bezug auf die Weitergabe meiner persönlichen Daten.']],
         widget=widgets.RadioSelect,
     )
-    #Bargeld = models.BooleanField(blank=True)
-    #Girocard_kontaktlos = models.BooleanField(blank=True)
-    #Girocard_einschieben = models.BooleanField(blank=True)
-    #Kreditkarte_kontaktlos = models.BooleanField(blank=True)
-    #Kreditkarte_einschieben = models.BooleanField(blank=True)
-   # Smartphone = models.BooleanField(blank=True)
-    #Anderes_Zahlungsmittel = models.BooleanField(blank=True)
 
     rank1_cbdc4 = make_rank_field("Erste Wahl")
     rank2_cbdc4  = make_rank_field("Zweite Wahl")
@@ -124,9 +113,7 @@ class Player(BasePlayer):
     rank1_cbdc6 = make_rank_field2("Erste Wahl")
     rank2_cbdc6 = make_rank_field2("Zweite Wahl")
     rank3_cbdc6 = make_rank_field2("Dritte Wahl")
-    rank4_cbdc6 = make_rank_field2("Vierte Wahl")
-    rank5_cbdc6 = make_rank_field2("Fünfte Wahl")
-    rank6_cbdc6 = make_rank_field2("Sechste Wahl")
+    
 
     risk1 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
     risk2 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
@@ -142,9 +129,78 @@ class Player(BasePlayer):
 
     payoff_risk = models.FloatField()
 
+    financial1 = models.StringField(
+        doc="F1",
+        label= "",
+        choices = ['sehr hoch', 'hoch', 'durchschnittlich', 'niedrig', 'sehr niedrig' ],
+        widget=widgets.RadioSelectHorizontal,
+    )
+
+    financial2 = models.FloatField(
+        doc="F3",
+        label="Bitte berechnen Sie, wie viel Geld Sie nach einem Jahr in Euro erhalten, wenn Sie 100 Euro zu einem jährlichen Zinssatz von 2 Prozent anlegen."
+    )
+
+    financial3 = models.BooleanField(
+        doc="F4",
+        label="Wer sein Geld über einen längeren Zeitraum anlegt und die erwirtschafteten Zinsen nicht abhebt, sondern zusätzlich spart, erhält in den Folgejahren nicht nur Zinsen auf den ursprünglich eingezahlten Betrag, sondern auch auf die zuvor erwirtschafteten Zinsen. "
+    )
+
+    financial4= models.StringField(
+        doc="F6",
+        label = "Ich bin bereit, einen Teil meines eigenen Geldes zu riskieren, wenn ich spare oder eine Investition tätige. ",
+        choices = ['stimme zu', 'unentschieden', 'stimme nicht zu' ],
+        widget=widgets.RadioSelectHorizontal,
+    )
+
+    financial6 = models.StringField(
+        doc="F10",
+        label = " ",
+        choices = ['habe ich überhaupt keine anderen Optionen in Betracht gezogen,', 'habe ich mich umgeschaut, aber es gab keine anderen Optionen, die in Frage kamen, ', 'habe ich verschiedene Optionen von einem Anbieter in Betracht gezogen, ', 'habe ich mehrere Optionen von verschiedenen Anbietern in Betracht gezogen,'],
+        widget=widgets.RadioSelect,
+    )
+
+    financial7 = models.StringField(
+        doc="F12",
+        label = "Ich bin überzeugt davon, dass mein Geld bei einer Bank sicher ist, auch wenn die Bank bankrottgeht. ",
+        choices = ['stimme zu', 'unentschieden', 'stimme nicht zu' ],
+        widget=widgets.RadioSelectHorizontal,
+    )
+
+    financial8 = models.StringField(
+        doc="F13",
+        label= "Wie viel Vertrauen haben Sie in die Europäische Zentralbank? ",
+        choices = ['volles Vertrauen', 'hohes Vertrauen', 'mittleres Vertrauen', 'geringes Vertrauen', 'kein Vertrauen' ],
+        widget=widgets.RadioSelectHorizontal,
+    )
+
 class Anonymity(Page):
     form_model = 'player'
     form_fields = ['anonymity']
+
+class financial1(Page):
+    form_model = 'player'
+    form_fields = ['financial1']
+
+class financial2and3(Page):
+    form_model = 'player'
+    form_fields = ['financial2', 'financial3']
+
+class financial4(Page):
+    form_model = 'player'
+    form_fields = ['financial4']
+
+class financial6(Page):
+    form_model = 'player'
+    form_fields = ['financial6']
+
+class financial7(Page):
+    form_model = 'player'
+    form_fields = ['financial7']
+
+class financial8(Page):
+    form_model = 'player'
+    form_fields = ['financial8']
 
 class CBDC1(Page):
     form_model = 'player'
@@ -174,12 +230,12 @@ class CBDC5(Page):
        
 class CBDC6(Page):
     form_model = 'player'
-    form_fields = ['rank1_cbdc6', 'rank2_cbdc6', 'rank3_cbdc6', 'rank4_cbdc6', 'rank5_cbdc6', 'rank6_cbdc6']
-   # form_fields = ['Bargeld', 'Girocard_kontaktlos', 'Girocard_einschieben', 'Kreditkarte_kontaktlos', 'Kreditkarte_einschieben', 'Smartphone', 'Anderes_Zahlungsmittel']
+    form_fields = ['rank1_cbdc6', 'rank2_cbdc6', 'rank3_cbdc6']
+   
 
     @staticmethod
     def error_message(player: Player, values):
-        choices2 = [values['rank1_cbdc6'], values['rank2_cbdc6'], values['rank3_cbdc6'], values['rank4_cbdc6'], values['rank5_cbdc6'], values['rank6_cbdc6']]
+        choices2 = [values['rank1_cbdc6'], values['rank2_cbdc6'], values['rank3_cbdc6']]
         if len(set(choices2)) != len(choices2):
             return "Sie können dasselbe Zahlungsmittel nicht mehrfach auswählen"
 
@@ -305,5 +361,8 @@ class Auszahlungsseite(Page):
         session=player.session
         participant.payoff_euro = participant.payoff_total_allrounds * session.config['real_world_currency_per_point']
         participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk
+        participant.payoff_anonymous_euro = participant.payoff_anonymous_allrounds * session.config['real_world_currency_per_point']
+        participant.payoff_notanonymous_euro = participant.payoff_notanonymous_allrounds * session.config['real_world_currency_per_point']
+        participant.payoff_anonymous_plus_fee = participant.payoff_anonymous_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk
         
-page_sequence = [Welcome, WaitingPage, Risk1, Risk2, CBDC1, CBDC2, CBDC3, CBDC4, CBDC5, CBDC6, Anonymity, Demographics, Demographics_degree, Auszahlungsseite]
+page_sequence = [Welcome, WaitingPage, CBDC1, Risk1, Risk2, CBDC2, CBDC3, CBDC4, CBDC5, Anonymity, financial1, financial2and3, financial4, CBDC6, financial6, financial7, financial8, Demographics, Demographics_degree, Auszahlungsseite]

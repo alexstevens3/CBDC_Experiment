@@ -1,5 +1,5 @@
 {{ block title }}
-Seite 11 von 11
+Ihre Auszahlung
 {{ endblock }}
 {{ block content }}
 
@@ -7,12 +7,16 @@ Seite 11 von 11
 <!DOCTYPE html>
 <html>
 <style>
+
+
 table, th, td {
   padding-top: 10px;
-  padding-bottom: 0px;
+  padding-bottom: 1px;
   padding-left: 0px;
-  padding-right: 40px;
+  padding-right: 50px;
+  
 }
+tr:hover {background-color: #D6EEEE;}
 </style>
 <body>
 
@@ -24,34 +28,69 @@ table, th, td {
     
     <tbody>
     <tr>
-    <td>Ihr Einkommen im Experiment beträgt</td>
-    <td>{{participant.payoff_total_allrounds|to2}} Taler</td>
+    <td bgcolor="lightgrey">&nbsp; Ihr Einkommen im Experiment beträgt</td>
+    <td bgcolor="lightgrey"><b>{{participant.payoff_total_allrounds|to2}} Taler</b></td>
     </tr>
     <tr>
-    <td>Dies entspricht einer Auszahlung von</td>
-    <td><b>{{participant.payoff_euro|to2}} Euro</b></td>
+      <td bgcolor="#f2f3f4">&nbsp;&nbsp;&nbsp;&nbsp;Mit anonymen Zahlungsmitteln:</td>
+      <td bgcolor="#f2f3f4">{{participant.payoff_anonymous_allrounds|to2}} Taler</td>
+      </tr>
+      <tr>
+      <td bgcolor="#f2f3f4">&nbsp;&nbsp;&nbsp;&nbsp;Mit nicht anonymen Zahlungsmitteln:</td>
+      <td bgcolor="#f2f3f4">{{participant.payoff_notanonymous_allrounds|to2}} Taler</td>
+      </tr>
+  
+  <tr>
+    <td bgcolor="lightgrey"> &nbsp;Ihre Auszahlung beträgt</td>
+    <td bgcolor="lightgrey"> <b>{{participant.payoff_euro|to2}} Euro</b></td>
+    </tr>
+  
+      <tr>
+      <td bgcolor="#f2f3f4">&nbsp;&nbsp;&nbsp;&nbsp;Mit anonymen Zahlungsmitteln:</td>
+      <td bgcolor="#f2f3f4">{{participant.payoff_anonymous_euro}} Euro</td>
+      </tr>
+      <tr>
+      <td bgcolor="#f2f3f4">&nbsp;&nbsp;&nbsp;&nbsp;Mit nicht anonymen Zahlungsmitteln:</td>
+      <td bgcolor="#f2f3f4">{{participant.payoff_notanonymous_euro}} Euro</td>
+      </tr>
+    <tr>
+    
+    <td bgcolor="lightgrey">&nbsp;Für das Erscheinen erhalten Sie</td>
+    <td bgcolor="lightgrey">{{C.showup|to2}} Euro</td>
     </tr>
     <tr>
-    <td>Für das Erscheinen erhalten Sie</td>
-    <td>{{C.showup|to2}} Euro</td>
+    <td bgcolor="lightgrey">&nbsp;Für die Lotterie erhalten Sie </td>
+    <td bgcolor="lightgrey">{{player.payoff_risk|to2}} Euro</td>
     </tr>
     <tr>
-    <td>Für die Lotterie erhalten Sie </td>
-    <td>{{player.payoff_risk|to2}} Euro</td>
+    <td bgcolor="lightgrey">&nbsp;Für den Fragebogen erhalten Sie</td>
+    <td bgcolor="lightgrey">{{C.survey_fee|to2}} Euro</td>
+    </tr>
+  
+    <tr>
+    <td bgcolor="lightgrey">&nbsp;Ihre Gesamtauszahlung beträgt</td>
+    <td bgcolor="lightgrey"><b>{{participant.payoff_plus_fee|to2}} Euro</b></td>
     </tr>
     <tr>
-    <td>Für das Ausfüllen des Fragebogens erhalten Sie</td>
-    <td>{{C.survey_fee|to2}} Euro</td>
-    </tr>
+      <td bgcolor="#f2f3f4"> &nbsp;&nbsp;&nbsp;&nbsp;Mit anonymen Zahlungsmitteln:</td>
+      <td bgcolor="#f2f3f4">{{participant.payoff_anonymous_plus_fee}} Euro</td>
+      </tr>
+      <tr>
+      <td bgcolor="#f2f3f4">&nbsp;&nbsp;&nbsp;&nbsp;Mit nicht anonymen Zahlungsmitteln:</td>
+      <td bgcolor="#f2f3f4">{{participant.payoff_notanonymous_euro}} Euro</td>
+      </tr>
     <tr>
-    <td>Ihre Gesamtauszahlung beträgt</td>
-    <td><b>{{participant.payoff_plus_fee|to2}} Euro</b></td>
-    </tr>
-    </tbody>
-    </table>
+
+  </tbody>
+</table>
+   
 
     <br>
+
+
+
     
+    {#<tr style="border-bottom:1px solid "></tr>#}
     
 
 {{ endblock }}

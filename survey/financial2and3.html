@@ -1,11 +1,12 @@
 {{ block title }}
-    Seite 1 von x
+    Seite x
 {{ endblock }}
 
 {{ block content }}
-<p>Bitte beantworten Sie die folgende Frage.</p>
+<p>Bitte beantworten Sie die folgenden Fragen.</p>
 
-{{formfield 'cbdc1'}}
+{{formfields}}
+
   
 {{ next_button }}
 {{ endblock }}

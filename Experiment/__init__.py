@@ -8,7 +8,7 @@ Your app description
 class C(BaseConstants):
     NAME_IN_URL = 'Experiment'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 10
+    NUM_ROUNDS = 1
     MAXIMUM_EM = cu(10)
     TC_MOP1 = 0.50
     TC_MOP2 = 0.38
