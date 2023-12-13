@@ -114,6 +114,13 @@ class Player(BasePlayer):
     rank2_cbdc6 = make_rank_field2("Zweite Wahl")
     rank3_cbdc6 = make_rank_field2("Dritte Wahl")
     
+    Bargeld = models.BooleanField(blank= True)
+    Debitkarte = models.BooleanField(blank=True)
+    Kreditkarte = models.BooleanField(blank=True)
+    Lastschrift_Überweisung = models.BooleanField(blank=True)
+    Internetbezahlverfahren = models.BooleanField(blank=True)
+    mobil= models.BooleanField(blank=True)
+
 
     risk1 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
     risk2 = models.StringField(widget=widgets.RadioSelectHorizontal, choices=['A', 'B'])
@@ -153,6 +160,7 @@ class Player(BasePlayer):
         widget=widgets.RadioSelectHorizontal,
     )
 
+
     financial6 = models.StringField(
         doc="F10",
         label = " ",
@@ -189,6 +197,10 @@ class financial2and3(Page):
 class financial4(Page):
     form_model = 'player'
     form_fields = ['financial4']
+
+class financial5(Page):
+    form_model = 'player'
+    form_fields = ['Bargeld', 'Debitkarte', 'Kreditkarte', 'Lastschrift_Überweisung', 'Internetbezahlverfahren', 'mobil']
 
 class financial6(Page):
     form_model = 'player'
@@ -275,6 +287,19 @@ class Demographics(Page):
             player.Nicht_erwerbstätig_und_Arbeitssuchend = 0
         if player.field_maybe_none("Nicht_erwerbstätig_und_nicht_Arbeitssuchend") == None:
             player.Nicht_erwerbstätig_und_nicht_Arbeitssuchend = 0
+
+        if player.field_maybe_none("Bargeld") == None:
+            player.Bargeld = 0
+        if player.field_maybe_none("Debitkarte") == None:
+            player.Debitkarte = 0
+        if player.field_maybe_none("Kreditkarte") == None:
+            player.Kreditkarte = 0
+        if player.field_maybe_none("Lastschrift_Überweisung") == None:
+            player.Lastschrift_Überweisung = 0
+        if player.field_maybe_none("Internetbezahlverfahren") == None:
+            player.Internetbezahlverfahren = 0
+        if player.field_maybe_none("mobil") == None:
+            player.mobil = 0
 
         if player.risk_payoffrelevant == 'risk1':
             if player.risk1 == 'A':
@@ -365,4 +390,4 @@ class Auszahlungsseite(Page):
         participant.payoff_notanonymous_euro = participant.payoff_notanonymous_allrounds * session.config['real_world_currency_per_point']
         participant.payoff_anonymous_plus_fee = participant.payoff_anonymous_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk
         
-page_sequence = [Welcome, WaitingPage, CBDC1, Risk1, Risk2, CBDC2, CBDC3, CBDC4, CBDC5, Anonymity, financial1, financial2and3, financial4, CBDC6, financial6, financial7, financial8, Demographics, Demographics_degree, Auszahlungsseite]
+page_sequence = [Welcome, WaitingPage, CBDC1, Risk1, Risk2, CBDC2, CBDC3, CBDC4, CBDC5, Anonymity, financial1, financial2and3, financial4, financial5, CBDC6, financial6, financial7, financial8, Demographics, Demographics_degree, Auszahlungsseite]
