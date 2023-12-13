@@ -182,6 +182,11 @@ class Player(BasePlayer):
         widget=widgets.RadioSelectHorizontal,
     )
 
+    financial2_answer = models.BooleanField()
+    financial3_answer = models.BooleanField()
+    financial2_correct = models.FloatField()
+    financial3_correct = models.FloatField()
+
 class Anonymity(Page):
     form_model = 'player'
     form_fields = ['anonymity']
@@ -193,6 +198,24 @@ class financial1(Page):
 class financial2and3(Page):
     form_model = 'player'
     form_fields = ['financial2', 'financial3']
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        if player.financial2 == 102:
+            player.financial2_answer =1
+        else: player.financial2_answer = 0
+        if player.financial3 == True:
+            player.financial3_answer = 1
+        else: player.financial3_answer = 0
+
+        if player.financial2_answer == 1:
+            player.financial2_correct = 0.50
+        else: player.financial2_correct = 0
+        if player.financial3_answer == 1:
+            player.financial3_correct = 0.50
+        else: player.financial3_correct = 0
+
+        
 
 class financial4(Page):
     form_model = 'player'
@@ -385,9 +408,9 @@ class Auszahlungsseite(Page):
         participant=player.participant
         session=player.session
         participant.payoff_euro = participant.payoff_total_allrounds * session.config['real_world_currency_per_point']
-        participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk
+        participant.payoff_plus_fee = participant.payoff_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk + player.financial2_correct + player.financial3_correct
         participant.payoff_anonymous_euro = participant.payoff_anonymous_allrounds * session.config['real_world_currency_per_point']
         participant.payoff_notanonymous_euro = participant.payoff_notanonymous_allrounds * session.config['real_world_currency_per_point']
-        participant.payoff_anonymous_plus_fee = participant.payoff_anonymous_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk
+        participant.payoff_anonymous_plus_fee = participant.payoff_anonymous_euro + session.config['participation_fee'] + C.survey_fee + player.payoff_risk + player.financial2_correct + player.financial3_correct
         
 page_sequence = [Welcome, WaitingPage, CBDC1, Risk1, Risk2, CBDC2, CBDC3, CBDC4, CBDC5, Anonymity, financial1, financial2and3, financial4, financial5, CBDC6, financial6, financial7, financial8, Demographics, Demographics_degree, Auszahlungsseite]

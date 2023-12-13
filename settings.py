@@ -3,7 +3,7 @@ from os import environ
 SESSION_CONFIGS = [
      dict(
          name='CBDC_Experiment',
-         app_sequence=['survey','Experiment','testquestions','Testround',],
+         app_sequence=['Experiment','survey','testquestions','Testround',],
          num_demo_participants=2,
      ),
 ]
@@ -14,7 +14,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=6.00, doc=""
+    real_world_currency_per_point=0.20, participation_fee=6.00, doc=""
 )
 
 PARTICIPANT_FIELDS = ['payoff_euro','payoff_total_allrounds', 'payoff_plus_fee', 'payoff_anonymous_allrounds','payoff_notanonymous_allrounds', 'payoff_anonymous_euro', 'payoff_notanonymous_euro', 'payoff_anonymous_plus_fee' ]
