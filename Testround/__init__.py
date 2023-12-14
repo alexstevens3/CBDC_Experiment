@@ -205,9 +205,13 @@ class Trading(Page):
 
         if player.testMOP2_accept ==1 and player.testMOP2 == 3:
             player.testpayoff_MOP2 = 1.86
+            player.testpayoff_total = player.testpayoff_MOP1 + 1.86 + player.testpayoff_MOP3
         if player.testMOP2_accept ==1 and player.testMOP2 == 6:
             player.testpayoff_MOP2 = 3.72
+            player.testpayoff_total = player.testpayoff_MOP1 + 3.72 + player.testpayoff_MOP3
         
+        if player.testpayoff_total < 0:
+            player.testpayoff_total = 0
 
         if player.testCBDC_design == "Token":
             player.testpayoff_MOP3_Token = player.testpayoff_MOP3
@@ -220,10 +224,11 @@ class Trading(Page):
         player.testpayoff_anonymous = player.testpayoff_MOP3_Token + player.testpayoff_MOP1
         player.testpayoff_notanonymous = player.testpayoff_MOP3_Account + player.testpayoff_MOP2
 
-        if player.testpayoff_anonymous < 0:
-            player.testpayoff_anonymous = 0
-        if player.testpayoff_notanonymous < 0:
-            player.testpayoff_notanonymous = 0
+    
+        
+        if player.testpayoff_total == 0:
+           player.testpayoff_anonymous = 0
+           player.testpayoff_notanonymous = 0
 
 
     @staticmethod

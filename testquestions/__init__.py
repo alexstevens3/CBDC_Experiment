@@ -42,7 +42,7 @@ class Player(BasePlayer):
         label= 'Wie hoch ist die Wahrscheinlichkeit, dass Zahlungsmittel 2 vom Verkäufer akzeptiert wird? (in %)'
     )
     q5 = models.IntegerField(
-        label= 'Wie hoch muss der Anteil der Käufer mindestens sein, damit Zahlungsmittel 3 vom Verkäufer akzeptiert wird? (in %)'
+        label= 'Wie hoch muss der Anteil der Käufer mindestens sein, die 0.40 Taler für die Nutzung von Zahlungsmittel 3 zahlen, damit Zahlungsmittel 3 vom Verkäufer akzeptiert wird? (in %)'
     )
     q1_answer = models.IntegerField()
     q2_answer = models.IntegerField()

@@ -8,7 +8,7 @@ Your app description
 class C(BaseConstants):
     NAME_IN_URL = 'Experiment'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 1
+    NUM_ROUNDS = 10
     MAXIMUM_EM = cu(10)
     TC_MOP1 = 0.50
     TC_MOP2 = 0.38
@@ -214,8 +214,27 @@ class Welcome(Page):
     def is_displayed(player):
         return player.round_number == 1
 
+
+class WaitingPage2(WaitPage):
+    template_name = 'Experiment\WaitingPage2.html'
+    wait_for_all_players = True
+
+
 class Trading(Page):
-   # timeout_seconds = 60
+   # timeout_seconds = 90
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        set_payoffs(player)
+
+        group = player.group
+        players = group.get_players()
+        
+        for player in group.get_players():
+            if group.share_players_CBDC_Yes >=60:
+                player.MOP3_accept = 1
+            if group.share_players_CBDC_Yes < 60:
+                player.MOP3_accept = 0
+
     @staticmethod
     def vars_for_template(player):
 
@@ -235,11 +254,13 @@ class Trading(Page):
 
         if player.MOP2_accept ==1 and player.MOP2 == 3:
             player.payoff_MOP2 = 1.86
+            player.payoff_total = player.payoff_MOP1 + 1.86 + player.payoff_MOP3
         if player.MOP2_accept ==1 and player.MOP2 == 6:
             player.payoff_MOP2 = 3.72
+           # player.payoff_total = player.payoff_MOP1 + 3.72 + player.payoff_MOP3
         
-        if player.payoff_total < 0:
-            player.payoff_total = 0
+        #if player.payoff < 0:
+        #    player.payoff = 0
 
         if player.CBDC_design == "Token":
             player.payoff_MOP3_Token = player.payoff_MOP3
@@ -252,33 +273,30 @@ class Trading(Page):
         player.payoff_anonymous = player.payoff_MOP3_Token + player.payoff_MOP1
         player.payoff_notanonymous = player.payoff_MOP3_Account + player.payoff_MOP2
 
-        if player.payoff_anonymous < 0:
-            player.payoff_anonymous = 0
-        if player.payoff_notanonymous < 0:
-            player.payoff_notanonymous = 0
+        
+       # if player.payoff == 0:
+        #   player.payoff_anonymous = 0
+        #   player.payoff_notanonymous = 0
 
     @staticmethod
     def js_vars(player):
         return dict(T2=player.transaktionen_MOP2, TC1=C.TC_MOP1, TC2=C.TC_MOP2, TC3=C.TC_MOP3)
 
 
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        set_payoffs(player)
-
-        group = player.group
-        players = group.get_players()
-        
-        for player in group.get_players():
-            if group.share_players_CBDC_Yes >=60:
-                player.MOP3_accept = 1
-            if group.share_players_CBDC_Yes < 60:
-                player.MOP3_accept = 0
+    
         
 
 class Total_Payoff(Page):
     @staticmethod
     def vars_for_template(player):
+        if player.payoff < 0:
+            player.payoff = 0
+        if player.payoff == 0:
+           player.payoff_anonymous = 0
+           player.payoff_notanonymous = 0
+
+        
+
         if player.round_number > 1:
             player.payoff_total_allrounds1 = sum([player.payoff_total for player in player.in_all_rounds()])
         else:
@@ -296,10 +314,16 @@ class Total_Payoff(Page):
 
    
         participant=player.participant
+
+        
+
         if player.round_number > 1:
             participant.payoff_total_allrounds = sum([player.payoff_total for player in player.in_all_rounds()])
         else:
             participant.payoff_total_allrounds = player.payoff_total
+
+        if participant.payoff_total_allrounds < 0:
+            participant.payoff_total_allrounds = 0
 
         if player.round_number > 1:
             participant.payoff_anonymous_allrounds = sum([player.payoff_anonymous for player in player.in_all_rounds()])

@@ -79,7 +79,7 @@ table, th, td {
 </style>
 <body>
 
-<table style="width:100%">
+<table style="width:110%">
   <tr>
     <th> Erfolgreiche Transaktionen mit Zahlungsmittel 1</th>
     <th> Erfolgreiche Transaktionen mit Zahlungsmittel 2</th>
@@ -87,7 +87,7 @@ table, th, td {
     <th> Einkommen aus Zahlungsmittel 1</th>
     <th> Einkommen aus Zahlungsmittel 2</th>
     <th> Einkommen aus Zahlungsmittel 3</th>
-    <th> Gesamteinkommen</th>
+    
   </tr>
   <tr>
     <td>{{ player.field_maybe_none('transaktionen_MOP1')}}</td>
@@ -96,14 +96,11 @@ table, th, td {
     <td>{{player.field_maybe_none('payoff_MOP1')|to2}} Taler</td>
     <td> {{player.field_maybe_none('payoff_MOP2')|to2}} Taler</td>
     <td>{{player.field_maybe_none('payoff_MOP3')|to2}} Taler</td>
-    <td>{{player.payoff_total|to2}} Taler</td>
+    
   </tr>
   
 </table>
 <br>
-
-<p>Ihre Auszahlung mit anonymen Zahlungsmitteln: {{ player.field_maybe_none('payoff_anonymous')|to2}} Taler</p>
-<p>Ihre Auszahlung mit nicht anonymen Zahlungsmitteln: {{ player.field_maybe_none('payoff_notanonymous')|to2}} Taler</p>
 
 <p>Bitte klicken Sie auf Weiter.</p>
 

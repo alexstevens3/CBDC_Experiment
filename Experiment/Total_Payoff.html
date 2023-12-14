@@ -20,19 +20,27 @@ table, th, td {
     
     <tbody>
     <tr>
+    <td>Ihr Einkommen aus Marktrunde {{player.round_number}}:</td>
+    <td><b>{{player.payoff|to2}} Taler</b></td>
+      </tr>
+        <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Mit anonymen Zahlungsmitteln:</td>
+        <td> {{ player.field_maybe_none('payoff_anonymous')|to2}} Taler</td>
+        </tr>
+        <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Mit nicht anonymen Zahlungsmitteln:</td>
+        <td>{{ player.field_maybe_none('payoff_notanonymous')|to2}} Taler</td>
+        </tr>
+    <tr>
     <td>Ihr Gesamteinkommen aus den bisherigen Marktrunden:</td>
-    <td>{{participant.payoff_total_allrounds|to2}} Taler</td>
+    <td><b>{{participant.payoff_total_allrounds|to2}} Taler</b></td>
     </tr>
     <tr>
-    <td>Davon sind aus</td>
-    <td></td>
-    </tr>
-    <tr>
-    <td>Anonymen Zahlungsmitteln:</td>
+    <td> &nbsp;&nbsp;&nbsp;&nbsp;Mit anonymen Zahlungsmitteln:</td>
     <td>{{participant.payoff_anonymous_allrounds|to2}} Taler</td>
     </tr>
     <tr>
-    <td>Nicht anonymen Zahlungsmitteln:</td>
+    <td> &nbsp;&nbsp;&nbsp;&nbsp;Mit nicht anonymen Zahlungsmitteln:</td>
     <td>{{participant.payoff_notanonymous_allrounds|to2}} Taler</td>
     </tr>
     </tbody>
@@ -40,8 +48,6 @@ table, th, td {
 
     <br>
     
-
-
 
 
 {{if player.round_number < 10 }}

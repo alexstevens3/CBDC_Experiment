@@ -170,7 +170,7 @@ class Player(BasePlayer):
 
     financial7 = models.StringField(
         doc="F12",
-        label = "Ich bin überzeugt davon, dass mein Geld bei einer Bank sicher ist, auch wenn die Bank bankrottgeht. ",
+        label = "Ich bin überzeugt davon, dass mein Geld bei einer Bank sicher ist, auch wenn die Bank insolvent (Bankenpleite) geht. ",
         choices = ['stimme zu', 'unentschieden', 'stimme nicht zu' ],
         widget=widgets.RadioSelectHorizontal,
     )
