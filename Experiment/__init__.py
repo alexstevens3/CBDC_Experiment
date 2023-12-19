@@ -7,7 +7,7 @@ Your app description
 
 class C(BaseConstants):
     NAME_IN_URL = 'Experiment'
-    PLAYERS_PER_GROUP = 2
+    PLAYERS_PER_GROUP = 10
     NUM_ROUNDS = 10
     MAXIMUM_EM = cu(10)
     TC_MOP1 = 0.50
@@ -254,8 +254,7 @@ class Trading(Page):
             player.payoff_MOP2 = 3.72
            # player.payoff_total = player.payoff_MOP1 + 3.72 + player.payoff_MOP3
         
-        #if player.payoff < 0:
-        #    player.payoff = 0
+       
 
         if player.CBDC_design == "Token":
             player.payoff_MOP3_Token = player.payoff_MOP3
@@ -269,9 +268,6 @@ class Trading(Page):
         player.payoff_notanonymous = player.payoff_MOP3_Account + player.payoff_MOP2
 
         
-       # if player.payoff == 0:
-        #   player.payoff_anonymous = 0
-        #   player.payoff_notanonymous = 0
 
     @staticmethod
     def js_vars(player):
@@ -286,6 +282,8 @@ class Total_Payoff(Page):
     def vars_for_template(player):
         if player.payoff < 0:
             player.payoff = 0
+        if player.payoff_total < 0:
+            player.payoff_total = 0
         if player.payoff == 0:
            player.payoff_anonymous = 0
            player.payoff_notanonymous = 0
