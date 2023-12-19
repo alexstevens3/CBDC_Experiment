@@ -215,11 +215,6 @@ class Welcome(Page):
         return player.round_number == 1
 
 
-class WaitingPage2(WaitPage):
-    template_name = 'Experiment/WaitingPage2.html'
-    wait_for_all_players = True
-
-
 class Trading(Page):
    # timeout_seconds = 90
     @staticmethod
