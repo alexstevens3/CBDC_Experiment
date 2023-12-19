@@ -162,7 +162,7 @@ class PaymentChoice(Page):
 
     
 class WaitingPage(WaitPage):
-    template_name = 'Experiment\WaitingPage.html'
+    template_name = 'Experiment/WaitingPage.html'
     wait_for_all_players = True
 
 
@@ -216,7 +216,7 @@ class Welcome(Page):
 
 
 class WaitingPage2(WaitPage):
-    template_name = 'Experiment\WaitingPage2.html'
+    template_name = 'Experiment/WaitingPage2.html'
     wait_for_all_players = True
 
 
